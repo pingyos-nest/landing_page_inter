@@ -180,21 +180,63 @@
             position: relative;
         }
 
-        /* Section Title */
-        h2 {
-            text-align: center;
-            font-size: 18px;
+        /* Section Title & Collapsible Accordion Header */
+        .calendar-section-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background: #f8fafc;
+            border: 1px solid var(--border-color);
+            border-radius: 14px;
+            padding: 12px 18px;
+            margin-bottom: 14px;
+            cursor: pointer;
+            user-select: none;
+            transition: all 0.2s ease;
+        }
+
+        .calendar-section-header:hover {
+            background: #f1f5f9;
+            border-color: var(--border-hover);
+        }
+
+        .calendar-header-titles {
+            text-align: left;
+        }
+
+        .calendar-section-header h2 {
+            text-align: left;
+            font-size: 16.5px;
             font-weight: 700;
             color: var(--text-main);
             letter-spacing: -0.01em;
-            margin-bottom: 4px;
+            margin-bottom: 2px;
         }
 
-        .description {
-            text-align: center;
+        .calendar-section-header .description {
+            text-align: left;
             color: var(--text-muted);
-            font-size: 13.5px;
-            margin-bottom: 18px;
+            font-size: 12.5px;
+            margin-bottom: 0;
+        }
+
+        .accordion-chevron {
+            width: 28px;
+            height: 28px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 8px;
+            background: #ffffff;
+            border: 1px solid var(--border-color);
+            color: var(--text-secondary);
+            transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), background 0.2s ease;
+            flex-shrink: 0;
+            margin-left: 12px;
+        }
+
+        .calendar-section-header.collapsed .accordion-chevron {
+            transform: rotate(-90deg);
         }
 
         /* Calendar Buttons List */
@@ -202,6 +244,18 @@
             display: flex;
             flex-direction: column;
             gap: 12px;
+            transition: max-height 0.35s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.25s ease, margin-bottom 0.3s ease;
+            max-height: 1000px;
+            opacity: 1;
+            overflow: hidden;
+            margin-bottom: 12px;
+        }
+
+        .calendar-buttons.collapsed {
+            max-height: 0;
+            opacity: 0;
+            margin-bottom: 0;
+            pointer-events: none;
         }
 
         .calendar-button {
@@ -457,11 +511,21 @@
 
         <div class="divider"></div>
 
-        <!-- Add to Calendar Section -->
-        <h2>Add to Calendar</h2>
-        <p class="description">Choose your preferred calendar service</p>
+        <!-- Add to Calendar Section (Collapsible Accordion Header) -->
+        <div class="calendar-section-header" id="calendarAccordionToggle" role="button" aria-expanded="true" aria-controls="calendarButtonsContainer">
+            <div class="calendar-header-titles">
+                <h2 id="calendarSectionTitle">Add to Calendar</h2>
+                <p class="description" id="calendarSectionSubtitle">Choose your preferred calendar service</p>
+            </div>
+            <div class="accordion-chevron" id="accordionChevron">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
+                    stroke-linecap="round" stroke-linejoin="round">
+                    <polyline points="6 9 12 15 18 9"></polyline>
+                </svg>
+            </div>
+        </div>
 
-        <div class="calendar-buttons">
+        <div class="calendar-buttons" id="calendarButtonsContainer">
 
             <!-- ======================================================
                  1. GOOGLE CALENDAR
@@ -500,7 +564,7 @@
                  2. MICROSOFT OUTLOOK
                  ====================================================== -->
             <a class="calendar-button" id="outlookCalendar" target="_blank" rel="noopener"
-                href="https://outlook.office.com/calendar/0/deeplink/compose?subject=2027%20International%20Nursing%20Conference&startdt=2027-11-11&enddt=2027-11-13&allday=true&location=Chiang%20Mai%2C%20Thailand&body=Shared%20Vision%2C%20Shared%20Mission%3A%20Illuminating%20the%20Future%20of%20Nursing%20for%20a%20Sustainable%20World%0A%0ADates%3A%2011%E2%80%9312%20November%202027%0ALocation%3A%20Chiang%20Mai%2C%20Thailand%0A%0AOrganized%20by%20the%20Faculty%20of%20Nursing%2C%20Chiang%20Mai%20University%0A%0AFurther%20details%20will%20be%20announced%20soon.%0Ahttps%3A%2F%2Fwww.nurse.cmu.ac.th%2F">
+                href="https://outlook.office.com/calendar/0/deeplink/compose?subject=2027%20International%20Nursing%20Conference&startdt=2027-11-11&enddt=2027-11-12&allday=true&location=Chiang%20Mai%2C%20Thailand&body=Shared%20Vision%2C%20Shared%20Mission%3A%20Illuminating%20the%20Future%20of%20Nursing%20for%20a%20Sustainable%20World%0A%0ADates%3A%2011%E2%80%9312%20November%202027%0ALocation%3A%20Chiang%20Mai%2C%20Thailand%0A%0AOrganized%20by%20the%20Faculty%20of%20Nursing%2C%20Chiang%20Mai%20University%0A%0AFurther%20details%20will%20be%20announced%20soon.%0Ahttps%3A%2F%2Fwww.nurse.cmu.ac.th%2F">
                 <div class="btn-icon-wrapper">
                     <!-- Microsoft Outlook Vector Logo -->
                     <svg width="24" height="24" viewBox="0 0 48 48" fill="none">
@@ -526,7 +590,7 @@
             </a>
 
             <!-- ======================================================
-                 3. APPLE CALENDAR / ICS
+                 3. APPLE CALENDAR
                  ====================================================== -->
             <a class="calendar-button" href="#" id="appleCalendar">
                 <div class="btn-icon-wrapper">
@@ -545,8 +609,8 @@
                     </svg>
                 </div>
                 <div class="btn-content">
-                    <span class="btn-title">Apple Calendar / iCal</span>
-                    <span class="btn-subtitle">Download .ics event file</span>
+                    <span class="btn-title">Apple Calendar</span>
+                    <span class="btn-subtitle">Apple Calendar & iOS</span>
                 </div>
                 <div class="arrow-box">
                     <!-- Download/Arrow icon -->
@@ -693,6 +757,18 @@ END:VCALENDAR`;
                     });
                 }
             });
+
+        // Collapsible Accordion Toggle for Calendar Section
+        const accordionToggle = document.getElementById("calendarAccordionToggle");
+        const buttonsContainer = document.getElementById("calendarButtonsContainer");
+
+        if (accordionToggle && buttonsContainer) {
+            accordionToggle.addEventListener("click", function () {
+                const isCollapsed = buttonsContainer.classList.toggle("collapsed");
+                accordionToggle.classList.toggle("collapsed", isCollapsed);
+                accordionToggle.setAttribute("aria-expanded", (!isCollapsed).toString());
+            });
+        }
     </script>
 
 </body>
