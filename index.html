@@ -180,43 +180,60 @@
             position: relative;
         }
 
-        /* Section Title & Collapsible Accordion Header */
-        .calendar-section-header {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
+        /* ========================================================
+           ACCORDION GROUP CONTAINER (ENCLOSED CARD)
+           ======================================================== */
+        .accordion-group {
             background: #f8fafc;
             border: 1px solid var(--border-color);
-            border-radius: 14px;
-            padding: 12px 18px;
-            margin-bottom: 14px;
-            cursor: pointer;
-            user-select: none;
-            transition: all 0.2s ease;
+            border-radius: 18px;
+            margin-bottom: 16px;
+            overflow: hidden;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.02);
+            transition: all 0.25s ease;
         }
 
-        .calendar-section-header:hover {
-            background: #f1f5f9;
+        .accordion-group:hover {
             border-color: var(--border-hover);
         }
 
-        .calendar-header-titles {
+        .accordion-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 14px 18px;
+            background: #ffffff;
+            cursor: pointer;
+            user-select: none;
+            transition: background 0.2s ease;
+            border-bottom: 1px solid transparent;
+        }
+
+        .accordion-group:not(.collapsed) .accordion-header {
+            border-bottom-color: #f1f5f9;
+        }
+
+        .accordion-header:hover {
+            background: #fcfdfe;
+        }
+
+        .accordion-titles {
             text-align: left;
         }
 
-        .calendar-section-header h2 {
+        .accordion-header h2 {
             text-align: left;
-            font-size: 16.5px;
+            font-size: 15.5px;
             font-weight: 700;
             color: var(--text-main);
             letter-spacing: -0.01em;
             margin-bottom: 2px;
         }
 
-        .calendar-section-header .description {
+        .accordion-header .description {
             text-align: left;
             color: var(--text-muted);
-            font-size: 12.5px;
+            font-size: 12px;
             margin-bottom: 0;
         }
 
@@ -227,7 +244,7 @@
             align-items: center;
             justify-content: center;
             border-radius: 8px;
-            background: #ffffff;
+            background: #f8fafc;
             border: 1px solid var(--border-color);
             color: var(--text-secondary);
             transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), background 0.2s ease;
@@ -235,33 +252,35 @@
             margin-left: 12px;
         }
 
-        .calendar-section-header.collapsed .accordion-chevron {
+        .accordion-group.collapsed .accordion-chevron {
             transform: rotate(-90deg);
         }
 
-        /* Calendar Buttons List */
-        .calendar-buttons {
+        /* Enclosed Buttons Container */
+        .accordion-content {
+            padding: 14px;
             display: flex;
             flex-direction: column;
-            gap: 12px;
-            transition: max-height 0.35s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.25s ease, margin-bottom 0.3s ease;
-            max-height: 1000px;
+            gap: 10px;
+            background: #f8fafc;
+            transition: max-height 0.35s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.25s ease, padding 0.3s ease;
+            max-height: 1200px;
             opacity: 1;
-            overflow: hidden;
-            margin-bottom: 12px;
         }
 
-        .calendar-buttons.collapsed {
+        .accordion-group.collapsed .accordion-content {
             max-height: 0;
             opacity: 0;
-            margin-bottom: 0;
+            padding-top: 0;
+            padding-bottom: 0;
+            overflow: hidden;
             pointer-events: none;
         }
 
         .calendar-button {
             display: flex;
             align-items: center;
-            padding: 14px 18px;
+            padding: 13px 16px;
             border: 1px solid var(--border-color);
             border-radius: var(--radius-btn);
             background: #ffffff;
@@ -275,8 +294,8 @@
         }
 
         .calendar-button:hover {
-            border-color: var(--border-hover);
-            background: #fdfdfe;
+            border-color: var(--primary);
+            background: #ffffff;
             box-shadow: var(--shadow-hover);
             transform: translateY(-2px);
         }
@@ -285,6 +304,7 @@
             transform: translateY(0);
             box-shadow: var(--shadow-subtle);
         }
+
 
         .btn-icon-wrapper {
             width: 42px;
@@ -400,6 +420,258 @@
             font-weight: 600;
         }
 
+        /* Admin Edit Floating Trigger & Modal */
+        .admin-trigger-wrap {
+            margin-top: 18px;
+            display: flex;
+            justify-content: center;
+        }
+
+        .admin-trigger-btn {
+            background: transparent;
+            border: 1px dashed #cbd5e1;
+            color: #64748b;
+            font-size: 12px;
+            font-weight: 600;
+            padding: 7px 14px;
+            border-radius: 9999px;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            transition: all 0.2s ease;
+        }
+
+        .admin-trigger-btn:hover {
+            border-color: var(--primary);
+            color: var(--primary);
+            background: #eef2ff;
+        }
+
+        .admin-modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(15, 23, 42, 0.6);
+            backdrop-filter: blur(4px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px 16px;
+            z-index: 999;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.25s ease;
+        }
+
+        .admin-modal-overlay.open {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .admin-modal {
+            background: #ffffff;
+            width: 100%;
+            max-width: 580px;
+            max-height: 90vh;
+            border-radius: 20px;
+            box-shadow: 0 25px 50px -12px rgba(15, 23, 42, 0.25);
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            transform: scale(0.96);
+            transition: transform 0.25s ease;
+        }
+
+        .admin-modal-overlay.open .admin-modal {
+            transform: scale(1);
+        }
+
+        .admin-modal-header {
+            padding: 16px 20px;
+            border-bottom: 1px solid var(--border-color);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background: #f8fafc;
+        }
+
+        .admin-modal-header h3 {
+            font-size: 16px;
+            font-weight: 700;
+            color: var(--text-main);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .admin-modal-close {
+            background: none;
+            border: none;
+            font-size: 20px;
+            color: var(--text-muted);
+            cursor: pointer;
+            padding: 4px;
+            border-radius: 6px;
+            line-height: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .admin-modal-close:hover {
+            color: var(--text-main);
+            background: #e2e8f0;
+        }
+
+        .admin-modal-body {
+            padding: 20px;
+            overflow-y: auto;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 18px;
+        }
+
+        .admin-section-card {
+            background: #f8fafc;
+            border: 1px solid var(--border-color);
+            border-radius: 14px;
+            padding: 14px;
+        }
+
+        .admin-section-card-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 12px;
+        }
+
+        .admin-label {
+            display: block;
+            font-size: 11px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: var(--text-secondary);
+            margin-bottom: 4px;
+        }
+
+        .admin-input {
+            width: 100%;
+            padding: 9px 12px;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            font-size: 13px;
+            font-family: inherit;
+            color: var(--text-main);
+            background: #ffffff;
+            outline: none;
+            transition: border-color 0.2s ease;
+            margin-bottom: 8px;
+        }
+
+        .admin-input:focus {
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px var(--primary-light);
+        }
+
+        .admin-btn-row {
+            display: flex;
+            gap: 8px;
+            align-items: center;
+            margin-top: 8px;
+        }
+
+        .admin-btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            padding: 8px 14px;
+            border-radius: 8px;
+            font-size: 12.5px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            border: none;
+        }
+
+        .admin-btn-primary {
+            background: var(--primary);
+            color: #ffffff;
+        }
+
+        .admin-btn-primary:hover {
+            background: var(--primary-dark);
+        }
+
+        .admin-btn-secondary {
+            background: #ffffff;
+            border: 1px solid var(--border-color);
+            color: var(--text-secondary);
+        }
+
+        .admin-btn-secondary:hover {
+            background: #f1f5f9;
+            color: var(--text-main);
+        }
+
+        .admin-btn-danger {
+            background: #fee2e2;
+            color: #dc2626;
+            border: 1px solid #fecaca;
+        }
+
+        .admin-btn-danger:hover {
+            background: #fca5a5;
+        }
+
+        .admin-items-list {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            margin-top: 10px;
+        }
+
+        .admin-item-pill {
+            background: #ffffff;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 8px 12px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .admin-item-pill-info {
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
+        }
+
+        .admin-item-pill-title {
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--text-main);
+        }
+
+        .admin-item-pill-sub {
+            font-size: 11px;
+            color: var(--text-muted);
+        }
+
+        .admin-modal-footer {
+            padding: 14px 20px;
+            border-top: 1px solid var(--border-color);
+            background: #f8fafc;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
         /* Toast notification when ICS is downloaded */
         .toast {
             position: fixed;
@@ -511,116 +783,101 @@
 
         <div class="divider"></div>
 
-        <!-- Add to Calendar Section (Collapsible Accordion Header) -->
-        <div class="calendar-section-header" id="calendarAccordionToggle" role="button" aria-expanded="true" aria-controls="calendarButtonsContainer">
-            <div class="calendar-header-titles">
-                <h2 id="calendarSectionTitle">Add to Calendar</h2>
-                <p class="description" id="calendarSectionSubtitle">Choose your preferred calendar service</p>
+        <!-- Dynamic Content Sections (Calendar, Poster, etc.) -->
+        <div id="dynamicSectionsContainer">
+            <!-- 1. ADD TO CALENDAR SECTION (ENCLOSED CARD) -->
+            <div class="accordion-group" id="calendarSectionGroup">
+                <div class="accordion-header" id="calendarAccordionToggle" role="button" aria-expanded="true">
+                    <div class="accordion-titles">
+                        <h2 id="calendarSectionTitle">Add to Calendar</h2>
+                        <p class="description" id="calendarSectionSubtitle">Choose your preferred calendar service</p>
+                    </div>
+                    <div class="accordion-chevron" id="accordionChevron">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
+                            stroke-linecap="round" stroke-linejoin="round">
+                            <polyline points="6 9 12 15 18 9"></polyline>
+                        </svg>
+                    </div>
+                </div>
+
+                <div class="accordion-content" id="calendarButtonsContainer">
+                    <!-- 1. Google Calendar -->
+                    <a class="calendar-button" id="googleCalendar" target="_blank" rel="noopener"
+                        href="https://calendar.google.com/calendar/render?action=TEMPLATE&text=2027%20International%20Nursing%20Conference&dates=20271111/20271113&location=Chiang%20Mai%2C%20Thailand&details=Shared%20Vision%2C%20Shared%20Mission%3A%20Illuminating%20the%20Future%20of%20Nursing%20for%20a%20Sustainable%20World%0A%0ADates%3A%2011%E2%80%9312%20November%202027%0ALocation%3A%20Chiang%20Mai%2C%20Thailand%0A%0AOrganized%20by%20the%20Faculty%20of%20Nursing%2C%20Chiang%20Mai%20University%0A%0AFurther%20details%20will%20be%20announced%20soon.%0Ahttps%3A%2F%2Fwww.nurse.cmu.ac.th%2F">
+                        <div class="btn-icon-wrapper">
+                            <svg width="24" height="24" viewBox="0 0 48 48" fill="none">
+                                <rect x="6" y="6" width="36" height="36" rx="8" fill="#FFFFFF" stroke="#E2E8F0" stroke-width="1.5" />
+                                <path d="M6 14C6 9.58172 9.58172 6 14 6H34C38.4183 6 42 9.58172 42 14V16H6V14Z" fill="#1A73E8" />
+                                <circle cx="16" cy="11" r="2" fill="#FFFFFF" />
+                                <circle cx="32" cy="11" r="2" fill="#FFFFFF" />
+                                <text x="24" y="34" font-family="'Plus Jakarta Sans', Arial, sans-serif" font-size="15" font-weight="800" fill="#1A73E8" text-anchor="middle">31</text>
+                                <path d="M34 6H36C39.3137 6 42 8.68629 42 12V16H34V6Z" fill="#EA4335" />
+                                <path d="M36 34H42V36C42 39.3137 39.3137 42 36 42H34V34H36Z" fill="#34A853" />
+                                <path d="M6 36V34H14V42H12C8.68629 42 6 39.3137 6 36Z" fill="#FBBC04" />
+                            </svg>
+                        </div>
+                        <div class="btn-content">
+                            <span class="btn-title">Google Calendar</span>
+                            <span class="btn-subtitle">Add directly to Google account</span>
+                        </div>
+                        <div class="arrow-box">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                                <polyline points="9 18 15 12 9 6"></polyline>
+                            </svg>
+                        </div>
+                    </a>
+
+                    <!-- 2. Microsoft Outlook -->
+                    <a class="calendar-button" id="outlookCalendar" target="_blank" rel="noopener"
+                        href="https://outlook.office.com/calendar/0/deeplink/compose?subject=2027%20International%20Nursing%20Conference&startdt=2027-11-11&enddt=2027-11-12&allday=true&location=Chiang%20Mai%2C%20Thailand&body=Shared%20Vision%2C%20Shared%20Mission%3A%20Illuminating%20the%20Future%20of%20Nursing%20for%20a%20Sustainable%20World%0A%0ADates%3A%2011%E2%80%9312%20November%202027%0ALocation%3A%20Chiang%20Mai%2C%20Thailand%0A%0AOrganized%20by%20the%20Faculty%20of%20Nursing%2C%20Chiang%20Mai%20University%0A%0AFurther%20details%20will%20be%20announced%20soon.%0Ahttps%3A%2F%2Fwww.nurse.cmu.ac.th%2F">
+                        <div class="btn-icon-wrapper">
+                            <svg width="24" height="24" viewBox="0 0 48 48" fill="none">
+                                <path d="M28 8H12C9.79086 8 8 9.79086 8 12V36C8 38.2091 9.79086 40 12 40H28V8Z" fill="#0078D4" />
+                                <path d="M28 12L42 20V28L28 36V12Z" fill="#28A8EA" />
+                                <path d="M28 20L42 12V28L28 36V20Z" fill="#005A9E" opacity="0.6" />
+                                <path d="M28 28L42 36V28L28 20V28Z" fill="#004578" opacity="0.4" />
+                                <rect x="6" y="12" width="22" height="24" rx="4" fill="#0078D4" />
+                                <ellipse cx="17" cy="24" rx="5.5" ry="6.5" stroke="#FFFFFF" stroke-width="2.5" />
+                            </svg>
+                        </div>
+                        <div class="btn-content">
+                            <span class="btn-title">Microsoft Outlook</span>
+                            <span class="btn-subtitle">Outlook & Microsoft 365 Web</span>
+                        </div>
+                        <div class="arrow-box">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                                <polyline points="9 18 15 12 9 6"></polyline>
+                            </svg>
+                        </div>
+                    </a>
+
+                    <!-- 3. Apple Calendar -->
+                    <a class="calendar-button" href="#" id="appleCalendar">
+                        <div class="btn-icon-wrapper">
+                            <svg width="24" height="24" viewBox="0 0 48 48" fill="none">
+                                <rect x="6" y="6" width="36" height="36" rx="8" fill="#FFFFFF" stroke="#E2E8F0" stroke-width="1.5" />
+                                <path d="M6 14C6 9.58172 9.58172 6 14 6H34C38.4183 6 42 9.58172 42 14V16H6V14Z" fill="#FF3B30" />
+                                <rect x="14" y="4" width="3" height="5" rx="1.5" fill="#FFFFFF" />
+                                <rect x="31" y="4" width="3" height="5" rx="1.5" fill="#FFFFFF" />
+                                <text x="24" y="27" font-family="-apple-system, 'Plus Jakarta Sans', sans-serif" font-size="9" font-weight="800" fill="#FF3B30" text-anchor="middle" letter-spacing="1">NOV</text>
+                                <text x="24" y="39" font-family="-apple-system, 'Plus Jakarta Sans', sans-serif" font-size="13" font-weight="800" fill="#1C1C1E" text-anchor="middle">11-12</text>
+                            </svg>
+                        </div>
+                        <div class="btn-content">
+                            <span class="btn-title">Apple Calendar</span>
+                            <span class="btn-subtitle">Apple Calendar & iOS</span>
+                        </div>
+                        <div class="arrow-box">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                                <polyline points="9 18 15 12 9 6"></polyline>
+                            </svg>
+                        </div>
+                    </a>
+                </div>
             </div>
-            <div class="accordion-chevron" id="accordionChevron">
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
-                    stroke-linecap="round" stroke-linejoin="round">
-                    <polyline points="6 9 12 15 18 9"></polyline>
-                </svg>
-            </div>
-        </div>
 
-        <div class="calendar-buttons" id="calendarButtonsContainer">
-
-            <!-- ======================================================
-                 1. GOOGLE CALENDAR
-                 ====================================================== -->
-            <a class="calendar-button" id="googleCalendar" target="_blank" rel="noopener"
-                href="https://calendar.google.com/calendar/render?action=TEMPLATE&text=2027%20International%20Nursing%20Conference&dates=20271111/20271113&location=Chiang%20Mai%2C%20Thailand&details=Shared%20Vision%2C%20Shared%20Mission%3A%20Illuminating%20the%20Future%20of%20Nursing%20for%20a%20Sustainable%20World%0A%0ADates%3A%2011%E2%80%9312%20November%202027%0ALocation%3A%20Chiang%20Mai%2C%20Thailand%0A%0AOrganized%20by%20the%20Faculty%20of%20Nursing%2C%20Chiang%20Mai%20University%0A%0AFurther%20details%20will%20be%20announced%20soon.%0Ahttps%3A%2F%2Fwww.nurse.cmu.ac.th%2F">
-                <div class="btn-icon-wrapper">
-                    <!-- Google Calendar Vector Logo -->
-                    <svg width="24" height="24" viewBox="0 0 48 48" fill="none">
-                        <rect x="6" y="6" width="36" height="36" rx="8" fill="#FFFFFF" stroke="#E2E8F0"
-                            stroke-width="1.5" />
-                        <path d="M6 14C6 9.58172 9.58172 6 14 6H34C38.4183 6 42 9.58172 42 14V16H6V14Z"
-                            fill="#1A73E8" />
-                        <circle cx="16" cy="11" r="2" fill="#FFFFFF" />
-                        <circle cx="32" cy="11" r="2" fill="#FFFFFF" />
-                        <text x="24" y="34" font-family="'Plus Jakarta Sans', Arial, sans-serif" font-size="15"
-                            font-weight="800" fill="#1A73E8" text-anchor="middle">31</text>
-                        <path d="M34 6H36C39.3137 6 42 8.68629 42 12V16H34V6Z" fill="#EA4335" />
-                        <path d="M36 34H42V36C42 39.3137 39.3137 42 36 42H34V34H36Z" fill="#34A853" />
-                        <path d="M6 36V34H14V42H12C8.68629 42 6 39.3137 6 36Z" fill="#FBBC04" />
-                    </svg>
-                </div>
-                <div class="btn-content">
-                    <span class="btn-title">Google Calendar</span>
-                    <span class="btn-subtitle">Add directly to Google account</span>
-                </div>
-                <div class="arrow-box">
-                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
-                        stroke-linecap="round" stroke-linejoin="round">
-                        <polyline points="9 18 15 12 9 6"></polyline>
-                    </svg>
-                </div>
-            </a>
-
-            <!-- ======================================================
-                 2. MICROSOFT OUTLOOK
-                 ====================================================== -->
-            <a class="calendar-button" id="outlookCalendar" target="_blank" rel="noopener"
-                href="https://outlook.office.com/calendar/0/deeplink/compose?subject=2027%20International%20Nursing%20Conference&startdt=2027-11-11&enddt=2027-11-12&allday=true&location=Chiang%20Mai%2C%20Thailand&body=Shared%20Vision%2C%20Shared%20Mission%3A%20Illuminating%20the%20Future%20of%20Nursing%20for%20a%20Sustainable%20World%0A%0ADates%3A%2011%E2%80%9312%20November%202027%0ALocation%3A%20Chiang%20Mai%2C%20Thailand%0A%0AOrganized%20by%20the%20Faculty%20of%20Nursing%2C%20Chiang%20Mai%20University%0A%0AFurther%20details%20will%20be%20announced%20soon.%0Ahttps%3A%2F%2Fwww.nurse.cmu.ac.th%2F">
-                <div class="btn-icon-wrapper">
-                    <!-- Microsoft Outlook Vector Logo -->
-                    <svg width="24" height="24" viewBox="0 0 48 48" fill="none">
-                        <path d="M28 8H12C9.79086 8 8 9.79086 8 12V36C8 38.2091 9.79086 40 12 40H28V8Z"
-                            fill="#0078D4" />
-                        <path d="M28 12L42 20V28L28 36V12Z" fill="#28A8EA" />
-                        <path d="M28 20L42 12V28L28 36V20Z" fill="#005A9E" opacity="0.6" />
-                        <path d="M28 28L42 36V28L28 20V28Z" fill="#004578" opacity="0.4" />
-                        <rect x="6" y="12" width="22" height="24" rx="4" fill="#0078D4" />
-                        <ellipse cx="17" cy="24" rx="5.5" ry="6.5" stroke="#FFFFFF" stroke-width="2.5" />
-                    </svg>
-                </div>
-                <div class="btn-content">
-                    <span class="btn-title">Microsoft Outlook</span>
-                    <span class="btn-subtitle">Outlook & Microsoft 365 Web</span>
-                </div>
-                <div class="arrow-box">
-                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
-                        stroke-linecap="round" stroke-linejoin="round">
-                        <polyline points="9 18 15 12 9 6"></polyline>
-                    </svg>
-                </div>
-            </a>
-
-            <!-- ======================================================
-                 3. APPLE CALENDAR
-                 ====================================================== -->
-            <a class="calendar-button" href="#" id="appleCalendar">
-                <div class="btn-icon-wrapper">
-                    <!-- Apple Calendar Vector Logo -->
-                    <svg width="24" height="24" viewBox="0 0 48 48" fill="none">
-                        <rect x="6" y="6" width="36" height="36" rx="8" fill="#FFFFFF" stroke="#E2E8F0"
-                            stroke-width="1.5" />
-                        <path d="M6 14C6 9.58172 9.58172 6 14 6H34C38.4183 6 42 9.58172 42 14V16H6V14Z"
-                            fill="#FF3B30" />
-                        <rect x="14" y="4" width="3" height="5" rx="1.5" fill="#FFFFFF" />
-                        <rect x="31" y="4" width="3" height="5" rx="1.5" fill="#FFFFFF" />
-                        <text x="24" y="27" font-family="-apple-system, 'Plus Jakarta Sans', sans-serif" font-size="9"
-                            font-weight="800" fill="#FF3B30" text-anchor="middle" letter-spacing="1">NOV</text>
-                        <text x="24" y="39" font-family="-apple-system, 'Plus Jakarta Sans', sans-serif" font-size="13"
-                            font-weight="800" fill="#1C1C1E" text-anchor="middle">11-12</text>
-                    </svg>
-                </div>
-                <div class="btn-content">
-                    <span class="btn-title">Apple Calendar</span>
-                    <span class="btn-subtitle">Apple Calendar & iOS</span>
-                </div>
-                <div class="arrow-box">
-                    <!-- Download/Arrow icon -->
-                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
-                        stroke-linecap="round" stroke-linejoin="round">
-                        <polyline points="9 18 15 12 9 6"></polyline>
-                    </svg>
-                </div>
-            </a>
-
+            <!-- Additional Dynamic Custom Sections will render here (e.g. POSTER) -->
+            <div id="customSectionsHook"></div>
         </div>
 
         <!-- ========================================================
@@ -644,6 +901,89 @@
             Organized by the<br>
             <strong>Faculty of Nursing, Chiang Mai University</strong>
         </div>
+
+        <!-- Admin Management Modal (Accessible via /?admin=true or #admin) -->
+    <div class="admin-modal-overlay" id="adminModalOverlay">
+        <div class="admin-modal">
+            <div class="admin-modal-header">
+                <h3>
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
+                        <line x1="3" y1="9" x2="21" y2="9"></line>
+                        <line x1="9" y1="21" x2="9" y2="9"></line>
+                    </svg>
+                    <span>Content & Sections Manager</span>
+                </h3>
+                <button class="admin-modal-close" id="closeAdminBtn">&times;</button>
+            </div>
+            <div class="admin-modal-body">
+                <!-- 1. Edit Calendar Section Header -->
+                <div class="admin-section-card">
+                    <div class="admin-section-card-header">
+                        <strong>1. Calendar Section Header</strong>
+                    </div>
+                    <label class="admin-label">Section Title</label>
+                    <input type="text" class="admin-input" id="adminCalendarTitleInput" placeholder="Add to Calendar">
+                    
+                    <label class="admin-label">Subtitle / Description</label>
+                    <input type="text" class="admin-input" id="adminCalendarSubtitleInput" placeholder="Choose your preferred calendar service">
+                </div>
+
+                <!-- 2. Manage Custom Sections (e.g. POSTER, Downloads) -->
+                <div class="admin-section-card">
+                    <div class="admin-section-card-header">
+                        <strong>2. Add New Section (e.g. POSTER, Resources)</strong>
+                    </div>
+                    <label class="admin-label">New Section Title</label>
+                    <input type="text" class="admin-input" id="newSectionTitle" placeholder="e.g. POSTER & DOWNLOADS">
+                    
+                    <label class="admin-label">Section Subtitle</label>
+                    <input type="text" class="admin-input" id="newSectionSubtitle" placeholder="e.g. Official conference posters & guidelines">
+                    
+                    <button class="admin-btn admin-btn-primary" id="addNewSectionBtn" style="margin-top: 4px;">
+                        <span>+ Create New Section</span>
+                    </button>
+
+                    <div style="margin-top: 16px;">
+                        <span class="admin-label">Current Custom Sections:</span>
+                        <div class="admin-items-list" id="adminCustomSectionsList">
+                            <!-- Populated dynamically -->
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 3. Add Button to Section Form -->
+                <div class="admin-section-card" id="adminAddButtonCard" style="display:none;">
+                    <div class="admin-section-card-header">
+                        <strong>3. Add Button to: <span id="targetSectionName" style="color:var(--primary);"></span></strong>
+                    </div>
+                    <input type="hidden" id="targetSectionId">
+                    
+                    <label class="admin-label">Button Title</label>
+                    <input type="text" class="admin-input" id="newBtnTitle" placeholder="e.g. Download Conference Poster (English)">
+                    
+                    <label class="admin-label">Button Subtitle</label>
+                    <input type="text" class="admin-input" id="newBtnSubtitle" placeholder="e.g. PDF file / High resolution">
+                    
+                    <label class="admin-label">Option A: Attach Local File (PDF, Image, etc.)</label>
+                    <input type="file" class="admin-input" id="newBtnFileInput" style="padding:6px; cursor:pointer;" accept=".pdf,.png,.jpg,.jpeg,.svg,.docx,.zip">
+                    <div id="fileInfoNotice" style="font-size:11.5px; color:#6366f1; margin-bottom:8px; display:none;"></div>
+
+                    <label class="admin-label">Option B: Destination URL (External Link)</label>
+                    <input type="text" class="admin-input" id="newBtnUrl" placeholder="https://www.nurse.cmu.ac.th/poster.pdf">
+                    
+                    <div class="admin-btn-row">
+                        <button class="admin-btn admin-btn-primary" id="saveNewButtonBtn">Save Button</button>
+                        <button class="admin-btn admin-btn-secondary" id="cancelNewButtonBtn">Cancel</button>
+                    </div>
+                </div>
+            </div>
+            <div class="admin-modal-footer">
+                <button class="admin-btn admin-btn-secondary" id="resetDefaultBtn">Reset to Default</button>
+                <button class="admin-btn admin-btn-primary" id="saveAllAdminBtn">Save All Changes</button>
+            </div>
+        </div>
+    </div>
 
     </main>
 
@@ -759,16 +1099,406 @@ END:VCALENDAR`;
             });
 
         // Collapsible Accordion Toggle for Calendar Section
-        const accordionToggle = document.getElementById("calendarAccordionToggle");
-        const buttonsContainer = document.getElementById("calendarButtonsContainer");
+        const calendarAccordionToggle = document.getElementById("calendarAccordionToggle");
+        const calendarSectionGroup = document.getElementById("calendarSectionGroup");
 
-        if (accordionToggle && buttonsContainer) {
-            accordionToggle.addEventListener("click", function () {
-                const isCollapsed = buttonsContainer.classList.toggle("collapsed");
-                accordionToggle.classList.toggle("collapsed", isCollapsed);
-                accordionToggle.setAttribute("aria-expanded", (!isCollapsed).toString());
+        if (calendarAccordionToggle && calendarSectionGroup) {
+            calendarAccordionToggle.addEventListener("click", function () {
+                const isCollapsed = calendarSectionGroup.classList.toggle("collapsed");
+                calendarAccordionToggle.setAttribute("aria-expanded", (!isCollapsed).toString());
             });
         }
+
+        // ==========================================================
+        // DYNAMIC SECTIONS & ADMIN MANAGER (LOCALSTORAGE SUPPORT)
+        // ==========================================================
+        const STORAGE_KEY_SECTIONS = "cmu_conference_custom_sections_v1";
+        const STORAGE_KEY_CALENDAR = "cmu_conference_calendar_header_v1";
+
+        let calendarHeaderData = {
+            title: "Add to Calendar",
+            subtitle: "Choose your preferred calendar service"
+        };
+
+        // Example default custom sections (including POSTER)
+        let customSections = [
+            {
+                id: "section_poster",
+                title: "POSTER & DOWNLOADS",
+                subtitle: "Official conference posters & documents",
+                collapsed: false,
+                buttons: [
+                    {
+                        id: "btn_poster_en",
+                        title: "Download Conference Poster (English)",
+                        subtitle: "PDF file / High resolution",
+                        url: "https://www.nurse.cmu.ac.th/"
+                    }
+                ]
+            }
+        ];
+
+        // Load persisted settings
+        function loadSettings() {
+            try {
+                const savedCal = localStorage.getItem(STORAGE_KEY_CALENDAR);
+                if (savedCal) {
+                    calendarHeaderData = JSON.parse(savedCal);
+                }
+                const savedSections = localStorage.getItem(STORAGE_KEY_SECTIONS);
+                if (savedSections) {
+                    customSections = JSON.parse(savedSections);
+                }
+            } catch (e) {
+                console.warn("Storage load error:", e);
+            }
+        }
+
+        function saveSettings() {
+            try {
+                localStorage.setItem(STORAGE_KEY_CALENDAR, JSON.stringify(calendarHeaderData));
+                localStorage.setItem(STORAGE_KEY_SECTIONS, JSON.stringify(customSections));
+            } catch (e) {
+                console.warn("Storage save error:", e);
+            }
+        }
+
+        // Render UI on page
+        function renderPageSections() {
+            // Update Calendar Header
+            const titleEl = document.getElementById("calendarSectionTitle");
+            const subEl = document.getElementById("calendarSectionSubtitle");
+            if (titleEl) titleEl.textContent = calendarHeaderData.title;
+            if (subEl) subEl.textContent = calendarHeaderData.subtitle;
+
+            // Render Custom Sections
+            const hook = document.getElementById("customSectionsHook");
+            if (!hook) return;
+
+            hook.innerHTML = "";
+
+            customSections.forEach((sec, sIdx) => {
+                const group = document.createElement("div");
+                group.className = "accordion-group" + (sec.collapsed ? " collapsed" : "");
+                group.id = "group_" + sec.id;
+
+                const buttonsHtml = sec.buttons.map(b => `
+                    <a class="calendar-button" href="${escapeHtml(b.url)}" target="_blank" rel="noopener">
+                        <div class="btn-icon-wrapper">
+                            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#6366f1" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                                <polyline points="14 2 14 8 20 8"></polyline>
+                                <line x1="16" y1="13" x2="8" y2="13"></line>
+                                <line x1="16" y1="17" x2="8" y2="17"></line>
+                                <polyline points="10 9 9 9 8 9"></polyline>
+                            </svg>
+                        </div>
+                        <div class="btn-content">
+                            <span class="btn-title">${escapeHtml(b.title)}</span>
+                            <span class="btn-subtitle">${escapeHtml(b.subtitle)}</span>
+                        </div>
+                        <div class="arrow-box">
+                            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+                                <polyline points="15 3 21 3 21 9"></polyline>
+                                <line x1="10" y1="14" x2="21" y2="3"></line>
+                            </svg>
+                        </div>
+                    </a>
+                `).join("");
+
+                group.innerHTML = `
+                    <div class="accordion-header" role="button" data-sec-idx="${sIdx}">
+                        <div class="accordion-titles">
+                            <h2>${escapeHtml(sec.title)}</h2>
+                            <p class="description">${escapeHtml(sec.subtitle)}</p>
+                        </div>
+                        <div class="accordion-chevron">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                                <polyline points="6 9 12 15 18 9"></polyline>
+                            </svg>
+                        </div>
+                    </div>
+                    <div class="accordion-content">
+                        ${buttonsHtml.length > 0 ? buttonsHtml : '<p style="font-size:12.5px; color:#94a3b8; text-align:center; padding:10px;">ยังไม่มีปุ่มในหัวข้อนี้</p>'}
+                    </div>
+                `;
+
+                // Bind accordion toggle
+                group.querySelector(".accordion-header").addEventListener("click", function() {
+                    const isCol = group.classList.toggle("collapsed");
+                    sec.collapsed = isCol;
+                    saveSettings();
+                });
+
+                hook.appendChild(group);
+            });
+        }
+
+        function escapeHtml(str) {
+            return (str || "").replace(/[&<>"']/g, function (m) {
+                return {
+                    '&': '&amp;',
+                    '<': '&lt;',
+                    '>': '&gt;',
+                    '"': '&quot;',
+                    "'": '&#039;'
+                }[m];
+            });
+        }
+
+        // ==========================================================
+        // ADMIN MODAL LOGIC
+        // ==========================================================
+        const adminModalOverlay = document.getElementById("adminModalOverlay");
+        const openAdminBtn = document.getElementById("openAdminBtn");
+        const closeAdminBtn = document.getElementById("closeAdminBtn");
+        const saveAllAdminBtn = document.getElementById("saveAllAdminBtn");
+        const resetDefaultBtn = document.getElementById("resetDefaultBtn");
+
+        // Inputs
+        const adminCalendarTitleInput = document.getElementById("adminCalendarTitleInput");
+        const adminCalendarSubtitleInput = document.getElementById("adminCalendarSubtitleInput");
+        const newSectionTitle = document.getElementById("newSectionTitle");
+        const newSectionSubtitle = document.getElementById("newSectionSubtitle");
+        const addNewSectionBtn = document.getElementById("addNewSectionBtn");
+        const adminCustomSectionsList = document.getElementById("adminCustomSectionsList");
+
+        // Add Button sub-form
+        const adminAddButtonCard = document.getElementById("adminAddButtonCard");
+        const targetSectionName = document.getElementById("targetSectionName");
+        const targetSectionId = document.getElementById("targetSectionId");
+        const newBtnTitle = document.getElementById("newBtnTitle");
+        const newBtnSubtitle = document.getElementById("newBtnSubtitle");
+        const newBtnUrl = document.getElementById("newBtnUrl");
+        const newBtnFileInput = document.getElementById("newBtnFileInput");
+        const fileInfoNotice = document.getElementById("fileInfoNotice");
+        const saveNewButtonBtn = document.getElementById("saveNewButtonBtn");
+        const cancelNewButtonBtn = document.getElementById("cancelNewButtonBtn");
+
+        let attachedFileDataUrl = "";
+
+        // File attachment reader
+        if (newBtnFileInput) {
+            newBtnFileInput.addEventListener("change", function(e) {
+                const file = e.target.files && e.target.files[0];
+                if (file) {
+                    if (file.size > 8 * 1024 * 1024) {
+                        alert("File size exceeds 8MB limit.");
+                        newBtnFileInput.value = "";
+                        return;
+                    }
+                    const reader = new FileReader();
+                    reader.onload = function(evt) {
+                        attachedFileDataUrl = evt.target.result;
+                        fileInfoNotice.style.display = "block";
+                        fileInfoNotice.textContent = `Attached: ${file.name} (${(file.size / 1024).toFixed(1)} KB)`;
+                        if (!newBtnTitle.value) {
+                            newBtnTitle.value = file.name.replace(/\.[^/.]+$/, "");
+                        }
+                        if (!newBtnSubtitle.value) {
+                            newBtnSubtitle.value = `${file.name.split('.').pop().toUpperCase()} file / Download`;
+                        }
+                    };
+                    reader.readAsDataURL(file);
+                } else {
+                    attachedFileDataUrl = "";
+                    fileInfoNotice.style.display = "none";
+                }
+            });
+        }
+
+        function openAdminModal() {
+            adminCalendarTitleInput.value = calendarHeaderData.title;
+            adminCalendarSubtitleInput.value = calendarHeaderData.subtitle;
+            renderAdminSectionsList();
+            adminModalOverlay.classList.add("open");
+        }
+
+        function closeAdminModal() {
+            adminModalOverlay.classList.remove("open");
+            adminAddButtonCard.style.display = "none";
+            if (window.location.hash === "#admin") {
+                history.replaceState(null, null, window.location.pathname + window.location.search);
+            }
+        }
+
+        function renderAdminSectionsList() {
+            adminCustomSectionsList.innerHTML = "";
+            if (customSections.length === 0) {
+                adminCustomSectionsList.innerHTML = '<p style="font-size:12px; color:#94a3b8;">No custom sections yet.</p>';
+                return;
+            }
+
+            customSections.forEach((sec, idx) => {
+                const item = document.createElement("div");
+                item.className = "admin-item-pill";
+                item.innerHTML = `
+                    <div class="admin-item-pill-info">
+                        <span class="admin-item-pill-title">${escapeHtml(sec.title)}</span>
+                        <span class="admin-item-pill-sub">${escapeHtml(sec.subtitle)} (${sec.buttons.length} button${sec.buttons.length === 1 ? '' : 's'})</span>
+                    </div>
+                    <div style="display:flex; gap:6px;">
+                        <button class="admin-btn admin-btn-secondary" style="padding:4px 8px; font-size:11px;" onclick="window.prepareAddButtonToSec(${idx})">+ Add Button</button>
+                        <button class="admin-btn admin-btn-danger" style="padding:4px 8px; font-size:11px;" onclick="window.removeSection(${idx})">Delete</button>
+                    </div>
+                `;
+                adminCustomSectionsList.appendChild(item);
+            });
+        }
+
+        window.prepareAddButtonToSec = function(idx) {
+            const sec = customSections[idx];
+            targetSectionId.value = idx;
+            targetSectionName.textContent = sec.title;
+            newBtnTitle.value = "";
+            newBtnSubtitle.value = "";
+            newBtnUrl.value = "";
+            if (newBtnFileInput) newBtnFileInput.value = "";
+            attachedFileDataUrl = "";
+            if (fileInfoNotice) fileInfoNotice.style.display = "none";
+            adminAddButtonCard.style.display = "block";
+            adminAddButtonCard.scrollIntoView({ behavior: "smooth" });
+        };
+
+        window.removeSection = function(idx) {
+            if (confirm(`Are you sure you want to delete section "${customSections[idx].title}"?`)) {
+                customSections.splice(idx, 1);
+                saveSettings();
+                renderAdminSectionsList();
+                renderPageSections();
+            }
+        };
+
+        // Add section handler
+        addNewSectionBtn.addEventListener("click", function() {
+            const t = (newSectionTitle.value || "").trim();
+            const s = (newSectionSubtitle.value || "").trim();
+            if (!t) {
+                alert("Please enter a section title.");
+                return;
+            }
+            customSections.push({
+                id: "section_" + Date.now(),
+                title: t,
+                subtitle: s,
+                collapsed: false,
+                buttons: []
+            });
+            newSectionTitle.value = "";
+            newSectionSubtitle.value = "";
+            saveSettings();
+            renderAdminSectionsList();
+            renderPageSections();
+        });
+
+        // Save button to section handler
+        saveNewButtonBtn.addEventListener("click", function() {
+            const secIdx = parseInt(targetSectionId.value, 10);
+            const bTitle = (newBtnTitle.value || "").trim();
+            const bSub = (newBtnSubtitle.value || "").trim();
+            const bUrl = (newBtnUrl.value || "").trim();
+
+            const finalUrl = attachedFileDataUrl || bUrl;
+
+            if (!bTitle || !finalUrl) {
+                alert("Please provide a button title and either an attached file or destination URL.");
+                return;
+            }
+
+            if (customSections[secIdx]) {
+                customSections[secIdx].buttons.push({
+                    id: "btn_" + Date.now(),
+                    title: bTitle,
+                    subtitle: bSub,
+                    url: finalUrl
+                });
+                saveSettings();
+                renderAdminSectionsList();
+                renderPageSections();
+                adminAddButtonCard.style.display = "none";
+            }
+        });
+
+        cancelNewButtonBtn.addEventListener("click", function() {
+            adminAddButtonCard.style.display = "none";
+        });
+
+        saveAllAdminBtn.addEventListener("click", function() {
+            calendarHeaderData.title = (adminCalendarTitleInput.value || "").trim() || "Add to Calendar";
+            calendarHeaderData.subtitle = (adminCalendarSubtitleInput.value || "").trim() || "Choose your preferred calendar service";
+            saveSettings();
+            renderPageSections();
+            closeAdminModal();
+        });
+
+        resetDefaultBtn.addEventListener("click", function() {
+            if (confirm("Are you sure you want to reset all content and buttons back to default?")) {
+                localStorage.removeItem(STORAGE_KEY_CALENDAR);
+                localStorage.removeItem(STORAGE_KEY_SECTIONS);
+                calendarHeaderData = {
+                    title: "Add to Calendar",
+                    subtitle: "Choose your preferred calendar service"
+                };
+                customSections = [
+                    {
+                        id: "section_poster",
+                        title: "POSTER & DOWNLOADS",
+                        subtitle: "Official conference posters & documents",
+                        collapsed: false,
+                        buttons: [
+                            {
+                                id: "btn_poster_en",
+                                title: "Download Conference Poster (English)",
+                                subtitle: "PDF file / High resolution",
+                                url: "https://www.nurse.cmu.ac.th/"
+                            }
+                        ]
+                    }
+                ];
+                saveSettings();
+                renderPageSections();
+                renderAdminSectionsList();
+                adminCalendarTitleInput.value = calendarHeaderData.title;
+                adminCalendarSubtitleInput.value = calendarHeaderData.subtitle;
+            }
+        });
+
+        // Close button & overlay
+        closeAdminBtn.addEventListener("click", closeAdminModal);
+        adminModalOverlay.addEventListener("click", function(e) {
+            if (e.target === adminModalOverlay) closeAdminModal();
+        });
+
+        // Keyboard ESC to close modal
+        document.addEventListener("keydown", function(e) {
+            if (e.key === "Escape" && adminModalOverlay.classList.contains("open")) {
+                closeAdminModal();
+            }
+        });
+
+        // ==========================================================
+        // ROUTE / URL TRIGGER TO ACCESS ADMIN MODAL
+        // Can be accessed via:
+        // 1. URL hash:  http://.../#admin
+        // 2. URL query: http://...?admin=true
+        // ==========================================================
+        function checkAdminRoute() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const isAdminQuery = urlParams.get("admin") === "true" || urlParams.get("admin") === "1";
+            const isAdminHash = window.location.hash === "#admin";
+
+            if (isAdminQuery || isAdminHash) {
+                openAdminModal();
+            }
+        }
+
+        window.addEventListener("hashchange", checkAdminRoute);
+
+        // Initialize on load
+        loadSettings();
+        renderPageSections();
+        checkAdminRoute();
     </script>
 
 </body>
