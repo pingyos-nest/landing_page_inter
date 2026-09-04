@@ -1,0 +1,9 @@
+version: '3.8'
+
+services:
+  conference-landing:
+    build: .
+    container_name: cmu_conference_landing
+    restart: always
+    ports:
+      - "3037:80"

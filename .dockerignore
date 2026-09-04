@@ -1,0 +1,10 @@
+node_modules
+.git
+.DS_Store
+ios
+src
+tests
+App.tsx
+tsconfig.json
+package.json
+package-lock.json

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<!-- Calendar permissions required for EventKit / EventKitUI -->
+	<!-- For iOS 17 and later: Least-privilege write access -->
+	<key>NSCalendarsWriteOnlyAccessUsageDescription</key>
+	<string>Calendar access is used to add the 2027 International Nursing Conference to your calendar.</string>
+	
+	<!-- For iOS 16 and earlier: Standard calendar access -->
+	<key>NSCalendarsUsageDescription</key>
+	<string>Calendar access is used to add the 2027 International Nursing Conference to your calendar.</string>
+</dict>
+</plist>
