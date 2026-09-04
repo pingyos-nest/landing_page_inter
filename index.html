@@ -8,6 +8,16 @@
     <meta name="description"
         content="2027 International Nursing Conference - Shared Vision, Shared Mission: Illuminating the Future of Nursing for a Sustainable World. 11–12 November 2027, Chiang Mai, Thailand.">
 
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-9H10CPTW29"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'G-9H10CPTW29');
+    </script>
+
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -456,7 +466,7 @@
             <!-- ======================================================
                  1. GOOGLE CALENDAR
                  ====================================================== -->
-            <a class="calendar-button" target="_blank" rel="noopener"
+            <a class="calendar-button" id="googleCalendar" target="_blank" rel="noopener"
                 href="https://calendar.google.com/calendar/render?action=TEMPLATE&text=2027%20International%20Nursing%20Conference&dates=20271111/20271113&location=Chiang%20Mai%2C%20Thailand&details=Shared%20Vision%2C%20Shared%20Mission%3A%20Illuminating%20the%20Future%20of%20Nursing%20for%20a%20Sustainable%20World%0A%0ADates%3A%2011%E2%80%9312%20November%202027%0ALocation%3A%20Chiang%20Mai%2C%20Thailand%0A%0AOrganized%20by%20the%20Faculty%20of%20Nursing%2C%20Chiang%20Mai%20University%0A%0AFurther%20details%20will%20be%20announced%20soon.%0Ahttps%3A%2F%2Fwww.nurse.cmu.ac.th%2F">
                 <div class="btn-icon-wrapper">
                     <!-- Google Calendar Vector Logo -->
@@ -489,7 +499,7 @@
             <!-- ======================================================
                  2. MICROSOFT OUTLOOK
                  ====================================================== -->
-            <a class="calendar-button" target="_blank" rel="noopener"
+            <a class="calendar-button" id="outlookCalendar" target="_blank" rel="noopener"
                 href="https://outlook.office.com/calendar/0/deeplink/compose?subject=2027%20International%20Nursing%20Conference&startdt=2027-11-11&enddt=2027-11-13&allday=true&location=Chiang%20Mai%2C%20Thailand&body=Shared%20Vision%2C%20Shared%20Mission%3A%20Illuminating%20the%20Future%20of%20Nursing%20for%20a%20Sustainable%20World%0A%0ADates%3A%2011%E2%80%9312%20November%202027%0ALocation%3A%20Chiang%20Mai%2C%20Thailand%0A%0AOrganized%20by%20the%20Faculty%20of%20Nursing%2C%20Chiang%20Mai%20University%0A%0AFurther%20details%20will%20be%20announced%20soon.%0Ahttps%3A%2F%2Fwww.nurse.cmu.ac.th%2F">
                 <div class="btn-icon-wrapper">
                     <!-- Microsoft Outlook Vector Logo -->
@@ -553,7 +563,7 @@
              4. FURTHER DETAILS & ORGANIZER
              ======================================================== -->
         <div class="announcement">
-            <a class="details-button" href="https://www.nurse.cmu.ac.th/" target="_blank" rel="noopener">
+            <a class="details-button" id="detailsButton" href="https://www.nurse.cmu.ac.th/" target="_blank" rel="noopener">
                 <span>Further details will be announced soon</span>
                 <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
                     stroke-linecap="round" stroke-linejoin="round">
@@ -582,13 +592,23 @@
     </div>
 
     <!-- ==========================================================
-         APPLE CALENDAR / ICS DOWNLOAD SCRIPT
+         SCRIPTS: APPLE CALENDAR / ICS & GOOGLE ANALYTICS 4 EVENTS
          ========================================================== -->
     <script>
+        // Apple Calendar .ics generation & download
         document
             .getElementById("appleCalendar")
             .addEventListener("click", function (event) {
                 event.preventDefault();
+
+                // Track Apple Calendar click event in GA4
+                if (typeof gtag === 'function') {
+                    gtag('event', 'click_calendar', {
+                        'calendar_type': 'Apple Calendar ICS',
+                        'event_category': 'Engagement',
+                        'event_label': 'Apple Calendar / iCal'
+                    });
+                }
 
                 const icsContent =
                     `BEGIN:VCALENDAR
@@ -632,6 +652,45 @@ END:VCALENDAR`;
                 setTimeout(() => {
                     toast.classList.remove("show");
                 }, 3000);
+            });
+
+        // Track Google Calendar click
+        document
+            .getElementById("googleCalendar")
+            .addEventListener("click", function () {
+                if (typeof gtag === 'function') {
+                    gtag('event', 'click_calendar', {
+                        'calendar_type': 'Google Calendar',
+                        'event_category': 'Engagement',
+                        'event_label': 'Google Calendar'
+                    });
+                }
+            });
+
+        // Track Microsoft Outlook click
+        document
+            .getElementById("outlookCalendar")
+            .addEventListener("click", function () {
+                if (typeof gtag === 'function') {
+                    gtag('event', 'click_calendar', {
+                        'calendar_type': 'Microsoft Outlook',
+                        'event_category': 'Engagement',
+                        'event_label': 'Microsoft Outlook'
+                    });
+                }
+            });
+
+        // Track Further Details click
+        document
+            .getElementById("detailsButton")
+            .addEventListener("click", function () {
+                if (typeof gtag === 'function') {
+                    gtag('event', 'click_further_details', {
+                        'event_category': 'Outbound Link',
+                        'event_label': 'CMU Nurse Website',
+                        'destination_url': 'https://www.nurse.cmu.ac.th/'
+                    });
+                }
             });
     </script>
 
