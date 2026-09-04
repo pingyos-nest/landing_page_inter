@@ -604,10 +604,10 @@
 
                 // Track Apple Calendar click event in GA4
                 if (typeof gtag === 'function') {
-                    gtag('event', 'click_calendar', {
+                    gtag('event', 'click_apple_calendar', {
                         'calendar_type': 'Apple Calendar ICS',
-                        'event_category': 'Engagement',
-                        'event_label': 'Apple Calendar / iCal'
+                        'event_category': 'Calendar',
+                        'event_label': 'Apple Calendar'
                     });
                 }
 
@@ -660,9 +660,9 @@ END:VCALENDAR`;
             .getElementById("googleCalendar")
             .addEventListener("click", function () {
                 if (typeof gtag === 'function') {
-                    gtag('event', 'click_calendar', {
+                    gtag('event', 'click_google_calendar', {
                         'calendar_type': 'Google Calendar',
-                        'event_category': 'Engagement',
+                        'event_category': 'Calendar',
                         'event_label': 'Google Calendar'
                     });
                 }
@@ -673,9 +673,9 @@ END:VCALENDAR`;
             .getElementById("outlookCalendar")
             .addEventListener("click", function () {
                 if (typeof gtag === 'function') {
-                    gtag('event', 'click_calendar', {
+                    gtag('event', 'click_outlook_calendar', {
                         'calendar_type': 'Microsoft Outlook',
-                        'event_category': 'Engagement',
+                        'event_category': 'Calendar',
                         'event_label': 'Microsoft Outlook'
                     });
                 }
