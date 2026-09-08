@@ -1,0 +1,22 @@
+{
+  "calendarHeaderData": {
+    "title": "Add to Calendar",
+    "subtitle": "Choose your preferred calendar service"
+  },
+  "customSections": [
+    {
+      "id": "section_poster",
+      "title": "POSTER & DOWNLOADS",
+      "subtitle": "Official conference posters & documents",
+      "collapsed": false,
+      "buttons": [
+        {
+          "id": "btn_poster_en",
+          "title": "Download Conference Poster (English)",
+          "subtitle": "PDF file / High resolution",
+          "url": "https://www.nurse.cmu.ac.th/"
+        }
+      ]
+    }
+  ]
+}

@@ -5,3 +5,8 @@ services:
     restart: always
     ports:
       - "4300:80"
+    environment:
+      - PORT=80
+      - ADMIN_PASSWORD=admin1234
+    volumes:
+      - ./data:/app/data

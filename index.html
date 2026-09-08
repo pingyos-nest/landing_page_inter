@@ -640,7 +640,13 @@
             background: #ffffff;
             border: 1px solid var(--border-color);
             border-radius: 8px;
-            padding: 8px 12px;
+            padding: 10px 12px;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .admin-item-pill-header {
             display: flex;
             align-items: center;
             justify-content: space-between;
@@ -661,6 +667,61 @@
         .admin-item-pill-sub {
             font-size: 11px;
             color: var(--text-muted);
+        }
+
+        .admin-btn-sublist {
+            border-top: 1px dashed var(--border-color);
+            padding-top: 8px;
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        .admin-btn-pill {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background: #f8fafc;
+            border: 1px solid #e2e8f0;
+            border-radius: 6px;
+            padding: 6px 10px;
+        }
+
+        .admin-btn-pill-info {
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+
+        .admin-btn-pill-title {
+            font-size: 12px;
+            font-weight: 600;
+            color: var(--text-main);
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .admin-btn-pill-url {
+            font-size: 10.5px;
+            color: #6366f1;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .admin-auth-overlay {
+            background: #ffffff;
+            padding: 24px;
+            border-radius: 12px;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            max-width: 320px;
+            margin: 40px auto;
+            border: 1px solid var(--border-color);
+            box-shadow: 0 10px 25px -5px rgba(0,0,0,0.05);
         }
 
         .admin-modal-footer {
@@ -917,6 +978,18 @@
                 <button class="admin-modal-close" id="closeAdminBtn">&times;</button>
             </div>
             <div class="admin-modal-body">
+                <!-- Admin Authentication Box -->
+                <div id="adminAuthBox" class="admin-auth-overlay">
+                    <div style="font-size: 28px;">🔐</div>
+                    <h4 style="margin: 0; font-size: 16px; color: var(--text-main);">Admin Authentication</h4>
+                    <p style="margin: 0; font-size: 12px; color: var(--text-muted);">Please enter the administrative passcode to manage sections and buttons.</p>
+                    <input type="password" id="adminPasswordInput" class="admin-input" placeholder="Enter Admin Passcode" style="text-align:center; font-size:14px; letter-spacing:1px;">
+                    <div id="adminAuthError" style="color:#ef4444; font-size:11.5px; display:none;"></div>
+                    <button class="admin-btn admin-btn-primary" id="adminLoginBtn" style="width:100%; justify-content:center;">Unlock Admin Panel</button>
+                </div>
+
+                <!-- Admin Management Content (hidden until authenticated) -->
+                <div id="adminContentWrapper" style="display:none;">
                 <!-- 1. Edit Calendar Section Header -->
                 <div class="admin-section-card">
                     <div class="admin-section-card-header">
@@ -977,8 +1050,9 @@
                         <button class="admin-btn admin-btn-secondary" id="cancelNewButtonBtn">Cancel</button>
                     </div>
                 </div>
+                </div> <!-- End adminContentWrapper -->
             </div>
-            <div class="admin-modal-footer">
+            <div class="admin-modal-footer" id="adminModalFooter" style="display:none;">
                 <button class="admin-btn admin-btn-secondary" id="resetDefaultBtn">Reset to Default</button>
                 <button class="admin-btn admin-btn-primary" id="saveAllAdminBtn">Save All Changes</button>
             </div>
@@ -1110,56 +1184,68 @@ END:VCALENDAR`;
         }
 
         // ==========================================================
-        // DYNAMIC SECTIONS & ADMIN MANAGER (LOCALSTORAGE SUPPORT)
+        // DYNAMIC SECTIONS & ADMIN MANAGER (SERVER BACKEND & PERSISTENCE)
         // ==========================================================
-        const STORAGE_KEY_SECTIONS = "cmu_conference_custom_sections_v1";
-        const STORAGE_KEY_CALENDAR = "cmu_conference_calendar_header_v1";
+        let adminAuthToken = localStorage.getItem("cmu_conf_admin_token") || "";
 
         let calendarHeaderData = {
             title: "Add to Calendar",
             subtitle: "Choose your preferred calendar service"
         };
 
-        // Example default custom sections (including POSTER)
-        let customSections = [
-            {
-                id: "section_poster",
-                title: "POSTER & DOWNLOADS",
-                subtitle: "Official conference posters & documents",
-                collapsed: false,
-                buttons: [
-                    {
-                        id: "btn_poster_en",
-                        title: "Download Conference Poster (English)",
-                        subtitle: "PDF file / High resolution",
-                        url: "https://www.nurse.cmu.ac.th/"
-                    }
-                ]
-            }
-        ];
+        let customSections = [];
 
-        // Load persisted settings
-        function loadSettings() {
+        // Load settings from Server Backend
+        async function loadSettings() {
             try {
-                const savedCal = localStorage.getItem(STORAGE_KEY_CALENDAR);
-                if (savedCal) {
-                    calendarHeaderData = JSON.parse(savedCal);
-                }
-                const savedSections = localStorage.getItem(STORAGE_KEY_SECTIONS);
-                if (savedSections) {
-                    customSections = JSON.parse(savedSections);
+                const res = await fetch("/api/content");
+                if (res.ok) {
+                    const data = await res.json();
+                    if (data.calendarHeaderData) calendarHeaderData = data.calendarHeaderData;
+                    if (Array.isArray(data.customSections)) customSections = data.customSections;
+                } else {
+                    console.warn("Backend API responded with error, using fallback state.");
                 }
             } catch (e) {
-                console.warn("Storage load error:", e);
+                console.warn("Failed to fetch settings from server:", e);
             }
+            renderPageSections();
         }
 
-        function saveSettings() {
+        // Save settings to Server Backend
+        async function saveSettings(callback) {
             try {
-                localStorage.setItem(STORAGE_KEY_CALENDAR, JSON.stringify(calendarHeaderData));
-                localStorage.setItem(STORAGE_KEY_SECTIONS, JSON.stringify(customSections));
+                const res = await fetch("/api/content", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                        "x-admin-password": adminAuthToken
+                    },
+                    body: JSON.stringify({
+                        calendarHeaderData,
+                        customSections
+                    })
+                });
+
+                if (res.status === 401) {
+                    alert("Admin session expired or password incorrect. Please log in again.");
+                    adminAuthToken = "";
+                    localStorage.removeItem("cmu_conf_admin_token");
+                    showAdminLogin();
+                    return false;
+                }
+
+                if (!res.ok) {
+                    const err = await res.json().catch(() => ({}));
+                    alert("Failed to save changes: " + (err.message || res.statusText));
+                    return false;
+                }
+
+                if (typeof callback === "function") callback();
+                return true;
             } catch (e) {
-                console.warn("Storage save error:", e);
+                alert("Network error while saving settings: " + e.message);
+                return false;
             }
         }
 
@@ -1182,7 +1268,7 @@ END:VCALENDAR`;
                 group.className = "accordion-group" + (sec.collapsed ? " collapsed" : "");
                 group.id = "group_" + sec.id;
 
-                const buttonsHtml = sec.buttons.map(b => `
+                const buttonsHtml = (sec.buttons || []).map(b => `
                     <a class="calendar-button" href="${escapeHtml(b.url)}" target="_blank" rel="noopener">
                         <div class="btn-icon-wrapper">
                             <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#6366f1" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -1228,7 +1314,6 @@ END:VCALENDAR`;
                 group.querySelector(".accordion-header").addEventListener("click", function() {
                     const isCol = group.classList.toggle("collapsed");
                     sec.collapsed = isCol;
-                    saveSettings();
                 });
 
                 hook.appendChild(group);
@@ -1248,13 +1333,19 @@ END:VCALENDAR`;
         }
 
         // ==========================================================
-        // ADMIN MODAL LOGIC
+        // ADMIN MODAL & AUTH LOGIC
         // ==========================================================
         const adminModalOverlay = document.getElementById("adminModalOverlay");
-        const openAdminBtn = document.getElementById("openAdminBtn");
         const closeAdminBtn = document.getElementById("closeAdminBtn");
         const saveAllAdminBtn = document.getElementById("saveAllAdminBtn");
         const resetDefaultBtn = document.getElementById("resetDefaultBtn");
+
+        const adminAuthBox = document.getElementById("adminAuthBox");
+        const adminPasswordInput = document.getElementById("adminPasswordInput");
+        const adminAuthError = document.getElementById("adminAuthError");
+        const adminLoginBtn = document.getElementById("adminLoginBtn");
+        const adminContentWrapper = document.getElementById("adminContentWrapper");
+        const adminModalFooter = document.getElementById("adminModalFooter");
 
         // Inputs
         const adminCalendarTitleInput = document.getElementById("adminCalendarTitleInput");
@@ -1276,43 +1367,94 @@ END:VCALENDAR`;
         const saveNewButtonBtn = document.getElementById("saveNewButtonBtn");
         const cancelNewButtonBtn = document.getElementById("cancelNewButtonBtn");
 
-        let attachedFileDataUrl = "";
+        let selectedUploadedFile = null;
 
-        // File attachment reader
+        // Admin Auth handling
+        function showAdminLogin() {
+            adminAuthBox.style.display = "block";
+            adminContentWrapper.style.display = "none";
+            adminModalFooter.style.display = "none";
+            adminPasswordInput.value = "";
+            adminAuthError.style.display = "none";
+        }
+
+        function showAdminPanel() {
+            adminAuthBox.style.display = "none";
+            adminContentWrapper.style.display = "block";
+            adminModalFooter.style.display = "flex";
+            adminCalendarTitleInput.value = calendarHeaderData.title;
+            adminCalendarSubtitleInput.value = calendarHeaderData.subtitle;
+            renderAdminSectionsList();
+        }
+
+        async function verifyAndLoginAdmin(pass) {
+            try {
+                const res = await fetch("/api/auth", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({ password: pass })
+                });
+                const data = await res.json();
+                if (res.ok && data.success) {
+                    adminAuthToken = pass;
+                    localStorage.setItem("cmu_conf_admin_token", pass);
+                    showAdminPanel();
+                } else {
+                    adminAuthError.textContent = data.message || "Incorrect passcode";
+                    adminAuthError.style.display = "block";
+                }
+            } catch (e) {
+                adminAuthError.textContent = "Server connection error: " + e.message;
+                adminAuthError.style.display = "block";
+            }
+        }
+
+        adminLoginBtn.addEventListener("click", () => {
+            const pass = adminPasswordInput.value.trim();
+            if (!pass) return;
+            verifyAndLoginAdmin(pass);
+        });
+
+        adminPasswordInput.addEventListener("keydown", (e) => {
+            if (e.key === "Enter") {
+                const pass = adminPasswordInput.value.trim();
+                if (pass) verifyAndLoginAdmin(pass);
+            }
+        });
+
+        // File attachment handling
         if (newBtnFileInput) {
             newBtnFileInput.addEventListener("change", function(e) {
                 const file = e.target.files && e.target.files[0];
                 if (file) {
-                    if (file.size > 8 * 1024 * 1024) {
-                        alert("File size exceeds 8MB limit.");
+                    if (file.size > 50 * 1024 * 1024) {
+                        alert("File size exceeds 50MB limit.");
                         newBtnFileInput.value = "";
                         return;
                     }
-                    const reader = new FileReader();
-                    reader.onload = function(evt) {
-                        attachedFileDataUrl = evt.target.result;
-                        fileInfoNotice.style.display = "block";
-                        fileInfoNotice.textContent = `Attached: ${file.name} (${(file.size / 1024).toFixed(1)} KB)`;
-                        if (!newBtnTitle.value) {
-                            newBtnTitle.value = file.name.replace(/\.[^/.]+$/, "");
-                        }
-                        if (!newBtnSubtitle.value) {
-                            newBtnSubtitle.value = `${file.name.split('.').pop().toUpperCase()} file / Download`;
-                        }
-                    };
-                    reader.readAsDataURL(file);
+                    selectedUploadedFile = file;
+                    fileInfoNotice.style.display = "block";
+                    fileInfoNotice.textContent = `Attached: ${file.name} (${(file.size / 1024).toFixed(1)} KB) - Will upload to server upon saving`;
+                    if (!newBtnTitle.value) {
+                        newBtnTitle.value = file.name.replace(/\.[^/.]+$/, "");
+                    }
+                    if (!newBtnSubtitle.value) {
+                        newBtnSubtitle.value = `${file.name.split('.').pop().toUpperCase()} file / Download`;
+                    }
                 } else {
-                    attachedFileDataUrl = "";
+                    selectedUploadedFile = null;
                     fileInfoNotice.style.display = "none";
                 }
             });
         }
 
         function openAdminModal() {
-            adminCalendarTitleInput.value = calendarHeaderData.title;
-            adminCalendarSubtitleInput.value = calendarHeaderData.subtitle;
-            renderAdminSectionsList();
             adminModalOverlay.classList.add("open");
+            if (adminAuthToken) {
+                verifyAndLoginAdmin(adminAuthToken);
+            } else {
+                showAdminLogin();
+            }
         }
 
         function closeAdminModal() {
@@ -1323,6 +1465,7 @@ END:VCALENDAR`;
             }
         }
 
+        // Render admin list with Section and individual Button delete buttons
         function renderAdminSectionsList() {
             adminCustomSectionsList.innerHTML = "";
             if (customSections.length === 0) {
@@ -1330,18 +1473,32 @@ END:VCALENDAR`;
                 return;
             }
 
-            customSections.forEach((sec, idx) => {
+            customSections.forEach((sec, sIdx) => {
                 const item = document.createElement("div");
                 item.className = "admin-item-pill";
+
+                const buttonsHtml = (sec.buttons || []).map((b, bIdx) => `
+                    <div class="admin-btn-pill">
+                        <div class="admin-btn-pill-info">
+                            <span class="admin-btn-pill-title">${escapeHtml(b.title)}</span>
+                            <span class="admin-btn-pill-url">${escapeHtml(b.subtitle || '')} &bull; ${escapeHtml(b.url)}</span>
+                        </div>
+                        <button class="admin-btn admin-btn-danger" style="padding:2px 8px; font-size:11px;" onclick="window.removeButtonFromSec(${sIdx}, ${bIdx})">Delete Button</button>
+                    </div>
+                `).join("");
+
                 item.innerHTML = `
-                    <div class="admin-item-pill-info">
-                        <span class="admin-item-pill-title">${escapeHtml(sec.title)}</span>
-                        <span class="admin-item-pill-sub">${escapeHtml(sec.subtitle)} (${sec.buttons.length} button${sec.buttons.length === 1 ? '' : 's'})</span>
+                    <div class="admin-item-pill-header">
+                        <div class="admin-item-pill-info">
+                            <span class="admin-item-pill-title">${escapeHtml(sec.title)}</span>
+                            <span class="admin-item-pill-sub">${escapeHtml(sec.subtitle)} (${(sec.buttons || []).length} button${(sec.buttons || []).length === 1 ? '' : 's'})</span>
+                        </div>
+                        <div style="display:flex; gap:6px;">
+                            <button class="admin-btn admin-btn-secondary" style="padding:4px 8px; font-size:11px;" onclick="window.prepareAddButtonToSec(${sIdx})">+ Add Button</button>
+                            <button class="admin-btn admin-btn-danger" style="padding:4px 8px; font-size:11px;" onclick="window.removeSection(${sIdx})">Delete Section</button>
+                        </div>
                     </div>
-                    <div style="display:flex; gap:6px;">
-                        <button class="admin-btn admin-btn-secondary" style="padding:4px 8px; font-size:11px;" onclick="window.prepareAddButtonToSec(${idx})">+ Add Button</button>
-                        <button class="admin-btn admin-btn-danger" style="padding:4px 8px; font-size:11px;" onclick="window.removeSection(${idx})">Delete</button>
-                    </div>
+                    ${buttonsHtml ? `<div class="admin-btn-sublist">${buttonsHtml}</div>` : ''}
                 `;
                 adminCustomSectionsList.appendChild(item);
             });
@@ -1355,23 +1512,35 @@ END:VCALENDAR`;
             newBtnSubtitle.value = "";
             newBtnUrl.value = "";
             if (newBtnFileInput) newBtnFileInput.value = "";
-            attachedFileDataUrl = "";
+            selectedUploadedFile = null;
             if (fileInfoNotice) fileInfoNotice.style.display = "none";
             adminAddButtonCard.style.display = "block";
             adminAddButtonCard.scrollIntoView({ behavior: "smooth" });
         };
 
-        window.removeSection = function(idx) {
-            if (confirm(`Are you sure you want to delete section "${customSections[idx].title}"?`)) {
+        // Remove Section
+        window.removeSection = async function(idx) {
+            if (confirm(`Are you sure you want to delete section "${customSections[idx].title}" and all its buttons?`)) {
                 customSections.splice(idx, 1);
-                saveSettings();
                 renderAdminSectionsList();
                 renderPageSections();
+                await saveSettings();
+            }
+        };
+
+        // Remove Individual Button (Permanent)
+        window.removeButtonFromSec = async function(sIdx, bIdx) {
+            const btn = customSections[sIdx].buttons[bIdx];
+            if (confirm(`Are you sure you want to delete button "${btn.title}"?`)) {
+                customSections[sIdx].buttons.splice(bIdx, 1);
+                renderAdminSectionsList();
+                renderPageSections();
+                await saveSettings();
             }
         };
 
         // Add section handler
-        addNewSectionBtn.addEventListener("click", function() {
+        addNewSectionBtn.addEventListener("click", async function() {
             const t = (newSectionTitle.value || "").trim();
             const s = (newSectionSubtitle.value || "").trim();
             if (!t) {
@@ -1387,36 +1556,77 @@ END:VCALENDAR`;
             });
             newSectionTitle.value = "";
             newSectionSubtitle.value = "";
-            saveSettings();
             renderAdminSectionsList();
             renderPageSections();
+            await saveSettings();
         });
 
-        // Save button to section handler
-        saveNewButtonBtn.addEventListener("click", function() {
+        // Save button to section handler (handles file upload via API)
+        saveNewButtonBtn.addEventListener("click", async function() {
             const secIdx = parseInt(targetSectionId.value, 10);
             const bTitle = (newBtnTitle.value || "").trim();
             const bSub = (newBtnSubtitle.value || "").trim();
-            const bUrl = (newBtnUrl.value || "").trim();
+            let bUrl = (newBtnUrl.value || "").trim();
 
-            const finalUrl = attachedFileDataUrl || bUrl;
-
-            if (!bTitle || !finalUrl) {
-                alert("Please provide a button title and either an attached file or destination URL.");
+            if (!bTitle) {
+                alert("Please provide a button title.");
                 return;
             }
 
+            if (!selectedUploadedFile && !bUrl) {
+                alert("Please provide either an attached file or destination URL.");
+                return;
+            }
+
+            // Upload file to server if provided
+            if (selectedUploadedFile) {
+                const formData = new FormData();
+                formData.append("file", selectedUploadedFile);
+
+                saveNewButtonBtn.disabled = true;
+                saveNewButtonBtn.textContent = "Uploading...";
+
+                try {
+                    const uploadRes = await fetch("/api/upload", {
+                        method: "POST",
+                        headers: {
+                            "x-admin-password": adminAuthToken
+                        },
+                        body: formData
+                    });
+                    const uploadData = await uploadRes.json();
+                    if (!uploadRes.ok || !uploadData.success) {
+                        alert("File upload failed: " + (uploadData.message || "Unknown error"));
+                        saveNewButtonBtn.disabled = false;
+                        saveNewButtonBtn.textContent = "Save Button";
+                        return;
+                    }
+                    bUrl = uploadData.url;
+                } catch (err) {
+                    alert("Error uploading file to server: " + err.message);
+                    saveNewButtonBtn.disabled = false;
+                    saveNewButtonBtn.textContent = "Save Button";
+                    return;
+                } finally {
+                    saveNewButtonBtn.disabled = false;
+                    saveNewButtonBtn.textContent = "Save Button";
+                }
+            }
+
             if (customSections[secIdx]) {
+                if (!Array.isArray(customSections[secIdx].buttons)) {
+                    customSections[secIdx].buttons = [];
+                }
                 customSections[secIdx].buttons.push({
                     id: "btn_" + Date.now(),
                     title: bTitle,
                     subtitle: bSub,
-                    url: finalUrl
+                    url: bUrl
                 });
-                saveSettings();
                 renderAdminSectionsList();
                 renderPageSections();
                 adminAddButtonCard.style.display = "none";
+                await saveSettings();
             }
         });
 
@@ -1424,43 +1634,46 @@ END:VCALENDAR`;
             adminAddButtonCard.style.display = "none";
         });
 
-        saveAllAdminBtn.addEventListener("click", function() {
+        // Save all Header and Section changes
+        saveAllAdminBtn.addEventListener("click", async function() {
             calendarHeaderData.title = (adminCalendarTitleInput.value || "").trim() || "Add to Calendar";
             calendarHeaderData.subtitle = (adminCalendarSubtitleInput.value || "").trim() || "Choose your preferred calendar service";
-            saveSettings();
-            renderPageSections();
-            closeAdminModal();
+            saveAllAdminBtn.disabled = true;
+            saveAllAdminBtn.textContent = "Saving...";
+            const ok = await saveSettings();
+            saveAllAdminBtn.disabled = false;
+            saveAllAdminBtn.textContent = "Save All Changes";
+            if (ok) {
+                renderPageSections();
+                closeAdminModal();
+            }
         });
 
-        resetDefaultBtn.addEventListener("click", function() {
+        // Reset to default on server
+        resetDefaultBtn.addEventListener("click", async function() {
             if (confirm("Are you sure you want to reset all content and buttons back to default?")) {
-                localStorage.removeItem(STORAGE_KEY_CALENDAR);
-                localStorage.removeItem(STORAGE_KEY_SECTIONS);
-                calendarHeaderData = {
-                    title: "Add to Calendar",
-                    subtitle: "Choose your preferred calendar service"
-                };
-                customSections = [
-                    {
-                        id: "section_poster",
-                        title: "POSTER & DOWNLOADS",
-                        subtitle: "Official conference posters & documents",
-                        collapsed: false,
-                        buttons: [
-                            {
-                                id: "btn_poster_en",
-                                title: "Download Conference Poster (English)",
-                                subtitle: "PDF file / High resolution",
-                                url: "https://www.nurse.cmu.ac.th/"
-                            }
-                        ]
+                try {
+                    const res = await fetch("/api/reset", {
+                        method: "POST",
+                        headers: {
+                            "x-admin-password": adminAuthToken
+                        }
+                    });
+                    if (res.ok) {
+                        const data = await res.json();
+                        calendarHeaderData = data.data.calendarHeaderData;
+                        customSections = data.data.customSections;
+                        renderPageSections();
+                        renderAdminSectionsList();
+                        adminCalendarTitleInput.value = calendarHeaderData.title;
+                        adminCalendarSubtitleInput.value = calendarHeaderData.subtitle;
+                        alert("Reset successfully!");
+                    } else {
+                        alert("Failed to reset content.");
                     }
-                ];
-                saveSettings();
-                renderPageSections();
-                renderAdminSectionsList();
-                adminCalendarTitleInput.value = calendarHeaderData.title;
-                adminCalendarSubtitleInput.value = calendarHeaderData.subtitle;
+                } catch (e) {
+                    alert("Error resetting content: " + e.message);
+                }
             }
         });
 
@@ -1479,9 +1692,6 @@ END:VCALENDAR`;
 
         // ==========================================================
         // ROUTE / URL TRIGGER TO ACCESS ADMIN MODAL
-        // Can be accessed via:
-        // 1. URL hash:  http://.../#admin
-        // 2. URL query: http://...?admin=true
         // ==========================================================
         function checkAdminRoute() {
             const urlParams = new URLSearchParams(window.location.search);
@@ -1497,7 +1707,6 @@ END:VCALENDAR`;
 
         // Initialize on load
         loadSettings();
-        renderPageSections();
         checkAdminRoute();
     </script>
 
