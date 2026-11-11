@@ -141,6 +141,29 @@ const upload = multer({
 
 // Middleware
 app.disable('x-powered-by');
+
+// ---------- Reverse-proxy path repair ----------
+// The upstream nginx for service.nurse.cmu.ac.th is outside our control. Some proxy setups
+// (e.g. `proxy_pass http://app:4401/inter2027;` with no trailing slash) turn
+// "/inter2027/logo.png" into "/inter2027logo.png". Put the missing slash back so every
+// route still matches. Proxies that forward the original URI in a header are honoured too.
+const BASE_PREFIX = '/inter2027';
+let loggedRequests = 0;
+app.use((req, res, next) => {
+    const original = req.url;
+    const forwarded = req.headers['x-original-uri'] || req.headers['x-forwarded-uri'];
+    if (typeof forwarded === 'string' && forwarded.startsWith(BASE_PREFIX)) {
+        req.url = forwarded;
+    } else if (req.url.startsWith(BASE_PREFIX) && !/^\/inter2027(\/|\?|$)/.test(req.url)) {
+        req.url = BASE_PREFIX + '/' + req.url.slice(BASE_PREFIX.length);
+    }
+    // Log the first requests after start-up so the proxy's path format shows in the deploy logs.
+    if (loggedRequests < 30) {
+        loggedRequests += 1;
+        console.log(`[path] ${req.method} received="${original}"${req.url !== original ? ` -> "${req.url}"` : ''}`);
+    }
+    next();
+});
 app.use(cors({ origin: ALLOWED_ORIGINS }));
 app.use(express.json({ limit: '10mb' }));
 app.use(express.urlencoded({ extended: true }));
