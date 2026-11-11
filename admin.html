@@ -1,0 +1,1904 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Website Administration | 2027 International Nursing Conference</title>
+<link rel="icon" type="image/png" href="favicon.png">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-9H10CPTW29"></script>
+<script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { dataLayer.push(arguments); }
+    gtag('js', new Date());
+    gtag('config', 'G-9H10CPTW29');
+</script>
+
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}:root{--navy:#0f172a;--blue:#6366f1;--blue2:#4f46e5;--purple:#8b5cf6;--coral:#ee6161;--orange:#ea580c;--soft:#eef2ff;--ink:#0f172a;--muted:#64748b;--line:#e2e8f0;--canvas:#f8fafc;--danger:#dc2626;--dangerbg:#fee2e2}body{font:15px 'Plus Jakarta Sans',sans-serif;background:radial-gradient(circle at 50% 0%,#f1f5f9 0%,#f8fafc 55%,#eef2ff 100%);color:var(--ink);min-height:100vh}button,input,select{font:inherit}button{cursor:pointer}.hidden{display:none!important}.icon{width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;flex:none}
+
+/* Login Page */
+.login{display:flex;align-items:center;justify-content:center;padding:32px 16px;min-height:100vh;background:radial-gradient(circle at 50% 0%,#f1f5f9 0%,#f8fafc 55%,#eef2ff 100%)}
+.login-panel{width:100%;max-width:480px;min-height:0;padding:36px 32px;background:#fff;border:1px solid var(--line);border-radius:24px;box-shadow:0 25px 50px -12px rgba(15,23,42,.09)}
+.login-card{text-align:center}
+.login-logo{width:72px;height:72px;object-fit:contain;margin:0 auto 16px;border-radius:12px}
+.login-card h2{font-size:22px;font-weight:800;letter-spacing:-.02em;margin-bottom:6px}
+.login-card>p{font-size:13.5px;color:var(--muted);margin-bottom:24px}
+.field{margin-bottom:17px;text-align:left}
+.field label{display:block;font-weight:700;font-size:11.5px;text-transform:uppercase;letter-spacing:.05em;color:var(--muted);margin-bottom:6px}
+.input{width:100%;height:44px;border:1px solid #d9deea;border-radius:10px;padding:0 13px;color:var(--ink);outline:0;background:#fff}
+.input:focus{border-color:var(--blue);box-shadow:0 0 0 3px #3158ee1f}
+.hint{font-size:12px;color:var(--muted);margin-top:6px}
+.error{padding:11px 13px;color:#b4232f;background:var(--dangerbg);border-radius:9px;margin-bottom:15px;font-size:13px;text-align:left}
+.login-btn,.btn.primary{background:linear-gradient(110deg,var(--coral),var(--purple));border:0;box-shadow:0 8px 18px rgba(139,92,246,.2);color:#fff;font-weight:700}
+.login-btn:hover,.btn.primary:hover{background:linear-gradient(110deg,#e95555,#7c3aed);transform:translateY(-1px)}
+.login-btn{width:100%;height:46px;border-radius:10px}
+.ms-btn{display:flex;align-items:center;justify-content:center;gap:10px;width:100%;height:46px;border:1px solid var(--line);border-radius:10px;background:#fff;color:#1e293b;font-weight:700;font-size:14px;text-decoration:none;transition:background .2s,border-color .2s}
+.ms-btn:hover{background:#f8fafc;border-color:#cbd5e1}
+.user-add{display:flex;gap:12px;align-items:flex-end;flex-wrap:wrap}
+.user-list{list-style:none;margin:0;padding:0}
+.user-list li{display:flex;align-items:center;gap:12px;padding:14px 20px;border-top:1px solid var(--line)}
+.user-list .user-meta{flex:1;min-width:0}
+.user-list strong{display:block;font-size:14px;overflow:hidden;text-overflow:ellipsis}
+.user-list small{color:var(--muted);font-size:11.5px}
+.login-or{display:flex;align-items:center;gap:12px;margin:18px 0;color:#94a3b8;font-size:12px}
+.login-or::before,.login-or::after{content:"";flex:1;height:1px;background:var(--line)}
+.back{display:inline-flex;align-items:center;gap:6px;margin-top:20px;color:var(--muted);text-decoration:none;font-size:13px;font-weight:600}
+.back:hover{color:var(--blue)}
+
+/* Admin Layout */
+.app{min-height:100vh;display:flex}
+.sidebar{width:258px;background:#fff;color:var(--ink);border-right:1px solid var(--line);position:fixed;inset:0 auto 0 0;padding:20px 14px;display:flex;flex-direction:column;z-index:40}
+.side-brand{height:90px;padding:4px 8px 18px;border-bottom:1px solid var(--line);margin-bottom:16px;display:flex;align-items:center;gap:12px}
+.side-brand img{width:46px;height:46px;object-fit:contain}
+.side-brand strong{font:800 14px 'Plus Jakarta Sans';display:block;color:var(--ink)}
+.side-brand small{font-size:10px;color:var(--muted);letter-spacing:.05em}
+.caption{color:#94a3b8;font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;padding:0 12px;margin:6px 0 9px}
+.nav{display:flex;flex-direction:column;gap:5px}
+.nav-item{width:100%;border:0;background:transparent;color:#64748b;min-height:42px;padding:0 12px;border-radius:10px;display:flex;align-items:center;gap:11px;text-align:left;font-weight:600;font-size:13.5px}
+.nav-item:hover{background:#f8fafc;color:var(--ink)}
+.nav-item.active{background:var(--soft);color:var(--blue);box-shadow:none}
+.badge{margin-left:auto;background:#fff;color:var(--blue);border:1px solid #c7d2fe;border-radius:99px;font:700 11px 'Plus Jakarta Sans';padding:2px 7px}
+.side-bottom{margin-top:auto;border-top:1px solid var(--line);padding-top:14px}
+.user{display:flex;align-items:center;gap:10px;padding:8px 6px}
+.avatar{width:36px;height:36px;border-radius:10px;background:linear-gradient(135deg,var(--coral),var(--purple));display:grid;place-items:center;font:700 13px 'Plus Jakarta Sans';color:#fff}
+.user strong{font-size:13px;display:block}
+.user small{color:#94a3b8;font-size:11px}
+.logout{border:0;background:transparent;color:#94a3b8;width:35px;height:35px;display:grid;place-items:center;margin-left:auto;border-radius:8px}
+.logout:hover{background:#f1f5f9;color:var(--blue)}
+
+/* Topbar & Main */
+.main{margin-left:258px;min-width:0;flex:1}
+.topbar{height:70px;background:rgba(255,255,255,.94);backdrop-filter:blur(12px);border-bottom:1px solid var(--line);display:flex;align-items:center;padding:0 32px;position:sticky;top:0;z-index:30}
+.top-title{font-weight:800;font-size:17px;color:var(--ink)}
+.top-actions{margin-left:auto;display:flex;align-items:center;gap:10px}
+.status{font-size:12px;color:#16865d;font-weight:600;display:flex;align-items:center;gap:7px;margin-right:8px}
+.status:before{content:"";width:7px;height:7px;border-radius:50%;background:#22b477;box-shadow:0 0 0 3px #ddf7ed}
+.menu{display:none;border:0;background:transparent;width:40px;height:40px;margin-right:7px}
+.btn{height:38px;border-radius:9px;border:1px solid var(--line);background:#fff;color:var(--ink);padding:0 14px;display:inline-flex;align-items:center;justify-content:center;gap:8px;font-weight:600;font-size:13px;text-decoration:none}
+.btn:hover{border-color:#c7ccda;background:#fafbfc}
+.btn.danger{color:var(--danger);background:var(--dangerbg);border-color:#ffd4d8}
+.btn.sm{height:32px;padding:0 10px;font-size:12px}
+.content{padding:28px 32px 60px;max-width:1440px;margin:auto}
+.page-head{display:flex;align-items:flex-end;justify-content:space-between;gap:20px;margin-bottom:22px}
+.page-head h1{font-size:24px;font-weight:800;letter-spacing:-.03em;margin-bottom:4px}
+.page-head p,.card-head p{color:var(--muted);font-size:13px}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-bottom:22px}
+.stat{background:#fff;border:1px solid var(--line);border-radius:12px;padding:17px 18px;display:flex;align-items:center;gap:13px;box-shadow:0 4px 6px -1px rgba(0,0,0,.035)}
+.stat-icon{width:42px;height:42px;border-radius:11px;background:var(--soft);color:var(--blue);display:grid;place-items:center}
+.stat strong{display:block;font:700 22px 'Plus Jakarta Sans'}
+.stat span{font-size:12px;color:var(--muted)}
+.stat:nth-child(3) .stat-icon{background:#fff7ed;color:var(--orange)}
+
+/* Cards & Table */
+.card{background:#fff;border:1px solid var(--line);border-radius:14px;box-shadow:0 4px 6px -1px rgba(0,0,0,.035)}
+.card-head{padding:18px 20px;border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between}
+.card-head h2{font-size:15.5px;font-weight:700}
+.table-wrap{overflow-x:auto}
+.data-table{width:100%;border-collapse:collapse;min-width:780px}
+.data-table th{text-align:left;padding:12px 18px;background:#fafbfc;color:#697287;text-transform:uppercase;letter-spacing:.045em;font-size:11px;font-weight:700;border-bottom:1px solid var(--line)}
+.data-table td{padding:14px 18px;border-bottom:1px solid #edf0f4;vertical-align:middle}
+.data-table tbody tr:hover{background:#fbfcff}
+.name{font-weight:700;font-size:13.5px;max-width:280px;color:var(--ink)}
+.sub{color:var(--muted);font-size:11.5px;margin-top:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:300px}
+.chip{display:inline-flex;background:#f1f3f8;color:#4f596f;border-radius:6px;padding:4px 8px;font-size:11.5px;font-weight:600}
+.type{display:inline-flex;color:var(--blue);background:var(--soft);border-radius:6px;padding:3px 7px;font:700 10.5px 'Plus Jakarta Sans'}
+
+/* Three-dot dropdown options & Global Floating Action Menu */
+.action-cell{text-align:right;position:relative;width:54px}
+.more-btn{width:32px;height:32px;border:1px solid var(--line);background:#fff;border-radius:8px;display:inline-flex;align-items:center;justify-content:center;color:var(--muted);cursor:pointer;transition:all .15s}
+.more-btn:hover,.more-btn.open{color:var(--blue);border-color:#c7d2fe;background:var(--soft)}
+.global-action-menu{position:fixed;z-index:99999;background:#fff;border:1px solid var(--line);border-radius:11px;box-shadow:0 18px 40px -4px rgba(15,23,42,.18),0 2px 8px rgba(0,0,0,.06);min-width:180px;padding:6px;display:flex;flex-direction:column;gap:2px;text-align:left;animation:pop .12s ease-out}
+.dropdown-item{display:flex;align-items:center;gap:9px;padding:8px 12px;font-size:12.5px;font-weight:600;color:var(--ink);border-radius:7px;border:0;background:transparent;width:100%;text-decoration:none;cursor:pointer;transition:all .12s}
+.dropdown-item:hover{background:#f1f5f9;color:var(--blue)}
+.dropdown-item.danger{color:var(--danger)}
+.dropdown-item.danger:hover{background:var(--dangerbg);color:var(--danger)}
+.dropdown-divider{height:1px;background:var(--line);margin:4px 0}
+.th-dots{letter-spacing:1px;font-size:15px;color:var(--muted);display:inline-block;padding-right:8px}
+
+.empty{padding:65px 20px;text-align:center;color:var(--muted)}
+.empty .stat-icon{margin:0 auto 13px}
+.empty h3{color:var(--ink);font-size:16px;margin-bottom:4px}
+
+/* Sections & Forms */
+.sections{display:grid;grid-template-columns:repeat(2,1fr);gap:15px}
+.section-card{padding:18px}
+.section-top{display:flex;align-items:flex-start;gap:12px}
+.section-num{width:38px;height:38px;background:var(--soft);color:var(--blue);border-radius:9px;display:grid;place-items:center;font:700 13px 'Plus Jakarta Sans'}
+.section-info{flex:1;min-width:0}
+.section-info h3{font-size:15px;font-weight:700}
+.section-info p{font-size:12px;color:var(--muted);margin-top:3px}
+.section-actions{display:flex;gap:6px}
+.section-foot{border-top:1px solid var(--line);margin-top:15px;padding-top:12px;display:flex;justify-content:space-between;align-items:center;color:var(--muted);font-size:12px}
+.section-foot button{border:0;background:none;color:var(--blue);font-weight:600}
+.form-card{padding:21px;max-width:780px}
+.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:17px}
+.form-actions{border-top:1px solid var(--line);margin-top:22px;padding-top:18px}
+.danger-zone{border-color:#ffd7da;background:#fffafb}
+.danger-body{padding:20px;display:flex;align-items:center;justify-content:space-between;gap:20px}
+.danger-body p{color:var(--muted);font-size:13px}
+.analytics{padding:22px}
+.ga-id{font:700 15px 'Plus Jakarta Sans';color:var(--blue);background:var(--soft);padding:10px 13px;border-radius:9px;display:inline-block;margin:12px 0}
+.event{display:flex;justify-content:space-between;border-bottom:1px solid var(--line);padding:11px 0;font-size:13px}
+.event:last-child{border:0}
+.event code{color:var(--blue);font-weight:700}
+.event span{color:var(--muted)}
+
+/* Modals */
+.modal-bg{position:fixed;inset:0;background:#070e2090;backdrop-filter:blur(4px);z-index:100;display:flex;align-items:center;justify-content:center;padding:20px}
+.modal{width:100%;max-width:620px;max-height:calc(100vh - 40px);overflow-y:auto;background:#fff;border-radius:18px;box-shadow:0 24px 70px #0000003d;border:1px solid var(--line);animation:pop .18s ease-out}
+.modal.small{max-width:420px}
+@keyframes pop{from{opacity:0;transform:translateY(8px) scale(.98)}}
+.modal-head{display:flex;align-items:flex-start;justify-content:space-between;padding:20px 24px 16px;border-bottom:1px solid var(--line)}
+.modal-head h2{font-size:17px;font-weight:800}
+.modal-head p{color:var(--muted);font-size:12px;margin-top:2px}
+.modal-close{border:0;background:#f3f5f8;width:32px;height:32px;border-radius:8px;display:grid;place-items:center;color:#697287;font-size:18px}
+.modal-close:hover{color:var(--ink);background:#e2e8f0}
+.modal-body{padding:20px 24px}
+.modal-actions{padding:16px 24px;border-top:1px solid var(--line);display:flex;justify-content:flex-end;gap:9px}
+
+/* Rich File / Image Preview Container & Attachment Controls */
+.preview-container{background:#f8fafc;border:1px solid var(--line);border-radius:12px;padding:12px 14px;margin-bottom:16px}
+.preview-card{display:flex;align-items:center;gap:14px}
+.preview-thumbnail{width:80px;height:80px;object-fit:cover;border-radius:8px;border:1px solid var(--line);background:#fff;box-shadow:0 2px 5px rgba(0,0,0,.04);flex-shrink:0}
+.preview-icon-badge{width:50px;height:50px;border-radius:10px;display:grid;place-items:center;flex-shrink:0}
+.badge-pdf-icon{background:#fee2e2;color:#dc2626}
+.badge-docx-icon{background:#dbeafe;color:#1d4ed8}
+.badge-link-icon{background:#e0e7ff;color:#4338ca}
+.badge-file-icon{background:#f1f5f9;color:#475569}
+.badge-del-icon{background:#fee2e2;color:#dc2626}
+.preview-details{flex:1;min-width:0;display:flex;flex-direction:column;gap:3px}
+.preview-badge-type{display:inline-flex;font-size:9.5px;font-weight:800;text-transform:uppercase;letter-spacing:.05em;padding:2px 6px;border-radius:4px;width:fit-content}
+.badge-type-img{background:#fef3c7;color:#b45309}
+.badge-type-pdf{background:#fee2e2;color:#dc2626}
+.badge-type-docx{background:#dbeafe;color:#1d4ed8}
+.badge-type-link{background:#f1f5f9;color:#475569}
+.badge-type-new{background:#dcfce7;color:#15803d}
+.badge-type-del{background:#fee2e2;color:#dc2626}
+.preview-filename{font-size:12.5px;font-weight:700;color:var(--ink);word-break:break-all}
+.preview-actions-row{display:flex;align-items:center;gap:10px;margin-top:5px;flex-wrap:wrap}
+.preview-open-link{font-size:11.5px;font-weight:600;color:var(--blue);text-decoration:none;display:inline-flex;align-items:center;gap:4px}
+.preview-open-link:hover{text-decoration:underline}
+.btn-remove-attachment{border:1px solid #fecaca;background:#fff5f5;color:var(--danger);font-size:11.5px;font-weight:600;padding:4px 9px;border-radius:6px;cursor:pointer;display:inline-flex;align-items:center;gap:5px;transition:all .15s}
+.btn-remove-attachment:hover{background:#fee2e2;border-color:#fca5a5}
+.btn-remove-attachment .icon{width:13px;height:13px}
+.clear-file-btn{border:0;background:none;color:var(--danger);font-size:11.5px;font-weight:600;cursor:pointer;padding:0}
+.clear-file-btn:hover{text-decoration:underline}
+.clear-url-btn{border:0;background:none;color:var(--danger);font-size:11.5px;font-weight:600;cursor:pointer;padding:0}
+.clear-url-btn:hover{text-decoration:underline}
+.removed-card{opacity:.9;border:1px dashed #fca5a5;background:#fffafb}
+
+.upload{border:1px dashed #cbd2e0;border-radius:10px;background:#fafbfe;padding:12px 14px}
+.confirm-icon{width:48px;height:48px;background:var(--dangerbg);color:var(--danger);border-radius:50%;display:grid;place-items:center;margin-bottom:15px}
+/* ==========================================================
+   NOTIFICATION SYSTEM (TOASTS) - SITES UI THEME
+   ========================================================== */
+.toast-container{position:fixed;top:24px;right:24px;z-index:999999;display:flex;flex-direction:column;gap:12px;pointer-events:none;max-width:420px;width:100%}
+.toast{pointer-events:auto;background:#fff;border-radius:14px;padding:14px 16px;box-shadow:0 14px 34px -4px rgba(15,23,42,.12),0 4px 10px -2px rgba(15,23,42,.05),0 0 0 1px rgba(0,0,0,.04);border:1px solid var(--line);display:flex;align-items:flex-start;gap:13px;position:relative;overflow:hidden;animation:toastSlideIn .28s cubic-bezier(.16,1,.3,1) forwards;transition:all .22s ease}
+.toast.toast-hiding{animation:toastSlideOut .22s cubic-bezier(.16,1,.3,1) forwards}
+
+@keyframes toastSlideIn{from{transform:translateX(110%);opacity:0}to{transform:translateX(0);opacity:1}}
+@keyframes toastSlideOut{from{transform:translateX(0);opacity:1;max-height:140px;margin-bottom:0}to{transform:translateX(110%);opacity:0;max-height:0;padding-top:0;padding-bottom:0;margin-bottom:-12px}}
+
+.toast-icon-wrap{width:36px;height:36px;border-radius:10px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.toast-icon-wrap svg{width:20px;height:20px}
+.toast-content{flex:1;min-width:0;display:flex;flex-direction:column;gap:3px;padding-top:1px}
+.toast-header{display:flex;align-items:center;justify-content:space-between;gap:8px}
+.toast-title{font-size:13.5px;font-weight:700;letter-spacing:-.01em;line-height:1.3}
+.toast-message{font-size:12.5px;color:#475569;line-height:1.5;word-break:break-word}
+.toast-close{background:transparent;border:0;color:#94a3b8;cursor:pointer;width:24px;height:24px;border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:15px;line-height:1;padding:0;transition:all .15s;flex-shrink:0}
+.toast-close:hover{color:var(--ink);background:rgba(0,0,0,.06)}
+.toast-progress{position:absolute;bottom:0;left:0;height:3px;width:100%;transform-origin:left;transition:transform linear}
+
+/* Variant 1: SUCCESS (Emerald / Green) */
+.toast-success{background:#fdfefe;border-color:#bbf7d0;border-left:4.5px solid #16a34a}
+.toast-success .toast-icon-wrap{background:#dcfce7;color:#16a34a}
+.toast-success .toast-title{color:#15803d}
+.toast-success .toast-progress{background:#22c55e}
+
+/* Variant 2: WARNING (Amber / Orange) */
+.toast-warning{background:#fffdfa;border-color:#fde68a;border-left:4.5px solid #d97706}
+.toast-warning .toast-icon-wrap{background:#fef3c7;color:#d97706}
+.toast-warning .toast-title{color:#b45309}
+.toast-warning .toast-progress{background:#f59e0b}
+
+/* Variant 3: ERROR (Rose / Red) */
+.toast-error{background:#fffdfd;border-color:#fecaca;border-left:4.5px solid #dc2626}
+.toast-error .toast-icon-wrap{background:#fee2e2;color:#dc2626}
+.toast-error .toast-title{color:#b91c1c}
+.toast-error .toast-progress{background:#ef4444}
+
+/* Variant 4: INFO (Sky / Blue) */
+.toast-info{background:#fdfeff;border-color:#bae6fd;border-left:4.5px solid #0284c7}
+.toast-info .toast-icon-wrap{background:#e0f2fe;color:#0284c7}
+.toast-info .toast-title{color:#0369a1}
+.toast-info .toast-progress{background:#38bdf8}
+
+@media(max-width:900px){.sidebar{transform:translateX(-100%);transition:.22s}.sidebar.open{transform:none}.main{margin-left:0}.menu{display:grid;place-items:center}.content{padding:24px 18px}.topbar{padding:0 18px}.sections{grid-template-columns:1fr}.scrim{position:fixed;inset:0;background:#0006;z-index:35}}
+@media(max-width:620px){.toast-container{top:14px;right:14px;left:14px;max-width:none;width:auto}.login-panel{padding:28px 20px}.page-head{align-items:flex-start;flex-direction:column}.page-head>.btn{width:100%}.stats{grid-template-columns:1fr}.status{display:none}.top-actions .btn span{display:none}.form-grid{grid-template-columns:1fr}.danger-body{align-items:flex-start;flex-direction:column}.modal-bg{padding:10px}.content{padding:20px 13px 40px}}
+</style></head>
+<body>
+
+<!-- ==================== 1. LOGIN VIEW ==================== -->
+<section class="login" id="loginView">
+    <div class="login-panel">
+        <form class="login-card" id="loginForm">
+            <img src="logo.png" alt="CMU Nursing" class="login-logo" onerror="this.src='./logo.png'">
+            <h2>Administrator Sign In</h2>
+            <p>CMU International Nursing Conference 2027</p>
+            <div class="error hidden" id="loginError"></div>
+            <a class="ms-btn hidden" id="microsoftLogin" href="#">
+                <svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><path fill="#f25022" d="M0 0v11.408h11.408V0z"/><path fill="#7fba00" d="M12.594 0v11.408H24V0z"/><path fill="#00a4ef" d="M0 12.594V24h11.408V12.594z"/><path fill="#ffb900" d="M12.594 12.594V24H24V12.594z"/></svg>
+                <span>Sign in with Microsoft</span>
+            </a>
+            <div class="login-or hidden" id="loginOr"><span>or</span></div>
+            <div id="passwordLogin">
+            <div class="field">
+                <label for="email">Administrator Email</label>
+                <input class="input" id="email" type="email" placeholder="admin_inter@cmu.ac.th" autocomplete="username" autofocus required>
+            </div>
+            <div class="field">
+                <label for="password">Administrator Password</label>
+                <input class="input" id="password" type="password" placeholder="Enter administrative password" autocomplete="current-password" required>
+            </div>
+            <button class="login-btn" id="loginButton">Sign In</button>
+            </div>
+            <a class="back" href="./">← Back to Conference Website</a>
+        </form>
+    </div>
+</section>
+
+<!-- ==================== 2. DASHBOARD VIEW ==================== -->
+<div class="app hidden" id="dashboardView">
+    <div class="scrim hidden" id="scrim"></div>
+    <aside class="sidebar" id="sidebar">
+        <div class="side-brand">
+            <img src="logo.png" alt="2027 Conference" onerror="this.src='./logo.png'">
+            <div>
+                <strong>CMU NURSING</strong>
+                <small>ADMIN CONSOLE</small>
+            </div>
+        </div>
+        <div class="caption">MAIN MENU</div>
+        <nav class="nav">
+            <button class="nav-item active" data-page="buttons">
+                <svg class="icon" viewBox="0 0 24 24"><path d="M12.034 12.681a.498.498 0 0 1 .647-.647l9 3.5a.5.5 0 0 1-.033.943l-3.444 1.068a1 1 0 0 0-.66.66l-1.067 3.443a.5.5 0 0 1-.943.033z" /><path d="M21 11V5a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h6" /></svg>
+                Button Management
+                <span class="badge" id="navCount">0</span>
+            </button>
+            <button class="nav-item" data-page="sections">
+                <svg class="icon" viewBox="0 0 24 24"><rect width="18" height="18" x="3" y="3" rx="2" /><path d="M3 12h18" /></svg>
+                Sections
+            </button>
+            <button class="nav-item" data-page="header">
+                <svg class="icon" viewBox="0 0 24 24"><rect width="18" height="18" x="3" y="3" rx="2" /><path d="M3 9h18" /></svg>
+                Page Header
+            </button>
+            <button class="nav-item" data-page="analytics">
+                <svg class="icon" viewBox="0 0 24 24"><path d="M5 21v-6" /><path d="M12 21V3" /><path d="M19 21V9" /></svg>
+                Analytics
+            </button>
+        </nav>
+        <div class="caption" style="margin-top:22px">SYSTEM</div>
+        <nav class="nav">
+            <button class="nav-item" data-page="users">
+                <svg class="icon" viewBox="0 0 24 24"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2" /><path d="M16 3.128a4 4 0 0 1 0 7.744" /><path d="M22 21v-2a4 4 0 0 0-3-3.87" /><circle cx="9" cy="7" r="4" /></svg>
+                Users
+            </button>
+            <button class="nav-item" data-page="settings">
+                <svg class="icon" viewBox="0 0 24 24"><path d="M9.671 4.136a2.34 2.34 0 0 1 4.659 0 2.34 2.34 0 0 0 3.319 1.915 2.34 2.34 0 0 1 2.33 4.033 2.34 2.34 0 0 0 0 3.831 2.34 2.34 0 0 1-2.33 4.033 2.34 2.34 0 0 0-3.319 1.915 2.34 2.34 0 0 1-4.659 0 2.34 2.34 0 0 0-3.32-1.915 2.34 2.34 0 0 1-2.33-4.033 2.34 2.34 0 0 0 0-3.831A2.34 2.34 0 0 1 6.35 6.051a2.34 2.34 0 0 0 3.319-1.915" /><circle cx="12" cy="12" r="3" /></svg>
+                System Settings
+            </button>
+        </nav>
+        <div class="side-bottom">
+            <div class="user">
+                <div class="avatar" id="userAvatar">AD</div>
+                <div style="min-width:0; flex:1;">
+                    <strong style="display:block; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;">Administrator</strong>
+                    <small id="userEmail" style="display:block; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; color:var(--muted); font-size:11px;">admin@cmu.ac.th</small>
+                </div>
+                <button class="logout" id="logout" title="Sign Out">
+                    <svg class="icon" viewBox="0 0 24 24"><path d="m16 17 5-5-5-5" /><path d="M21 12H9" /><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4" /></svg>
+                </button>
+            </div>
+        </div>
+    </aside>
+
+    <main class="main">
+        <header class="topbar">
+            <button class="menu" id="menu">
+                <svg class="icon" viewBox="0 0 24 24"><path d="M4 5h16" /><path d="M4 12h16" /><path d="M4 19h16" /></svg>
+            </button>
+            <div class="top-title" id="topTitle">Button Management</div>
+            <div class="top-actions">
+                <div class="status">System Online</div>
+                <a href="./" target="_blank" class="btn sm">
+                    <svg class="icon" viewBox="0 0 24 24"><path d="M15 3h6v6" /><path d="M10 14 21 3" /><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" /></svg>
+                    <span>View Website</span>
+                </a>
+            </div>
+        </header>
+
+        <div class="content">
+            <!-- PAGE: BUTTONS -->
+            <section class="page" id="page-buttons">
+                <div class="page-head">
+                    <div>
+                        <h1>Button Management</h1>
+                        <p>Add, edit, or remove buttons displayed on the conference website.</p>
+                    </div>
+                    <button class="btn primary" id="addButton">
+                        <svg class="icon" viewBox="0 0 24 24"><path d="M5 12h14" /><path d="M12 5v14" /></svg>
+                        Add New Button
+                    </button>
+                </div>
+
+                <div class="stats">
+                    <div class="stat">
+                        <div class="stat-icon"><svg class="icon" viewBox="0 0 24 24"><path d="M12.034 12.681a.498.498 0 0 1 .647-.647l9 3.5a.5.5 0 0 1-.033.943l-3.444 1.068a1 1 0 0 0-.66.66l-1.067 3.443a.5.5 0 0 1-.943.033z" /><path d="M21 11V5a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h6" /></svg></div>
+                        <div><strong id="buttonCount">0</strong><span>Total Buttons</span></div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-icon"><svg class="icon" viewBox="0 0 24 24"><rect width="18" height="18" x="3" y="3" rx="2" /><path d="M3 12h18" /></svg></div>
+                        <div><strong id="sectionCount">0</strong><span>Sections</span></div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-icon"><svg class="icon" viewBox="0 0 24 24"><path d="M6 22a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h8a2.4 2.4 0 0 1 1.704.706l3.588 3.588A2.4 2.4 0 0 1 20 8v12a2 2 0 0 1-2 2z" /><path d="M14 2v5a1 1 0 0 0 1 1h5" /><path d="M12 12v6" /><path d="m15 15-3-3-3 3" /></svg></div>
+                        <div><strong id="fileCount">0</strong><span>Uploaded Files</span></div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-head">
+                        <div>
+                            <h2>All Buttons</h2>
+                            <p>Buttons are organized under their respective section.</p>
+                        </div>
+                    </div>
+                    <div class="table-wrap">
+                        <table class="data-table">
+                            <thead>
+                                <tr>
+                                    <th>Button</th>
+                                    <th>Section</th>
+                                    <th>Type</th>
+                                    <th>Destination</th>
+                                    <th style="text-align:right; width:64px;"><span class="th-dots">•••</span></th>
+                                </tr>
+                            </thead>
+                            <tbody id="tableBody"></tbody>
+                        </table>
+                        <div class="empty hidden" id="empty">
+                            <div class="stat-icon"><svg class="icon" viewBox="0 0 24 24"><path d="M5 12h14" /><path d="M12 5v14" /></svg></div>
+                            <h3>No buttons yet</h3>
+                            <p>Select “Add New Button” to create your first button.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- PAGE: SECTIONS -->
+            <section class="page hidden" id="page-sections">
+                <div class="page-head">
+                    <div>
+                        <h1>Sections</h1>
+                        <p>Organize buttons into clear groups for conference visitors.</p>
+                    </div>
+                    <button class="btn primary" id="addSection">
+                        <svg class="icon" viewBox="0 0 24 24"><path d="M5 12h14" /><path d="M12 5v14" /></svg>
+                        Add Section
+                    </button>
+                </div>
+                <div class="sections" id="sections"></div>
+            </section>
+
+            <!-- PAGE: HEADER -->
+            <section class="page hidden" id="page-header">
+                <div class="page-head">
+                    <div>
+                        <h1>Page Header</h1>
+                        <p>Edit the heading and supporting text shown above the calendar options.</p>
+                    </div>
+                </div>
+                <div class="card form-card">
+                    <div class="form-grid">
+                        <div class="field">
+                            <label>Main Heading</label>
+                            <input class="input" id="headerTitle">
+                        </div>
+                        <div class="field">
+                            <label>Supporting Text</label>
+                            <input class="input" id="headerSub">
+                        </div>
+                    </div>
+                    <div class="form-actions">
+                        <button class="btn primary" id="saveHeader">Save Changes</button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- PAGE: ANALYTICS -->
+            <section class="page hidden" id="page-analytics">
+                <div class="page-head">
+                    <div>
+                        <h1>Google Analytics 4</h1>
+                        <p>Real-time telemetry and user interaction events.</p>
+                    </div>
+                </div>
+                <div class="card analytics">
+                    <h2>Measurement Tracking</h2>
+                    <div class="ga-id">G-9H10CPTW29</div>
+                    <div class="event"><code>file_download</code><span>Visitor downloads .pdf, .docx, .png, .jpg file</span></div>
+                    <div class="event"><code>custom_button_click</code><span>Visitor clicks a website button link</span></div>
+                    <div class="event"><code>click_google_calendar</code><span>Visitor adds event to Google Calendar</span></div>
+                    <div class="event"><code>click_apple_calendar</code><span>Visitor downloads Apple Calendar (.ics)</span></div>
+                    <div class="event"><code>click_outlook_calendar</code><span>Visitor adds event to Microsoft Outlook</span></div>
+                    <div class="event"><code>admin_button_create</code><span>Administrator creates a new button</span></div>
+                    <div class="event"><code>admin_button_edit</code><span>Administrator edits a button</span></div>
+                    <div class="event"><code>admin_button_delete</code><span>Administrator removes a button</span></div>
+                </div>
+            </section>
+
+            <!-- PAGE: USERS -->
+            <section class="page hidden" id="page-users">
+                <div class="page-head">
+                    <div>
+                        <h1>Users</h1>
+                        <p>Only emails registered here can sign in with Microsoft.</p>
+                    </div>
+                </div>
+                <div class="card form-card" style="margin-bottom: 20px;">
+                    <form id="addUserForm" class="user-add">
+                        <div class="field" style="flex:1; margin:0;">
+                            <label for="newUserEmail">Microsoft account email</label>
+                            <input class="input" id="newUserEmail" type="email" placeholder="name@cmu.ac.th" required>
+                        </div>
+                        <button class="btn primary" id="addUserButton">Add User</button>
+                    </form>
+                </div>
+                <div class="card">
+                    <div class="card-head">
+                        <div>
+                            <h2>Registered Users</h2>
+                            <p id="userCount">Loading…</p>
+                        </div>
+                    </div>
+                    <ul class="user-list" id="userList"></ul>
+                </div>
+            </section>
+
+            <!-- PAGE: SETTINGS -->
+            <section class="page hidden" id="page-settings">
+                <div class="page-head">
+                    <div>
+                        <h1>System Settings</h1>
+                        <p>Manage website administration data and defaults.</p>
+                    </div>
+                </div>
+                <div class="card" style="margin-bottom: 20px;">
+                    <div class="card-head">
+                        <div>
+                            <h2>Notification System (Sites UI)</h2>
+                            <p>Preview and test interactive alerts for Success, Warning, and Error events.</p>
+                        </div>
+                    </div>
+                    <div style="padding: 20px; display: flex; gap: 10px; flex-wrap: wrap;">
+                        <button type="button" class="btn" style="border-color:#bbf7d0; background:#f0fdf4; color:#166534;" onclick="toast('Button updated successfully! All visitors can view new files now.', 'success', 'Update Succeeded')">
+                            <span style="color:#16a34a; font-weight:bold;">✓</span> Test Success
+                        </button>
+                        <button type="button" class="btn" style="border-color:#fde68a; background:#fffbeb; color:#92400e;" onclick="toast('Please check the section details before publishing.', 'warning', 'Attention Required')">
+                            <span style="color:#d97706; font-weight:bold;">⚠</span> Test Warning
+                        </button>
+                        <button type="button" class="btn" style="border-color:#fecaca; background:#fef2f2; color:#991b1b;" onclick="toast('Upload failed because the file exceeds the 20 MB size limit.', 'error', 'Upload Error')">
+                            <span style="color:#dc2626; font-weight:bold;">✕</span> Test Error
+                        </button>
+                        <button type="button" class="btn" style="border-color:#bae6fd; background:#f0f9ff; color:#075985;" onclick="toast('System cache has been refreshed with latest updates.', 'info', 'System Notice')">
+                            <span style="color:#0284c7; font-weight:bold;">ℹ</span> Test Info
+                        </button>
+                    </div>
+                </div>
+                <div class="card danger-zone">
+                    <div class="card-head">
+                        <div>
+                            <h2>Restore Defaults</h2>
+                            <p>This action replaces all current website content.</p>
+                        </div>
+                    </div>
+                    <div class="danger-body">
+                        <div>
+                            <strong>Reset Website Data</strong>
+                            <p>Restore sections, buttons, and headings to the system defaults.</p>
+                        </div>
+                        <button class="btn danger" id="reset">Restore Defaults</button>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
+</div>
+
+<!-- ==================== BUTTON MODAL (ADD / EDIT) ==================== -->
+<div class="modal-bg hidden" id="buttonModal">
+    <div class="modal">
+        <div class="modal-head">
+            <div>
+                <h2 id="buttonModalTitle">Add New Button</h2>
+                <p>Configure button label, destination, and file attachments.</p>
+            </div>
+            <button class="modal-close" data-close="buttonModal">×</button>
+        </div>
+        <div class="modal-body">
+            <input type="hidden" id="editSI">
+            <input type="hidden" id="editBI">
+
+            <div class="field">
+                <label>Section *</label>
+                <select class="input" id="buttonSection"></select>
+            </div>
+
+            <div class="field">
+                <label>Button Label *</label>
+                <input class="input" id="buttonTitle" placeholder="e.g. Download Conference Poster">
+            </div>
+
+            <div class="field">
+                <label>Description / Subtitle</label>
+                <input class="input" id="buttonSub" placeholder="e.g. PDF / High resolution">
+            </div>
+
+            <!-- Auto-Detected Button Icon Preview -->
+            <div class="field">
+                <label style="margin-bottom:6px;">Auto-Detected Button Icon</label>
+                <div id="iconAutoBadge" style="display:flex; align-items:center; gap:12px; padding:10px 14px; background:#f8fafc; border:1px solid #e2e8f0; border-radius:10px;">
+                    <div id="iconAutoSvg" style="display:flex; align-items:center; justify-content:center; width:38px; height:38px; background:#fff; border:1px solid #e2e8f0; border-radius:8px; flex-shrink:0;"></div>
+                    <div>
+                        <div id="iconAutoType" style="font-size:13px; font-weight:700; color:#1e293b;">PDF Document</div>
+                        <div id="iconAutoHint" style="font-size:11px; color:#64748b;">Automatically matched with conference design theme</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Visual File / Image Preview Area -->
+            <div class="field hidden" id="previewArea">
+                <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:6px;">
+                    <label style="margin:0;">File / Image Preview</label>
+                    <button type="button" class="btn-remove-attachment" id="removeImgBtnTop" onclick="removeCurrentAttachment()">
+                        <svg class="icon" viewBox="0 0 24 24"><path d="M10 11v6" /><path d="M14 11v6" /><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6" /><path d="M3 6h18" /><path d="M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2" /></svg>
+                        <span id="removeBtnTopText">Delete Image</span>
+                    </button>
+                </div>
+                <div class="preview-container" id="previewContent"></div>
+            </div>
+
+            <div class="field">
+                <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:6px;">
+                    <label style="margin:0;">Destination URL</label>
+                    <button type="button" class="clear-url-btn hidden" id="clearUrlBtn" onclick="clearUrlField()">✕ Clear URL</button>
+                </div>
+                <input class="input" id="buttonUrl" placeholder="https://example.com/document.pdf">
+                <div class="hint">Enter a direct URL or upload a file below.</div>
+            </div>
+
+            <div class="field">
+                <label>Upload File (Image / Document)</label>
+                <div class="upload">
+                    <input id="buttonFile" type="file" accept=".pdf,.docx,.png,.jpg,.jpeg">
+                    <div class="hint" id="fileHint">Supported: PDF, DOCX, PNG, and JPG (Up to 20 MB)</div>
+                </div>
+            </div>
+        </div>
+        <div class="modal-actions">
+            <button class="btn" data-close="buttonModal">Cancel</button>
+            <button class="btn primary" id="saveButton">Save Button</button>
+        </div>
+    </div>
+</div>
+
+<!-- ==================== SECTION MODAL ==================== -->
+<div class="modal-bg hidden" id="sectionModal">
+    <div class="modal">
+        <div class="modal-head">
+            <div>
+                <h2 id="sectionModalTitle">Add Section</h2>
+                <p>Use sections to organize related website buttons.</p>
+            </div>
+            <button class="modal-close" data-close="sectionModal">×</button>
+        </div>
+        <div class="modal-body">
+            <input type="hidden" id="editSection">
+            <div class="field">
+                <label>Section Name *</label>
+                <input class="input" id="sectionTitle" placeholder="e.g. POSTER & DOWNLOADS">
+            </div>
+            <div class="field">
+                <label>Description (Optional)</label>
+                <input class="input" id="sectionSub" placeholder="e.g. Official conference posters & guidelines">
+            </div>
+        </div>
+        <div class="modal-actions">
+            <button class="btn" data-close="sectionModal">Cancel</button>
+            <button class="btn primary" id="saveSection">Save Section</button>
+        </div>
+    </div>
+</div>
+
+<!-- ==================== CONFIRM MODAL ==================== -->
+<div class="modal-bg hidden" id="confirmModal">
+    <div class="modal small">
+        <div class="modal-body">
+            <div class="confirm-icon">
+                <svg class="icon" viewBox="0 0 24 24"><path d="M10 11v6" /><path d="M14 11v6" /><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6" /><path d="M3 6h18" /><path d="M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2" /></svg>
+            </div>
+            <h2 id="confirmTitle" style="font-size:17px; margin-bottom:6px;">Confirm Action</h2>
+            <p class="confirm-copy" id="confirmText"></p>
+        </div>
+        <div class="modal-actions">
+            <button class="btn" data-close="confirmModal">Cancel</button>
+            <button class="btn danger" id="confirm">Confirm</button>
+        </div>
+    </div>
+</div>
+
+<!-- Global Floating Action Menu (rendered outside table, never clipped) -->
+<div class="global-action-menu hidden" id="globalActionMenu"></div>
+
+<!-- Toast Notifications Container -->
+<div class="toast-container" id="toastContainer" aria-live="polite" aria-atomic="true"></div>
+
+<!-- ==========================================================
+     JAVASCRIPT LOGIC
+     ========================================================== -->
+<script>
+// Base path detection for reverse proxies / subpaths (e.g. /inter2027)
+const BASE_PATH = (() => {
+    let p = window.location.pathname;
+    return p.replace(/\/admin(\/.*)?$/i, '').replace(/\/index\.html$/i, '').replace(/\/+$/, '');
+})();
+
+function api(path) {
+    if (!path.startsWith('/')) path = '/' + path;
+    return `${BASE_PATH}${path}`;
+}
+
+function resolveAssetUrl(url) {
+    if (!url) return '';
+    if (url.startsWith('http://') || url.startsWith('https://') || url.startsWith('mailto:') || url.startsWith('tel:') || url.startsWith('data:') || url.startsWith('blob:')) {
+        return url;
+    }
+    if (url.startsWith('/')) {
+        return `${BASE_PATH}${url}`;
+    }
+    return `${BASE_PATH}/${url}`;
+}
+
+let token = localStorage.getItem('cmu_conf_admin_token') || '';
+let adminEmail = localStorage.getItem('cmu_conf_admin_email') || 'admin_inter@cmu.ac.th';
+let header = { title: 'Add to Calendar', subtitle: 'Choose your preferred calendar service.' };
+let sections = [];
+let pending = null;
+let timer = null;
+
+const $ = id => document.getElementById(id);
+const esc = s => String(s || '').replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#039;' }[c]));
+
+// SVG Icon definitions
+const icons = {
+    more: '<svg class="icon" viewBox="0 0 24 24"><circle cx="12" cy="12" r="1" /><circle cx="19" cy="12" r="1" /><circle cx="5" cy="12" r="1" /></svg>',
+    edit: '<svg class="icon" viewBox="0 0 24 24"><path d="M21.174 6.812a1 1 0 0 0-3.986-3.987L3.842 16.174a2 2 0 0 0-.5.83l-1.321 4.352a.5.5 0 0 0 .623.622l4.353-1.32a2 2 0 0 0 .83-.497z" /><path d="m15 5 4 4" /></svg>',
+    del: '<svg class="icon" viewBox="0 0 24 24"><path d="M10 11v6" /><path d="M14 11v6" /><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6" /><path d="M3 6h18" /><path d="M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2" /></svg>',
+    link: '<svg class="icon" viewBox="0 0 24 24"><path d="M15 3h6v6" /><path d="M10 14 21 3" /><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" /></svg>',
+    add: '<svg class="icon" viewBox="0 0 24 24"><path d="M5 12h14" /><path d="M12 5v14" /></svg>',
+    doc: '<svg class="icon" viewBox="0 0 24 24"><path d="M6 22a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h8a2.4 2.4 0 0 1 1.704.706l3.588 3.588A2.4 2.4 0 0 1 20 8v12a2 2 0 0 1-2 2z" /><path d="M14 2v5a1 1 0 0 0 1 1h5" /><path d="M10 9H8" /><path d="M16 13H8" /><path d="M16 17H8" /></svg>'
+};
+
+// Notification SVGs & Titles
+const toastIcons = {
+    success: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10" /><path d="m16 9-5.5 5.5L8 12" /></svg>',
+    warning: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3" /><path d="M12 9v4" /><path d="M12 17h.01" /></svg>',
+    error: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10" /><path d="m15 9-6 6" /><path d="m9 9 6 6" /></svg>',
+    info: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10" /><path d="M12 16v-4" /><path d="M12 8h.01" /></svg>'
+};
+
+const defaultToastTitles = {
+    success: 'Success',
+    warning: 'Warning',
+    error: 'Error',
+    info: 'Notice'
+};
+
+function toast(message, type = 'success', title = '', duration = 4000) {
+    const container = $('toastContainer');
+    if (!container) return;
+
+    type = ['success', 'warning', 'error', 'info'].includes(type) ? type : 'success';
+    const displayTitle = title || defaultToastTitles[type];
+    const iconSvg = toastIcons[type] || toastIcons.info;
+
+    const el = document.createElement('div');
+    el.className = `toast toast-${type}`;
+    el.setAttribute('role', type === 'error' ? 'alert' : 'status');
+
+    el.innerHTML = `
+        <div class="toast-icon-wrap">${iconSvg}</div>
+        <div class="toast-content">
+            <div class="toast-header">
+                <span class="toast-title">${esc(displayTitle)}</span>
+                <button type="button" class="toast-close" title="Dismiss" aria-label="Close notification">✕</button>
+            </div>
+            <div class="toast-message">${esc(message)}</div>
+        </div>
+        <div class="toast-progress"></div>
+    `;
+
+    container.appendChild(el);
+
+    const progressBar = el.querySelector('.toast-progress');
+    const closeBtn = el.querySelector('.toast-close');
+
+    let startTime = Date.now();
+    let remainingTime = duration;
+    let timerId = null;
+    let isPaused = false;
+
+    function startProgress() {
+        if (progressBar && remainingTime > 0) {
+            progressBar.style.transition = `transform ${remainingTime}ms linear`;
+            progressBar.style.transform = 'scaleX(0)';
+        }
+        timerId = setTimeout(dismiss, remainingTime);
+    }
+
+    function pauseProgress() {
+        if (isPaused) return;
+        isPaused = true;
+        clearTimeout(timerId);
+        const elapsed = Date.now() - startTime;
+        remainingTime = Math.max(0, remainingTime - elapsed);
+        if (progressBar) {
+            const computedWidth = progressBar.getBoundingClientRect().width;
+            const parentWidth = el.getBoundingClientRect().width;
+            const currentScale = parentWidth > 0 ? (computedWidth / parentWidth) : 1;
+            progressBar.style.transition = 'none';
+            progressBar.style.transform = `scaleX(${currentScale})`;
+        }
+    }
+
+    function resumeProgress() {
+        if (!isPaused) return;
+        isPaused = false;
+        startTime = Date.now();
+        if (progressBar && remainingTime > 0) {
+            progressBar.style.transition = `transform ${remainingTime}ms linear`;
+            progressBar.style.transform = 'scaleX(0)';
+        }
+        timerId = setTimeout(dismiss, remainingTime);
+    }
+
+    function dismiss() {
+        clearTimeout(timerId);
+        el.classList.add('toast-hiding');
+        el.addEventListener('animationend', () => {
+            el.remove();
+        }, { once: true });
+    }
+
+    closeBtn.onclick = (e) => {
+        e.stopPropagation();
+        dismiss();
+    };
+
+    el.onmouseenter = pauseProgress;
+    el.onmouseleave = resumeProgress;
+
+    requestAnimationFrame(() => {
+        startProgress();
+    });
+
+    return { dismiss };
+}
+
+window.notify = {
+    success: (msg, title, dur) => toast(msg, 'success', title, dur),
+    warning: (msg, title, dur) => toast(msg, 'warning', title, dur),
+    error: (msg, title, dur) => toast(msg, 'error', title, dur),
+    info: (msg, title, dur) => toast(msg, 'info', title, dur)
+};
+
+function openM(id) {
+    $(id).classList.remove('hidden');
+    document.body.style.overflow = 'hidden';
+}
+
+function closeM(id) {
+    $(id).classList.add('hidden');
+    document.body.style.overflow = '';
+}
+
+document.querySelectorAll('[data-close]').forEach(x => x.onclick = () => closeM(x.dataset.close));
+document.querySelectorAll('.modal-bg').forEach(x => x.onclick = e => { if (e.target === x) closeM(x.id); });
+
+// Global floating action menu handlers (rendered outside table, never clipped)
+let activeTriggerBtn = null;
+
+function positionGlobalMenu(btn, menu) {
+    menu.classList.remove('hidden');
+    const rect = btn.getBoundingClientRect();
+    const menuWidth = menu.offsetWidth || 180;
+    const menuHeight = menu.offsetHeight || 135;
+
+    let left = rect.right - menuWidth;
+    if (left < 10) left = 10;
+    if (left + menuWidth > window.innerWidth - 10) {
+        left = window.innerWidth - menuWidth - 10;
+    }
+
+    let top;
+    const spaceBelow = window.innerHeight - rect.bottom;
+    if (spaceBelow < menuHeight + 12 && rect.top > menuHeight + 12) {
+        // Open upwards above button
+        top = rect.top - menuHeight - 6;
+    } else {
+        // Open downwards below button
+        top = rect.bottom + 6;
+    }
+
+    menu.style.top = `${Math.round(top)}px`;
+    menu.style.left = `${Math.round(left)}px`;
+}
+
+window.openButtonMenu = function(e, si, bi) {
+    e.stopPropagation();
+    const btn = e.currentTarget;
+    const menu = $('globalActionMenu');
+
+    if (!menu.classList.contains('hidden') && menu.dataset.triggerId === `btn-${si}-${bi}`) {
+        closeGlobalMenu();
+        return;
+    }
+
+    closeGlobalMenu();
+    menu.dataset.triggerId = `btn-${si}-${bi}`;
+    btn.classList.add('open');
+    activeTriggerBtn = btn;
+
+    const b = sections[si].buttons[bi];
+    menu.innerHTML = `
+        <button class="dropdown-item" onclick="closeGlobalMenu(); editButton(${si},${bi})">
+            ${icons.edit}
+            <span>Edit Button</span>
+        </button>
+        ${b.url ? `
+        <a class="dropdown-item" href="${esc(b.url)}" target="_blank" rel="noopener" onclick="closeGlobalMenu()">
+            ${icons.link}
+            <span>View / Open Target</span>
+        </a>` : ''}
+        <div class="dropdown-divider"></div>
+        <button class="dropdown-item danger" onclick="closeGlobalMenu(); askButton(${si},${bi})">
+            ${icons.del}
+            <span>Delete Button</span>
+        </button>
+    `;
+
+    positionGlobalMenu(btn, menu);
+};
+
+window.openSectionMenu = function(e, i) {
+    e.stopPropagation();
+    const btn = e.currentTarget;
+    const menu = $('globalActionMenu');
+
+    if (!menu.classList.contains('hidden') && menu.dataset.triggerId === `sec-${i}`) {
+        closeGlobalMenu();
+        return;
+    }
+
+    closeGlobalMenu();
+    menu.dataset.triggerId = `sec-${i}`;
+    btn.classList.add('open');
+    activeTriggerBtn = btn;
+
+    menu.innerHTML = `
+        <button class="dropdown-item" onclick="closeGlobalMenu(); editSection(${i})">
+            ${icons.edit}
+            <span>Edit Section</span>
+        </button>
+        <button class="dropdown-item" onclick="closeGlobalMenu(); newButton(${i})">
+            ${icons.add}
+            <span>Add Button</span>
+        </button>
+        <div class="dropdown-divider"></div>
+        <button class="dropdown-item danger" onclick="closeGlobalMenu(); askSection(${i})">
+            ${icons.del}
+            <span>Delete Section</span>
+        </button>
+    `;
+
+    positionGlobalMenu(btn, menu);
+};
+
+window.closeGlobalMenu = function() {
+    const menu = $('globalActionMenu');
+    if (menu) {
+        menu.classList.add('hidden');
+        menu.dataset.triggerId = '';
+    }
+    if (activeTriggerBtn) {
+        activeTriggerBtn.classList.remove('open');
+        activeTriggerBtn = null;
+    }
+};
+
+document.addEventListener('click', closeGlobalMenu);
+window.addEventListener('scroll', closeGlobalMenu, true);
+window.addEventListener('resize', closeGlobalMenu);
+document.addEventListener('keydown', e => {
+    if (e.key === 'Escape') closeGlobalMenu();
+});
+
+// Smart Icon Auto-Detection matching landing page UI
+function detectButtonIcon(url, title = '') {
+    const rawUrl = String(url || '').toLowerCase();
+    const rawTitle = String(title || '').toLowerCase();
+    const ext = rawUrl.split('?')[0].split('.').pop() || '';
+
+    // 1. PDF Document
+    if (ext === 'pdf' || rawUrl.includes('.pdf') || rawTitle.includes('pdf')) {
+        return {
+            type: 'PDF Document',
+            badge: 'PDF',
+            svg: `<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#E11D48" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 22a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h8a2.4 2.4 0 0 1 1.704.706l3.588 3.588A2.4 2.4 0 0 1 20 8v12a2 2 0 0 1-2 2z" /><path d="M14 2v5a1 1 0 0 0 1 1h5" /><path d="M10 9H8" /><path d="M16 13H8" /><path d="M16 17H8" /></svg>`
+        };
+    }
+
+    // 2. Word Document (DOCX / DOC)
+    if (['doc', 'docx'].includes(ext) || rawUrl.includes('.doc') || rawTitle.includes('word') || rawTitle.includes('doc')) {
+        return {
+            type: 'Word Document',
+            badge: 'DOCX',
+            svg: `<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#2563EB" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 22a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h8a2.4 2.4 0 0 1 1.704.706l3.588 3.588A2.4 2.4 0 0 1 20 8v12a2 2 0 0 1-2 2z" /><path d="M14 2v5a1 1 0 0 0 1 1h5" /><path d="M11 18h2" /><path d="M12 12v6" /><path d="M9 13v-.5a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 .5.5v.5" /></svg>`
+        };
+    }
+
+    // 3. Image / Poster
+    if (['png', 'jpg', 'jpeg', 'webp', 'svg', 'gif'].includes(ext) || rawTitle.includes('poster') || rawTitle.includes('image') || rawTitle.includes('photo') || rawTitle.includes('รูป')) {
+        return {
+            type: 'Image / Poster',
+            badge: 'IMAGE',
+            svg: `<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#7C3AED" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="18" height="18" x="3" y="3" rx="2" ry="2" /><circle cx="9" cy="9" r="2" /><path d="m21 15-3.086-3.086a2 2 0 0 0-2.828 0L6 21" /></svg>`
+        };
+    }
+
+    // 4. Location / Map / Venue
+    if (rawUrl.includes('maps.google') || rawUrl.includes('goo.gl/maps') || rawUrl.includes('openstreetmap') || rawTitle.includes('map') || rawTitle.includes('venue') || rawTitle.includes('location') || rawTitle.includes('สถานที่')) {
+        return {
+            type: 'Venue / Map',
+            badge: 'MAP',
+            svg: `<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#EA4335" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 4.993-5.539 10.193-7.399 11.799a1 1 0 0 1-1.202 0C9.539 20.193 4 14.993 4 10a8 8 0 0 1 16 0" /><circle cx="12" cy="10" r="3" /></svg>`
+        };
+    }
+
+    // 5. Schedule / Agenda / Program
+    if (rawTitle.includes('schedule') || rawTitle.includes('agenda') || rawTitle.includes('program') || rawTitle.includes('timetable') || rawTitle.includes('calendar') || rawTitle.includes('กำหนดการ')) {
+        return {
+            type: 'Schedule / Agenda',
+            badge: 'SCHEDULE',
+            svg: `<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#0D9488" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 14v2.2l1.6 1" /><path d="M16 2v3" /><path d="M21 7.338V5a2 2 0 00-2-2H5a2 2 0 00-2 2v14a2 2 0 002 2h2.338" /><path d="M3 9h5.859" /><path d="M8 2v3" /><circle cx="16" cy="16" r="6" /></svg>`
+        };
+    }
+
+    // 6. Registration / Form / Ticket
+    if (rawUrl.includes('forms.gle') || rawUrl.includes('docs.google.com/forms') || rawTitle.includes('register') || rawTitle.includes('registration') || rawTitle.includes('ticket') || rawTitle.includes('ลงทะเบียน')) {
+        return {
+            type: 'Registration / Form',
+            badge: 'FORM',
+            svg: `<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#059669" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 9a3 3 0 0 1 0 6v2a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-2a3 3 0 0 1 0-6V7a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2Z" /><path d="m9 12 2 2 4-4" /></svg>`
+        };
+    }
+
+    // 7. General Web Link (Default)
+    return {
+        type: 'Website Link',
+        badge: 'LINK',
+        svg: `<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#4F46E5" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10" /><path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20" /><path d="M2 12h20" /></svg>`
+    };
+}
+
+function count() {
+    return sections.reduce((n, s) => n + (s.buttons || []).length, 0);
+}
+
+// Render data table and sections
+function render() {
+    let rows = [];
+    sections.forEach((s, si) => (s.buttons || []).forEach((b, bi) => {
+        const iconData = detectButtonIcon(b.url, b.title);
+        rows.push(`
+            <tr>
+                <td>
+                    <div style="display:flex; align-items:center; gap:12px;">
+                        <div style="width:36px; height:36px; border-radius:9px; background:#f8fafc; border:1px solid #e2e8f0; display:flex; align-items:center; justify-content:center; flex-shrink:0;">
+                            ${iconData.svg}
+                        </div>
+                        <div>
+                            <div class="name">${esc(b.title)}</div>
+                            <div class="sub">${esc(b.subtitle || 'No description')}</div>
+                        </div>
+                    </div>
+                </td>
+                <td><span class="chip">${esc(s.title)}</span></td>
+                <td><span class="type">${esc(iconData.badge)}</span></td>
+                <td><div class="sub" title="${esc(b.url)}">${esc(b.url)}</div></td>
+                <td class="action-cell">
+                    <button class="more-btn" onclick="openButtonMenu(event, ${si}, ${bi})" aria-label="More options" title="Options">
+                        ${icons.more}
+                    </button>
+                </td>
+            </tr>
+        `);
+    }));
+
+    $('tableBody').innerHTML = rows.join('');
+    $('empty').classList.toggle('hidden', !!rows.length);
+    document.querySelector('.data-table').classList.toggle('hidden', !rows.length);
+
+    $('buttonCount').textContent = $('navCount').textContent = count();
+    $('sectionCount').textContent = sections.length;
+    $('fileCount').textContent = sections.reduce((n, s) => n + (s.buttons || []).filter(b => (b.url || '').startsWith('/uploads/')).length, 0);
+
+    // Render Sections Cards with three-dot menus
+    $('sections').innerHTML = sections.length ? sections.map((s, i) => {
+        return `
+            <div class="card section-card">
+                <div class="section-top">
+                    <div class="section-num">${String(i + 1).padStart(2, '0')}</div>
+                    <div class="section-info">
+                        <h3>${esc(s.title)}</h3>
+                        <p>${esc(s.subtitle || 'No description')}</p>
+                    </div>
+                    <button class="more-btn" onclick="openSectionMenu(event, ${i})" title="Section Options">
+                        ${icons.more}
+                    </button>
+                </div>
+                <div class="section-foot">
+                    <span>${(s.buttons || []).length} ${(s.buttons || []).length === 1 ? 'button' : 'buttons'}</span>
+                    <button onclick="newButton(${i})">+ Add Button</button>
+                </div>
+            </div>
+        `;
+    }).join('') : '<div class="card empty"><h3>No sections yet</h3><p>Create a section before adding your first button.</p></div>';
+
+    $('headerTitle').value = header.title || '';
+    $('headerSub').value = header.subtitle || '';
+    $('buttonSection').innerHTML = sections.map((s, i) => `<option value="${i}">${esc(s.title)}</option>`).join('');
+}
+
+async function load() {
+    let r = await fetch(api('/api/content'));
+    if (!r.ok) throw Error('Unable to load website data.');
+    let d = await r.json();
+    header = d.calendarHeaderData || header;
+    sections = Array.isArray(d.customSections) ? d.customSections : [];
+    render();
+}
+
+async function save() {
+    let r = await fetch(api('/api/content'), {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'x-admin-password': token },
+        body: JSON.stringify({ calendarHeaderData: header, customSections: sections })
+    });
+    if (r.status === 401) {
+        logout();
+        throw Error('Your session has expired. Please sign in again.');
+    }
+    if (!r.ok) {
+        const body = await r.json().catch(() => ({}));
+        throw Error(body.message || 'Unable to save your changes.');
+    }
+}
+
+function dashboard() {
+    $('loginView').classList.add('hidden');
+    $('dashboardView').classList.remove('hidden');
+    if ($('userEmail')) {
+        $('userEmail').textContent = adminEmail || 'admin_inter@cmu.ac.th';
+    }
+    if ($('userAvatar')) {
+        const initial = (adminEmail && adminEmail.trim().length > 0) ? adminEmail.trim().charAt(0).toUpperCase() : 'A';
+        $('userAvatar').textContent = initial;
+    }
+}
+
+function logout() {
+    if (token) {
+        fetch(api('/api/logout'), { method: 'POST', headers: { 'x-admin-password': token } }).catch(() => {});
+    }
+    token = '';
+    localStorage.removeItem('cmu_conf_admin_token');
+    localStorage.removeItem('cmu_conf_admin_email');
+    if ($('password')) $('password').value = '';
+    $('dashboardView').classList.add('hidden');
+    $('loginView').classList.remove('hidden');
+}
+
+$('logout').onclick = logout;
+
+$('loginForm').onsubmit = async e => {
+    e.preventDefault();
+    let email = $('email') ? $('email').value.trim() : '';
+    let pass = $('password').value.trim(), btn = $('loginButton');
+    if (!email || !pass) {
+        $('loginError').textContent = 'Please provide both email and password.';
+        $('loginError').classList.remove('hidden');
+        return;
+    }
+    btn.disabled = true;
+    btn.textContent = 'Signing in...';
+    $('loginError').classList.add('hidden');
+    try {
+        let r = await fetch(api('/api/auth'), {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ email, password: pass })
+        });
+        let resData = await r.json().catch(() => ({}));
+        if (!r.ok || !resData.success) {
+            if (r.status === 404) {
+                throw Error('Authentication API not found (404). Please verify subpath configuration.');
+            }
+            throw Error(resData.message || 'Incorrect email or password. Please try again.');
+        }
+        token = resData.token;
+        adminEmail = resData.email || email;
+        localStorage.setItem('cmu_conf_admin_token', token);
+        localStorage.setItem('cmu_conf_admin_email', adminEmail);
+        await load();
+        dashboard();
+        toast('Logged in successfully. Welcome to the conference administration console.', 'success', 'Sign In Successful');
+    } catch (e) {
+        $('loginError').textContent = e.message;
+        $('loginError').classList.remove('hidden');
+    } finally {
+        btn.disabled = false;
+        btn.textContent = 'Sign In';
+    }
+};
+
+const titleMap = {
+    buttons: 'Button Management',
+    sections: 'Sections',
+    header: 'Page Header',
+    analytics: 'Analytics',
+    settings: 'System Settings',
+    users: 'Users'
+};
+
+document.querySelectorAll('.nav-item[data-page]').forEach(x => x.onclick = () => {
+    document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+    x.classList.add('active');
+    document.querySelectorAll('.page').forEach(n => n.classList.add('hidden'));
+    $('page-' + x.dataset.page).classList.remove('hidden');
+    $('topTitle').textContent = titleMap[x.dataset.page];
+    if (x.dataset.page === 'users') loadUsers();
+    $('sidebar').classList.remove('open');
+    $('scrim').classList.add('hidden');
+});
+
+$('menu').onclick = () => {
+    $('sidebar').classList.add('open');
+    $('scrim').classList.remove('hidden');
+};
+
+$('scrim').onclick = () => {
+    $('sidebar').classList.remove('open');
+    $('scrim').classList.add('hidden');
+};
+
+// ==========================================================
+// PREVIEW & FILE / IMAGE REMOVAL HELPER
+// ==========================================================
+let fileRemoved = false;
+let pendingFileToDelete = null;
+
+function toggleClearUrlBtn() {
+    const val = $('buttonUrl').value.trim();
+    $('clearUrlBtn').classList.toggle('hidden', !val);
+}
+
+window.clearUrlField = function() {
+    const currentUrl = $('buttonUrl').value.trim();
+    if (currentUrl.startsWith('/uploads/')) {
+        pendingFileToDelete = currentUrl;
+    }
+    fileRemoved = true;
+    $('buttonUrl').value = '';
+    $('buttonFile').value = '';
+    $('fileHint').textContent = 'Supported: PDF, DOCX, PNG, and JPG (Up to 20 MB)';
+    toggleClearUrlBtn();
+    updatePreviewBox('', null);
+    toast('Destination URL has been cleared. Click "Save Changes" to apply.', 'info', 'URL Cleared');
+};
+
+window.removeCurrentAttachment = function() {
+    const currentUrl = $('buttonUrl').value.trim();
+    const isImg = /\.(png|jpe?g|svg|webp)$/i.test(currentUrl.split('?')[0]);
+    const promptMsg = isImg ? 'Are you sure you want to delete this image?' : 'Are you sure you want to remove this file?';
+    
+    if (!confirm(promptMsg)) return;
+
+    if (currentUrl.startsWith('/uploads/')) {
+        pendingFileToDelete = currentUrl;
+    }
+    fileRemoved = true;
+    $('buttonUrl').value = '';
+    $('buttonFile').value = '';
+    $('fileHint').textContent = 'Attachment removed. Upload a new file, enter a URL, or click Save.';
+    toggleClearUrlBtn();
+
+    $('previewArea').classList.remove('hidden');
+    $('removeImgBtnTop').classList.add('hidden');
+    $('previewContent').innerHTML = `
+        <div class="preview-card removed-card">
+            <div class="preview-icon-badge badge-del-icon">${icons.del}</div>
+            <div class="preview-details">
+                <span class="preview-badge-type badge-type-del">${isImg ? 'IMAGE REMOVED' : 'ATTACHMENT REMOVED'}</span>
+                <div class="preview-filename">${isImg ? 'Image' : 'File'} removed from this button.</div>
+                <div class="preview-actions-row">
+                    <small style="color:var(--muted)">Click “Save Changes” below to confirm and apply.</small>
+                </div>
+            </div>
+        </div>
+    `;
+    toast(isImg ? 'Image attachment removed from button. Click "Save Changes" below to apply.' : 'File attachment removed from button. Click "Save Changes" below to apply.', 'warning', isImg ? 'Image Removed' : 'File Removed');
+};
+
+function updatePreviewBox(url, newFile = null) {
+    const area = $('previewArea');
+    const box = $('previewContent');
+    const topBtn = $('removeImgBtnTop');
+    const topBtnText = $('removeBtnTopText');
+
+    if (!url && !newFile) {
+        if (!fileRemoved) {
+            area.classList.add('hidden');
+            box.innerHTML = '';
+        }
+        if (topBtn) topBtn.classList.add('hidden');
+        return;
+    }
+
+    area.classList.remove('hidden');
+
+    // Case 1: A new file is selected locally
+    if (newFile) {
+        if (topBtn) topBtn.classList.add('hidden');
+        const isImg = newFile.type.startsWith('image/') || /\.(png|jpe?g|svg|webp)$/i.test(newFile.name);
+        const sizeMb = (newFile.size / (1024 * 1024)).toFixed(2);
+        
+        if (isImg) {
+            const objectUrl = URL.createObjectURL(newFile);
+            box.innerHTML = `
+                <div class="preview-card">
+                    <img src="${objectUrl}" alt="New Image Preview" class="preview-thumbnail">
+                    <div class="preview-details">
+                        <span class="preview-badge-type badge-type-new">NEW IMAGE (READY TO UPLOAD)</span>
+                        <div class="preview-filename">${esc(newFile.name)} (${sizeMb} MB)</div>
+                        <div class="preview-actions-row">
+                            <button type="button" class="btn-remove-attachment" onclick="clearSelectedFile()">
+                                ${icons.del}
+                                <span>Cancel File</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            `;
+        } else {
+            const isPdf = /\.pdf$/i.test(newFile.name);
+            const isDocx = /\.docx$/i.test(newFile.name);
+            const badgeClass = isPdf ? 'badge-pdf-icon' : (isDocx ? 'badge-docx-icon' : 'badge-file-icon');
+            const typeLabel = isPdf ? 'PDF DOCUMENT' : (isDocx ? 'DOCX DOCUMENT' : 'FILE');
+            box.innerHTML = `
+                <div class="preview-card">
+                    <div class="preview-icon-badge ${badgeClass}">${icons.doc}</div>
+                    <div class="preview-details">
+                        <span class="preview-badge-type badge-type-new">NEW ${typeLabel} (READY TO UPLOAD)</span>
+                        <div class="preview-filename">${esc(newFile.name)} (${sizeMb} MB)</div>
+                        <div class="preview-actions-row">
+                            <button type="button" class="btn-remove-attachment" onclick="clearSelectedFile()">
+                                ${icons.del}
+                                <span>Cancel File</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+        return;
+    }
+
+    // Case 2: Existing target URL / uploaded file
+    const clean = url.split('?')[0].toLowerCase();
+    const isImage = /\.(png|jpe?g|svg|webp)$/.test(clean);
+    const isPdf = clean.endsWith('.pdf');
+    const isDocx = clean.endsWith('.docx');
+    const fileName = url.split('/').pop() || url;
+
+    if (topBtn) {
+        topBtn.classList.remove('hidden');
+        if (topBtnText) topBtnText.textContent = isImage ? 'Delete Image' : 'Remove File';
+    }
+
+    if (isImage) {
+        box.innerHTML = `
+            <div class="preview-card">
+                <img src="${esc(resolveAssetUrl(url))}" alt="Image Preview" class="preview-thumbnail" onerror="this.style.display='none'">
+                <div class="preview-details">
+                    <span class="preview-badge-type badge-type-img">CURRENT IMAGE PREVIEW</span>
+                    <div class="preview-filename">${esc(fileName)}</div>
+                    <div class="preview-actions-row">
+                        <a href="${esc(resolveAssetUrl(url))}" target="_blank" rel="noopener" class="preview-open-link">
+                            ${icons.link}
+                            <span>View Full Image ↗</span>
+                        </a>
+                        <button type="button" class="btn-remove-attachment" onclick="removeCurrentAttachment()" title="Delete this image">
+                            ${icons.del}
+                            <span>Delete Image</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        `;
+    } else if (isPdf) {
+        box.innerHTML = `
+            <div class="preview-card">
+                <div class="preview-icon-badge badge-pdf-icon">${icons.doc}</div>
+                <div class="preview-details">
+                    <span class="preview-badge-type badge-type-pdf">CURRENT PDF DOCUMENT</span>
+                    <div class="preview-filename">${esc(fileName)}</div>
+                    <div class="preview-actions-row">
+                        <a href="${esc(resolveAssetUrl(url))}" target="_blank" rel="noopener" class="preview-open-link">
+                            ${icons.link}
+                            <span>Open PDF in new tab ↗</span>
+                        </a>
+                        <button type="button" class="btn-remove-attachment" onclick="removeCurrentAttachment()" title="Remove this PDF">
+                            ${icons.del}
+                            <span>Remove PDF</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        `;
+    } else if (isDocx) {
+        box.innerHTML = `
+            <div class="preview-card">
+                <div class="preview-icon-badge badge-docx-icon">${icons.doc}</div>
+                <div class="preview-details">
+                    <span class="preview-badge-type badge-type-docx">CURRENT WORD DOCUMENT</span>
+                    <div class="preview-filename">${esc(fileName)}</div>
+                    <div class="preview-actions-row">
+                        <a href="${esc(resolveAssetUrl(url))}" target="_blank" rel="noopener" class="preview-open-link">
+                            ${icons.link}
+                            <span>Download DOCX ↗</span>
+                        </a>
+                        <button type="button" class="btn-remove-attachment" onclick="removeCurrentAttachment()" title="Remove this file">
+                            ${icons.del}
+                            <span>Remove File</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        `;
+    } else {
+        box.innerHTML = `
+            <div class="preview-card">
+                <div class="preview-icon-badge badge-link-icon">${icons.link}</div>
+                <div class="preview-details">
+                    <span class="preview-badge-type badge-type-link">DESTINATION LINK</span>
+                    <div class="preview-filename">${esc(url)}</div>
+                    <div class="preview-actions-row">
+                        <a href="${esc(resolveAssetUrl(url))}" target="_blank" rel="noopener" class="preview-open-link">
+                            ${icons.link}
+                            <span>Test Destination Link ↗</span>
+                        </a>
+                        <button type="button" class="btn-remove-attachment" onclick="removeCurrentAttachment()" title="Remove link">
+                            ${icons.del}
+                            <span>Remove Link</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        `;
+    }
+}
+
+function updateIconAutoBadge() {
+    const file = $('buttonFile') && $('buttonFile').files[0];
+    const url = file ? file.name : ($('buttonUrl') ? $('buttonUrl').value.trim() : '');
+    const title = $('buttonTitle') ? $('buttonTitle').value.trim() : '';
+    const iconData = detectButtonIcon(url, title);
+
+    if ($('iconAutoSvg')) $('iconAutoSvg').innerHTML = iconData.svg;
+    if ($('iconAutoType')) $('iconAutoType').textContent = iconData.type;
+}
+
+window.clearSelectedFile = function() {
+    $('buttonFile').value = '';
+    $('fileHint').textContent = 'Supported: PDF, DOCX, PNG, and JPG (Up to 20 MB)';
+    const curUrl = $('buttonUrl').value.trim();
+    if (curUrl) {
+        updatePreviewBox(curUrl, null);
+    } else if (fileRemoved) {
+        // preserve removed state
+    } else {
+        updatePreviewBox('', null);
+    }
+    toggleClearUrlBtn();
+    updateIconAutoBadge();
+};
+
+// Open New Button Modal
+function newButton(si = 0) {
+    if (!sections.length) {
+        toast('Please create at least one section before adding buttons.', 'warning', 'Section Required');
+        document.querySelector('[data-page="sections"]').click();
+        return;
+    }
+    fileRemoved = false;
+    pendingFileToDelete = null;
+    $('buttonModalTitle').textContent = 'Add New Button';
+    $('editSI').value = $('editBI').value = -1;
+    $('buttonSection').value = si;
+    $('buttonTitle').value = '';
+    $('buttonSub').value = '';
+    $('buttonUrl').value = '';
+    $('buttonFile').value = '';
+    $('fileHint').textContent = 'Supported: PDF, DOCX, PNG, and JPG (Up to 20 MB)';
+    toggleClearUrlBtn();
+    updatePreviewBox('', null);
+    updateIconAutoBadge();
+    openM('buttonModal');
+}
+
+$('addButton').onclick = () => newButton();
+window.newButton = newButton;
+
+// Open Edit Button Modal (Pulls all original data & displays preview)
+window.editButton = (si, bi) => {
+    let b = sections[si].buttons[bi];
+    fileRemoved = false;
+    pendingFileToDelete = null;
+    $('buttonModalTitle').textContent = 'Edit Button';
+    $('editSI').value = si;
+    $('editBI').value = bi;
+    $('buttonSection').value = si;
+    $('buttonTitle').value = b.title || '';
+    $('buttonSub').value = b.subtitle || '';
+    $('buttonUrl').value = b.url || '';
+    $('buttonFile').value = '';
+    $('fileHint').textContent = 'Supported: PDF, DOCX, PNG, and JPG (Up to 20 MB). Select a file to replace current target.';
+    toggleClearUrlBtn();
+    updatePreviewBox(b.url || '', null);
+    updateIconAutoBadge();
+    openM('buttonModal');
+};
+
+// Listen to URL and Title input changes to update preview on external links and auto badge
+$('buttonUrl').addEventListener('input', e => {
+    fileRemoved = false;
+    toggleClearUrlBtn();
+    if (!$('buttonFile').files[0]) {
+        updatePreviewBox(e.target.value.trim(), null);
+    }
+    updateIconAutoBadge();
+});
+
+$('buttonTitle').addEventListener('input', () => {
+    updateIconAutoBadge();
+});
+
+// Listen to File Selection
+$('buttonFile').onchange = e => {
+    let f = e.target.files[0];
+    if (f) {
+        const allowedExts = ['.pdf', '.docx', '.png', '.jpg', '.jpeg'];
+        const ext = '.' + f.name.split('.').pop().toLowerCase();
+        if (!allowedExts.includes(ext)) {
+            toast('Invalid file format. Only .png, .jpg, .jpeg, .pdf, and .docx files are allowed.', 'error', 'Unsupported File Type');
+            clearSelectedFile();
+            return;
+        }
+        if (f.size > 20971520) {
+            toast('The selected file exceeds the 20 MB upload limit. Please select a smaller file.', 'error', 'File Too Large');
+            clearSelectedFile();
+            return;
+        }
+        fileRemoved = false;
+        $('fileHint').textContent = `Selected: ${f.name} (${(f.size / (1024 * 1024)).toFixed(2)} MB)`;
+        updatePreviewBox('', f);
+    } else {
+        const curUrl = $('buttonUrl').value.trim();
+        updatePreviewBox(curUrl, null);
+    }
+    updateIconAutoBadge();
+};
+
+// Save Button (Add or Edit)
+$('saveButton').onclick = async () => {
+    let old = +$('editSI').value;
+    let bi = +$('editBI').value;
+    let si = +$('buttonSection').value;
+    let edit = bi >= 0;
+    let name = $('buttonTitle').value.trim();
+    let sub = $('buttonSub').value.trim();
+    let url = $('buttonUrl').value.trim();
+    let file = $('buttonFile').files[0];
+    let btn = $('saveButton');
+
+    if (!name) return toast('Please enter a button label before saving.', 'warning', 'Missing Button Label');
+    if (file && file.size > 20971520) return toast('The selected file exceeds the 20 MB upload limit.', 'error', 'File Too Large');
+    
+    // Only inherit existing URL if file wasn't removed and no new file or URL was typed
+    if (edit && !file && !url && !fileRemoved) {
+        url = sections[old].buttons[bi].url || '';
+    }
+
+    btn.disabled = true;
+    try {
+        // If an old server upload was deleted or replaced, delete from server
+        if (pendingFileToDelete) {
+            try {
+                await fetch(api('/api/delete-file'), {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json', 'x-admin-password': token },
+                    body: JSON.stringify({ url: pendingFileToDelete })
+                });
+            } catch (delErr) {
+                console.warn('Could not delete old upload:', delErr);
+            }
+            pendingFileToDelete = null;
+        }
+
+        if (file) {
+            btn.textContent = 'Uploading (Max 20MB)...';
+            let fd = new FormData();
+            fd.append('file', file);
+            let r = await fetch(api('/api/upload'), {
+                method: 'POST',
+                headers: { 'x-admin-password': token },
+                body: fd
+            });
+            let d = await r.json();
+            if (!r.ok || !d.success) throw Error(d.message || 'Unable to upload file.');
+            url = d.url;
+        }
+
+        let item = {
+            id: edit ? (sections[old].buttons[bi].id || 'btn_' + Date.now()) : ('btn_' + Date.now()),
+            title: name,
+            subtitle: sub,
+            url: url || '#'
+        };
+
+        if (edit) {
+            sections[old].buttons.splice(bi, 1);
+        }
+        sections[si].buttons = sections[si].buttons || [];
+        sections[si].buttons.push(item);
+
+        await save();
+        render();
+        closeM('buttonModal');
+        toast(edit ? 'Button details and attachments have been updated successfully.' : 'New button has been created and published.', 'success', edit ? 'Button Updated' : 'Button Created');
+    } catch (e) {
+        toast(e.message || 'An error occurred while saving the button.', 'error', 'Save Failed');
+    } finally {
+        btn.disabled = false;
+        btn.textContent = edit ? 'Save Changes' : 'Save Button';
+    }
+};
+
+// Sections CRUD
+function newSection() {
+    $('sectionModalTitle').textContent = 'Add Section';
+    $('editSection').value = -1;
+    $('sectionTitle').value = $('sectionSub').value = '';
+    openM('sectionModal');
+}
+$('addSection').onclick = newSection;
+
+window.editSection = i => {
+    let s = sections[i];
+    $('sectionModalTitle').textContent = 'Edit Section';
+    $('editSection').value = i;
+    $('sectionTitle').value = s.title || '';
+    $('sectionSub').value = s.subtitle || '';
+    openM('sectionModal');
+};
+
+$('saveSection').onclick = async () => {
+    let i = +$('editSection').value;
+    let name = $('sectionTitle').value.trim();
+    let sub = $('sectionSub').value.trim();
+    if (!name) return toast('Please enter a name for the section.', 'warning', 'Missing Section Name');
+
+    if (i >= 0) {
+        sections[i].title = name;
+        sections[i].subtitle = sub;
+    } else {
+        sections.push({ id: 'section_' + Date.now(), title: name, subtitle: sub, collapsed: false, buttons: [] });
+    }
+
+    try {
+        await save();
+        render();
+        closeM('sectionModal');
+        toast('Section configuration has been saved successfully.', 'success', 'Section Saved');
+    } catch (e) {
+        toast(e.message || 'An error occurred while saving the section.', 'error', 'Save Failed');
+    }
+};
+
+window.askButton = (si, bi) => {
+    let b = sections[si].buttons[bi];
+    pending = { type: 'button', si, bi };
+    $('confirmTitle').textContent = 'Delete this button?';
+    $('confirmText').textContent = `“${b.title}” will be removed from the conference website. This action cannot be undone.`;
+    openM('confirmModal');
+};
+
+window.askSection = si => {
+    let s = sections[si];
+    pending = { type: 'section', si };
+    $('confirmTitle').textContent = 'Delete this section?';
+    $('confirmText').textContent = `“${s.title}” and its ${(s.buttons || []).length} ${(s.buttons || []).length === 1 ? 'button' : 'buttons'} will be removed. This action cannot be undone.`;
+    openM('confirmModal');
+};
+
+$('reset').onclick = () => {
+    pending = { type: 'reset' };
+    $('confirmTitle').textContent = 'Restore system defaults?';
+    $('confirmText').textContent = 'All current sections, buttons, and headings will be replaced with the system defaults.';
+    openM('confirmModal');
+};
+
+$('confirm').onclick = async () => {
+    if (!pending) return;
+    try {
+        if (pending.type === 'reset') {
+            let r = await fetch(api('/api/reset'), {
+                method: 'POST',
+                headers: { 'x-admin-password': token }
+            });
+            let d = await r.json();
+            if (!r.ok) throw Error('Unable to restore defaults.');
+            header = d.data.calendarHeaderData;
+            sections = d.data.customSections;
+        } else {
+            if (pending.type === 'button') {
+                const deletedBtn = sections[pending.si].buttons[pending.bi];
+                if (deletedBtn && deletedBtn.url && deletedBtn.url.includes('/uploads/')) {
+                    try {
+                        await fetch(api('/api/delete-file'), {
+                            method: 'POST',
+                            headers: { 'Content-Type': 'application/json', 'x-admin-password': token },
+                            body: JSON.stringify({ url: deletedBtn.url })
+                        });
+                    } catch (e) {
+                        console.warn('Could not delete upload from disk:', e);
+                    }
+                }
+                sections[pending.si].buttons.splice(pending.bi, 1);
+            } else {
+                sections.splice(pending.si, 1);
+            }
+            await save();
+        }
+        render();
+        closeM('confirmModal');
+        toast('The requested changes have been saved to the conference website.', 'success', 'Changes Saved');
+    } catch (e) {
+        toast(e.message || 'An error occurred while performing this action.', 'error', 'Action Failed');
+    } finally {
+        pending = null;
+    }
+};
+
+$('saveHeader').onclick = async () => {
+    header.title = $('headerTitle').value.trim() || 'Add to Calendar';
+    header.subtitle = $('headerSub').value.trim() || 'Choose your preferred calendar service.';
+    try {
+        await save();
+        toast('Main heading and supporting text have been updated successfully.', 'success', 'Header Updated');
+    } catch (e) {
+        toast(e.message || 'Failed to update page header.', 'error', 'Save Failed');
+    }
+};
+
+// ---------- Users (Microsoft accounts allowed to sign in) ----------
+async function usersRequest(path, body) {
+    const r = await fetch(api(path), {
+        method: body ? 'POST' : 'GET',
+        headers: { 'Content-Type': 'application/json', 'x-admin-password': token },
+        body: body ? JSON.stringify(body) : undefined
+    });
+    if (r.status === 401) {
+        logout();
+        throw Error('Your session has expired. Please sign in again.');
+    }
+    const data = await r.json().catch(() => ({}));
+    if (!r.ok || !data.success) throw Error(data.message || 'Request failed.');
+    return data;
+}
+
+function renderUsers(users, currentEmail) {
+    const list = $('userList');
+    list.innerHTML = '';
+    $('userCount').textContent = `${users.length} user${users.length === 1 ? '' : 's'} can sign in`;
+    users.forEach(u => {
+        const li = document.createElement('li');
+        const meta = document.createElement('div');
+        meta.className = 'user-meta';
+        const name = document.createElement('strong');
+        name.textContent = u.email + (u.email === currentEmail ? ' (you)' : '');
+        const info = document.createElement('small');
+        info.textContent = `Added ${new Date(u.addedAt).toLocaleDateString()}${u.addedBy && u.addedBy !== 'system' ? ' by ' + u.addedBy : ''}`;
+        meta.append(name, info);
+        li.appendChild(meta);
+        if (u.email !== currentEmail) {
+            const edit = document.createElement('button');
+            edit.className = 'btn sm';
+            edit.textContent = 'Edit';
+            edit.onclick = () => {
+                const input = document.createElement('input');
+                input.className = 'input';
+                input.type = 'email';
+                input.value = u.email;
+                input.style.height = '34px';
+                const save = document.createElement('button');
+                save.className = 'btn sm primary';
+                save.textContent = 'Save';
+                const cancel = document.createElement('button');
+                cancel.className = 'btn sm';
+                cancel.textContent = 'Cancel';
+                meta.replaceChildren(input);
+                li.replaceChildren(meta, save, cancel);
+                input.focus();
+                cancel.onclick = () => renderUsers(users, currentEmail);
+                const submit = async () => {
+                    const newEmail = input.value.trim();
+                    if (!newEmail || newEmail.toLowerCase() === u.email) return renderUsers(users, currentEmail);
+                    save.disabled = true;
+                    try {
+                        const data = await usersRequest('/api/users/update', { email: u.email, newEmail });
+                        renderUsers(data.users, currentEmail);
+                        toast(`${u.email} changed to ${newEmail.toLowerCase()}.`, 'success', 'User Updated');
+                    } catch (e) {
+                        save.disabled = false;
+                        toast(e.message, 'error', 'Update Failed');
+                    }
+                };
+                save.onclick = submit;
+                input.onkeydown = ev => {
+                    if (ev.key === 'Enter') submit();
+                    if (ev.key === 'Escape') renderUsers(users, currentEmail);
+                };
+            };
+            li.appendChild(edit);
+            const remove = document.createElement('button');
+            remove.className = 'btn sm danger';
+            remove.textContent = 'Remove';
+            remove.onclick = async () => {
+                if (!confirm(`Remove ${u.email}? They will no longer be able to sign in.`)) return;
+                try {
+                    const data = await usersRequest('/api/users/delete', { email: u.email });
+                    renderUsers(data.users, currentEmail);
+                    toast(`${u.email} has been removed.`, 'success', 'User Removed');
+                } catch (e) {
+                    toast(e.message, 'error', 'Remove Failed');
+                }
+            };
+            li.appendChild(remove);
+        }
+        list.appendChild(li);
+    });
+}
+
+let currentUserEmail = '';
+async function loadUsers() {
+    try {
+        const data = await usersRequest('/api/users');
+        currentUserEmail = data.currentEmail;
+        renderUsers(data.users, currentUserEmail);
+    } catch (e) {
+        $('userCount').textContent = e.message;
+    }
+}
+
+$('addUserForm').onsubmit = async e => {
+    e.preventDefault();
+    const email = $('newUserEmail').value.trim();
+    const btn = $('addUserButton');
+    btn.disabled = true;
+    try {
+        const data = await usersRequest('/api/users', { email });
+        renderUsers(data.users, currentUserEmail);
+        $('newUserEmail').value = '';
+        toast(`${email} can now sign in with Microsoft.`, 'success', 'User Added');
+    } catch (err) {
+        toast(err.message, 'error', 'Add User Failed');
+    } finally {
+        btn.disabled = false;
+    }
+};
+
+// Offer only the sign-in methods the server has configured
+$('microsoftLogin').href = api('/auth/microsoft');
+fetch(api('/api/auth-config')).then(r => r.json()).then(cfg => {
+    $('microsoftLogin').classList.toggle('hidden', !cfg.microsoft);
+    $('passwordLogin').classList.toggle('hidden', !cfg.password);
+    $('loginOr').classList.toggle('hidden', !(cfg.microsoft && cfg.password));
+    $('email').required = $('password').required = !!cfg.password;
+}).catch(() => {});
+
+// Returning from Microsoft sign-in: the session token (or an error) arrives in the URL fragment
+(() => {
+    const params = new URLSearchParams(location.hash.slice(1));
+    if (!params.has('token') && !params.has('error')) return;
+    history.replaceState(null, '', location.pathname + location.search);
+    if (params.get('token')) {
+        token = params.get('token');
+        adminEmail = params.get('email') || adminEmail;
+        localStorage.setItem('cmu_conf_admin_token', token);
+        localStorage.setItem('cmu_conf_admin_email', adminEmail);
+    } else {
+        $('loginError').textContent = params.get('error');
+        $('loginError').classList.remove('hidden');
+    }
+})();
+
+// Auto login if token exists in localStorage
+(async () => {
+    if (!token) return;
+    try {
+        let r = await fetch(api('/api/auth'), {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ token: token })
+        });
+        let resData = await r.json().catch(() => ({}));
+        if (!r.ok || !resData.success) throw Error();
+        if (resData.email) {
+            adminEmail = resData.email;
+            localStorage.setItem('cmu_conf_admin_email', adminEmail);
+        }
+        await load();
+        dashboard();
+    } catch {
+        logout();
+    }
+})();
+</script>
+</body>
+</html>

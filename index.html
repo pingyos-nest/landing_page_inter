@@ -4,9 +4,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>2027 International Nursing Conference | Save the Date</title>
+    <title>2027 SVSM Nursing Conference | Save the Date</title>
+    <link rel="icon" type="image/png" href="favicon.png">
+    <link rel="apple-touch-icon" href="apple-touch-icon.png">
     <meta name="description"
-        content="2027 International Nursing Conference - Shared Vision, Shared Mission: Illuminating the Future of Nursing for a Sustainable World. 11–12 November 2027, Chiang Mai, Thailand.">
+        content="2027 SVSM Nursing Conference — Shared Vision, Shared Mission: Illuminating the Future of Nursing for a Sustainable World. 11–12 November 2027 at The Empress Hotel, Chiang Mai, Thailand. Organized by the Faculty of Nursing, Chiang Mai University.">
 
     <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-9H10CPTW29"></script>
@@ -82,7 +84,7 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            margin-bottom: 24px;
+            margin: -28px 0 -4px;
             padding: 4px 0;
         }
 
@@ -108,6 +110,7 @@
             color: var(--text-main);
             letter-spacing: -0.02em;
             margin-bottom: 10px;
+            text-wrap: balance;
         }
 
         .theme {
@@ -116,6 +119,7 @@
             font-size: 14.5px;
             line-height: 1.6;
             margin-bottom: 24px;
+            text-wrap: pretty;
             max-width: 460px;
             margin-left: auto;
             margin-right: auto;
@@ -162,6 +166,9 @@
 
         .key-info-item.location .key-info-label {
             color: var(--accent-orange);
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
         }
 
         .key-info-value {
@@ -170,6 +177,27 @@
             color: #0f172a;
             line-height: 1.3;
             letter-spacing: -0.01em;
+        }
+
+        .key-info-link {
+            text-decoration: none;
+            color: inherit;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            transition: all 0.2s ease;
+            border-radius: 8px;
+            padding: 2px 6px;
+            margin: -2px -6px;
+        }
+
+        .key-info-link:hover {
+            opacity: 0.85;
+            transform: translateY(-1px);
+        }
+
+        .key-info-link:hover .key-info-value {
+            color: var(--primary);
         }
 
         /* Divider */
@@ -306,6 +334,89 @@
         }
 
 
+        /* Standalone website card shown above the calendar section */
+        .website-card {
+            position: relative;
+            margin-bottom: 16px;
+            border: 1px solid var(--border-color);
+            border-radius: 18px;
+            background: #ffffff;
+            overflow: hidden;
+            transition: border-color 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .website-card:hover {
+            border-color: var(--primary);
+            box-shadow: 0 4px 14px -6px rgba(99, 102, 241, 0.35);
+        }
+
+        .website-card-link {
+            display: flex;
+            align-items: center;
+            padding: 13px 16px;
+            color: var(--text-main);
+            text-decoration: none;
+        }
+
+        /* Stretch the link over the whole card so the preview is clickable too */
+        .website-card-link::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            z-index: 2;
+        }
+
+        .website-card:hover .arrow-box {
+            color: var(--primary);
+            background: var(--primary-light);
+            transform: translateX(3px);
+        }
+
+        /* Live page rendered at desktop size, then scaled down to fit the card */
+        .website-preview {
+            --preview-base: 1280;
+            --preview-ratio: 0.625;
+            position: relative;
+            aspect-ratio: 1 / var(--preview-ratio);
+            margin: 0 12px 12px;
+            border: 1px solid var(--border-color);
+            border-radius: 10px;
+            background: #f8fafc;
+            overflow: hidden;
+        }
+
+        .website-preview::before {
+            content: 'Loading preview…';
+            position: absolute;
+            inset: 0;
+            display: grid;
+            place-items: center;
+            color: #94a3b8;
+            font-size: 12px;
+            font-weight: 500;
+        }
+
+        .website-preview iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: calc(var(--preview-base) * 1px);
+            height: calc(var(--preview-base) * var(--preview-ratio) * 1px);
+            border: 0;
+            transform-origin: 0 0;
+            transform: scale(var(--preview-scale, 0.3));
+            pointer-events: none;
+        }
+
+        .website-card .btn-icon-wrapper {
+            color: var(--primary);
+        }
+
+        .website-card .btn-subtitle {
+            color: var(--primary-dark);
+            font-weight: 600;
+        }
+
         .btn-icon-wrapper {
             width: 42px;
             height: 42px;
@@ -328,6 +439,7 @@
             flex: 1;
             display: flex;
             flex-direction: column;
+            justify-content: center;
             text-align: left;
         }
 
@@ -343,6 +455,98 @@
             color: var(--text-muted);
             margin-top: 2px;
             font-weight: 500;
+        }
+
+        .calendar-includes-badge {
+            display: inline-flex;
+            align-items: center;
+            align-self: flex-start;
+            margin-top: 7px;
+            padding: 4px 9px;
+            border-radius: 999px;
+            background: var(--primary-light);
+            color: var(--primary-dark);
+            font-size: 11px;
+            font-weight: 800;
+            letter-spacing: 0.02em;
+            white-space: nowrap;
+            cursor: pointer;
+            user-select: none;
+            transition: background 0.2s ease, color 0.2s ease;
+        }
+
+        .calendar-includes-badge:hover,
+        .calendar-includes-badge:focus-visible {
+            background: #e0e7ff;
+            color: var(--primary-dark);
+            outline: none;
+        }
+
+        .calendar-dates-preview {
+            display: none;
+            margin-top: 6px;
+            color: var(--text-muted);
+            font-size: 12px;
+            font-weight: 500;
+            line-height: 1.45;
+        }
+
+        .calendar-dates-preview.is-visible {
+            display: block;
+        }
+
+        .calendar-button:has(.calendar-dates-preview.is-visible) {
+            align-items: flex-start;
+        }
+
+        .calendar-dates-preview span {
+            display: block;
+            margin-top: 3px;
+        }
+
+        .calendar-dates-preview span.calendar-date-link {
+            display: flex;
+            align-items: baseline;
+            justify-content: space-between;
+            gap: 10px;
+            margin-top: 0;
+            padding: 6px 0;
+            border-top: 1px solid #f1f5f9;
+            cursor: pointer;
+            transition: color 0.2s ease;
+        }
+
+        .calendar-dates-preview span.calendar-date-link:first-child {
+            border-top: none;
+        }
+
+        .calendar-date-link::after {
+            content: '+ Add';
+            flex-shrink: 0;
+            color: var(--primary-dark);
+            font-weight: 800;
+        }
+
+        .calendar-date-link.is-added::after {
+            content: '✓ Added';
+            color: #16a34a;
+        }
+
+        .calendar-date-link:hover,
+        .calendar-date-link:focus-visible {
+            color: var(--primary-dark);
+            outline: none;
+        }
+
+        .calendar-dates-preview span.calendar-date-main {
+            margin-top: 0;
+            padding: 6px 0 0;
+            border-top: 1px solid #f1f5f9;
+            font-weight: 700;
+        }
+
+        .calendar-dates-preview span:first-child {
+            margin-top: 0;
         }
 
         .arrow-box {
@@ -420,318 +624,11 @@
             font-weight: 600;
         }
 
-        /* Admin Edit Floating Trigger & Modal */
-        .admin-trigger-wrap {
-            margin-top: 18px;
-            display: flex;
-            justify-content: center;
-        }
-
-        .admin-trigger-btn {
-            background: transparent;
-            border: 1px dashed #cbd5e1;
-            color: #64748b;
-            font-size: 12px;
-            font-weight: 600;
-            padding: 7px 14px;
-            border-radius: 9999px;
-            cursor: pointer;
-            display: inline-flex;
-            align-items: center;
-            gap: 6px;
-            transition: all 0.2s ease;
-        }
-
-        .admin-trigger-btn:hover {
-            border-color: var(--primary);
-            color: var(--primary);
-            background: #eef2ff;
-        }
-
-        .admin-modal-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: rgba(15, 23, 42, 0.6);
-            backdrop-filter: blur(4px);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 20px 16px;
-            z-index: 999;
-            opacity: 0;
-            pointer-events: none;
-            transition: opacity 0.25s ease;
-        }
-
-        .admin-modal-overlay.open {
-            opacity: 1;
-            pointer-events: auto;
-        }
-
-        .admin-modal {
-            background: #ffffff;
-            width: 100%;
-            max-width: 580px;
-            max-height: 90vh;
-            border-radius: 20px;
-            box-shadow: 0 25px 50px -12px rgba(15, 23, 42, 0.25);
-            display: flex;
-            flex-direction: column;
-            overflow: hidden;
-            transform: scale(0.96);
-            transition: transform 0.25s ease;
-        }
-
-        .admin-modal-overlay.open .admin-modal {
-            transform: scale(1);
-        }
-
-        .admin-modal-header {
-            padding: 16px 20px;
-            border-bottom: 1px solid var(--border-color);
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            background: #f8fafc;
-        }
-
-        .admin-modal-header h3 {
-            font-size: 16px;
-            font-weight: 700;
-            color: var(--text-main);
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-
-        .admin-modal-close {
-            background: none;
-            border: none;
-            font-size: 20px;
-            color: var(--text-muted);
-            cursor: pointer;
-            padding: 4px;
-            border-radius: 6px;
-            line-height: 1;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .admin-modal-close:hover {
-            color: var(--text-main);
-            background: #e2e8f0;
-        }
-
-        .admin-modal-body {
-            padding: 20px;
-            overflow-y: auto;
-            flex: 1;
-            display: flex;
-            flex-direction: column;
-            gap: 18px;
-        }
-
-        .admin-section-card {
-            background: #f8fafc;
-            border: 1px solid var(--border-color);
-            border-radius: 14px;
-            padding: 14px;
-        }
-
-        .admin-section-card-header {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            margin-bottom: 12px;
-        }
-
-        .admin-label {
-            display: block;
-            font-size: 11px;
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
-            color: var(--text-secondary);
-            margin-bottom: 4px;
-        }
-
-        .admin-input {
-            width: 100%;
-            padding: 9px 12px;
-            border: 1px solid var(--border-color);
-            border-radius: 8px;
-            font-size: 13px;
-            font-family: inherit;
-            color: var(--text-main);
-            background: #ffffff;
-            outline: none;
-            transition: border-color 0.2s ease;
-            margin-bottom: 8px;
-        }
-
-        .admin-input:focus {
-            border-color: var(--primary);
-            box-shadow: 0 0 0 3px var(--primary-light);
-        }
-
-        .admin-btn-row {
-            display: flex;
-            gap: 8px;
-            align-items: center;
-            margin-top: 8px;
-        }
-
-        .admin-btn {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            gap: 6px;
-            padding: 8px 14px;
-            border-radius: 8px;
-            font-size: 12.5px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.2s ease;
-            border: none;
-        }
-
-        .admin-btn-primary {
-            background: var(--primary);
-            color: #ffffff;
-        }
-
-        .admin-btn-primary:hover {
-            background: var(--primary-dark);
-        }
-
-        .admin-btn-secondary {
-            background: #ffffff;
-            border: 1px solid var(--border-color);
-            color: var(--text-secondary);
-        }
-
-        .admin-btn-secondary:hover {
-            background: #f1f5f9;
-            color: var(--text-main);
-        }
-
-        .admin-btn-danger {
-            background: #fee2e2;
-            color: #dc2626;
-            border: 1px solid #fecaca;
-        }
-
-        .admin-btn-danger:hover {
-            background: #fca5a5;
-        }
-
-        .admin-items-list {
-            display: flex;
-            flex-direction: column;
-            gap: 8px;
-            margin-top: 10px;
-        }
-
-        .admin-item-pill {
-            background: #ffffff;
-            border: 1px solid var(--border-color);
-            border-radius: 8px;
-            padding: 10px 12px;
-            display: flex;
-            flex-direction: column;
-            gap: 8px;
-        }
-
-        .admin-item-pill-header {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-        }
-
-        .admin-item-pill-info {
-            display: flex;
-            flex-direction: column;
-            gap: 2px;
-        }
-
-        .admin-item-pill-title {
-            font-size: 13px;
-            font-weight: 600;
-            color: var(--text-main);
-        }
-
-        .admin-item-pill-sub {
-            font-size: 11px;
-            color: var(--text-muted);
-        }
-
-        .admin-btn-sublist {
-            border-top: 1px dashed var(--border-color);
-            padding-top: 8px;
-            display: flex;
-            flex-direction: column;
-            gap: 6px;
-        }
-
-        .admin-btn-pill {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            background: #f8fafc;
-            border: 1px solid #e2e8f0;
-            border-radius: 6px;
-            padding: 6px 10px;
-        }
-
-        .admin-btn-pill-info {
-            display: flex;
-            flex-direction: column;
-            overflow: hidden;
-        }
-
-        .admin-btn-pill-title {
-            font-size: 12px;
-            font-weight: 600;
-            color: var(--text-main);
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
-        }
-
-        .admin-btn-pill-url {
-            font-size: 10.5px;
-            color: #6366f1;
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
-        }
-
-        .admin-auth-overlay {
-            background: #ffffff;
-            padding: 24px;
-            border-radius: 12px;
-            text-align: center;
-            display: flex;
-            flex-direction: column;
-            gap: 12px;
-            max-width: 320px;
-            margin: 40px auto;
-            border: 1px solid var(--border-color);
-            box-shadow: 0 10px 25px -5px rgba(0,0,0,0.05);
-        }
-
-        .admin-modal-footer {
-            padding: 14px 20px;
-            border-top: 1px solid var(--border-color);
-            background: #f8fafc;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-        }
+        /* File-type badges */
+        .badge-pdf { background: #fee2e2; color: #dc2626; border: 1px solid #fecaca; }
+        .badge-docx { background: #dbeafe; color: #1d4ed8; border: 1px solid #bfdbfe; }
+        .badge-img { background: #fef3c7; color: #b45309; border: 1px solid #fde68a; }
+        .badge-link { background: #f1f5f9; color: #475569; border: 1px solid #e2e8f0; }
 
         /* Toast notification when ICS is downloaded */
         .toast {
@@ -760,6 +657,189 @@
             opacity: 1;
         }
 
+        /* Image lightbox (opens image buttons in place) */
+        .lightbox {
+            position: fixed;
+            inset: 0;
+            z-index: 200;
+            display: flex;
+            flex-direction: column;
+            background: rgba(15, 23, 42, 0.97);
+            color: #ffffff;
+            animation: lightbox-in 0.2s ease;
+        }
+
+        @keyframes lightbox-in {
+            from { opacity: 0; }
+        }
+
+        .lightbox[hidden] {
+            display: none;
+        }
+
+        .lightbox-bar {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px 12px 12px 18px;
+            padding-top: max(12px, env(safe-area-inset-top));
+        }
+
+        .lightbox-title {
+            flex: 1;
+            min-width: 0;
+            font-size: 14.5px;
+            font-weight: 700;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .lightbox-close {
+            width: 40px;
+            height: 40px;
+            flex-shrink: 0;
+            display: grid;
+            place-items: center;
+            border: 0;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.12);
+            color: #ffffff;
+            cursor: pointer;
+            transition: background 0.2s ease;
+        }
+
+        .lightbox-close:hover {
+            background: rgba(255, 255, 255, 0.22);
+        }
+
+        .lightbox-stage {
+            flex: 1;
+            min-height: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 4px 12px;
+            overflow: auto;
+            -webkit-overflow-scrolling: touch;
+        }
+
+        .lightbox-image {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+            border-radius: 8px;
+            background: #ffffff;
+        }
+
+        .lightbox-stage.can-zoom .lightbox-image {
+            cursor: zoom-in;
+        }
+
+        /* Zoomed: image at a larger fixed width, stage scrolls in both directions */
+        .lightbox-stage.is-zoomed {
+            display: block;
+        }
+
+        .lightbox-stage.is-zoomed .lightbox-image {
+            max-width: none;
+            max-height: none;
+            cursor: zoom-out;
+        }
+
+        .lightbox-status {
+            font-size: 13px;
+            font-weight: 500;
+            color: #cbd5e1;
+            text-align: center;
+        }
+
+        .lightbox-actions {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            padding: 12px;
+            padding-bottom: max(12px, env(safe-area-inset-bottom));
+        }
+
+        .lightbox-action {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            min-height: 44px;
+            padding: 10px 18px;
+            border: 1px solid rgba(255, 255, 255, 0.28);
+            border-radius: var(--radius-btn);
+            color: #ffffff;
+            font-size: 13.5px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: background 0.2s ease;
+        }
+
+        .lightbox-action:hover {
+            background: rgba(255, 255, 255, 0.12);
+        }
+
+        .lightbox-action.primary {
+            border-color: #ffffff;
+            background: #ffffff;
+            color: var(--text-main);
+        }
+
+        .lightbox-action.primary:hover {
+            background: #e2e8f0;
+        }
+
+        .lightbox a:focus-visible,
+        .lightbox button:focus-visible {
+            outline: 2px solid #ffffff;
+            outline-offset: 2px;
+        }
+
+        @media (max-width: 540px) {
+            .lightbox-action {
+                flex: 1;
+                padding: 10px 12px;
+            }
+        }
+
+        /* Keyboard focus & touch feedback */
+        a,
+        [role="button"] {
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        a:focus-visible,
+        [role="button"]:focus-visible {
+            outline: 2px solid var(--primary);
+            outline-offset: 2px;
+        }
+
+        .accordion-header:focus-visible {
+            outline-offset: -2px;
+            border-radius: 18px;
+        }
+
+        .website-card-link:focus-visible {
+            outline: none;
+        }
+
+        .website-card:has(.website-card-link:focus-visible) {
+            outline: 2px solid var(--primary);
+            outline-offset: 2px;
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            *,
+            *::before,
+            *::after {
+                transition-duration: 0.01ms !important;
+                animation-duration: 0.01ms !important;
+            }
+        }
+
         /* Responsive */
         @media (max-width: 540px) {
             body {
@@ -770,6 +850,10 @@
             .card {
                 padding: 28px 18px;
                 border-radius: 20px;
+            }
+
+            .logo-wrapper {
+                margin: -18px 0 -2px;
             }
 
             h1 {
@@ -795,18 +879,80 @@
                 font-size: 16px;
             }
 
-            .calendar-button {
+            .divider {
+                margin: 20px 0;
+            }
+
+            /* Give the button text more room inside the nested cards */
+            .accordion-header {
                 padding: 12px 14px;
+            }
+
+            .accordion-content {
+                padding: 10px;
+            }
+
+            .calendar-button,
+            .website-card-link {
+                padding: 12px;
             }
 
             .btn-icon-wrapper {
                 width: 38px;
                 height: 38px;
-                margin-right: 12px;
+                margin-right: 10px;
+            }
+
+            .arrow-box {
+                width: 24px;
+                height: 24px;
+                margin-left: 4px;
+            }
+
+            /* Larger touch targets for the key-date controls */
+            .calendar-includes-badge {
+                margin-top: 8px;
+                padding: 6px 10px;
+            }
+
+            .calendar-dates-preview span.calendar-date-link {
+                padding: 9px 0;
+            }
+
+            /* Show the site's own mobile layout in the preview so it stays readable */
+            .website-preview {
+                margin: 0 10px 10px;
+                --preview-base: 480;
+                --preview-ratio: 0.75;
             }
 
             .btn-title {
                 font-size: 14.5px;
+            }
+
+        }
+
+        @media (max-width: 380px) {
+            body {
+                padding: 12px 8px;
+            }
+
+            .card {
+                padding: 24px 14px;
+            }
+
+            .details-button {
+                font-size: 13px;
+                padding: 12px;
+            }
+        }
+
+        /* Touch screens: a tapped button should not stay in its lifted hover state */
+        @media (hover: none) {
+            .calendar-button:hover,
+            .details-button:hover,
+            .key-info-link:hover {
+                transform: none;
             }
         }
     </style>
@@ -818,11 +964,11 @@
 
         <!-- Conference Logo -->
         <div class="logo-wrapper">
-            <img src="logo.png" alt="2027 International Nursing Conference Logo" class="conference-logo">
+            <img src="logo.png" alt="2027 SVSM Nursing Conference Logo" class="conference-logo">
         </div>
 
         <!-- Title -->
-        <h1>2027 International Nursing Conference</h1>
+        <h1>2027 SVSM Nursing Conference</h1>
 
         <!-- Theme Tagline -->
         <p class="theme">
@@ -837,8 +983,13 @@
             </div>
             <div class="key-info-divider"></div>
             <div class="key-info-item location">
-                <span class="key-info-label">LOCATION</span>
-                <span class="key-info-value">Chiang Mai, Thailand</span>
+                <a href="https://maps.app.goo.gl/SWSRhmTHv3nZSdKa9" target="_blank" rel="noopener" class="key-info-link" id="venueMapLink" title="Open Map">
+                    <span class="key-info-label">
+                        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 4.993-5.539 10.193-7.399 11.799a1 1 0 0 1-1.202 0C9.539 20.193 4 14.993 4 10a8 8 0 0 1 16 0" /><circle cx="12" cy="10" r="3" /></svg>
+                        LOCATION
+                    </span>
+                    <span class="key-info-value">The Empress Hotel,<br>Chiang Mai, Thailand</span>
+                </a>
             </div>
         </div>
 
@@ -846,92 +997,90 @@
 
         <!-- Dynamic Content Sections (Calendar, Poster, etc.) -->
         <div id="dynamicSectionsContainer">
+            <!-- 0. OFFICIAL CONFERENCE WEBSITE CARD -->
+            <div class="website-card">
+                <a class="website-card-link" id="conferenceWebsite" href="https://www.svsmnursing2027.com/"
+                    target="_blank" rel="noopener">
+                    <div class="btn-icon-wrapper">
+                        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                            stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10" /><path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20" /><path d="M2 12h20" /></svg>
+                    </div>
+                    <div class="btn-content">
+                        <span class="btn-title">Official Conference Website</span>
+                        <span class="btn-subtitle">www.svsmnursing2027.com</span>
+                    </div>
+                    <div class="arrow-box">
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
+                            stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14" /><path d="m12 5 7 7-7 7" /></svg>
+                    </div>
+                </a>
+                <div class="website-preview" id="websitePreview" aria-hidden="true">
+                    <iframe src="https://www.svsmnursing2027.com/" title="2027 SVSM Nursing Conference website preview"
+                        loading="lazy" tabindex="-1" scrolling="no" sandbox="allow-scripts allow-same-origin"></iframe>
+                </div>
+            </div>
+
             <!-- 1. ADD TO CALENDAR SECTION (ENCLOSED CARD) -->
             <div class="accordion-group" id="calendarSectionGroup">
-                <div class="accordion-header" id="calendarAccordionToggle" role="button" aria-expanded="true">
+                <div class="accordion-header" id="calendarAccordionToggle" role="button" tabindex="0" aria-expanded="true">
                     <div class="accordion-titles">
                         <h2 id="calendarSectionTitle">Add to Calendar</h2>
-                        <p class="description" id="calendarSectionSubtitle">Choose your preferred calendar service</p>
+                        <p class="description" id="calendarSectionSubtitle">Choose your preferred calendar service.</p>
                     </div>
                     <div class="accordion-chevron" id="accordionChevron">
                         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
-                            stroke-linecap="round" stroke-linejoin="round">
-                            <polyline points="6 9 12 15 18 9"></polyline>
-                        </svg>
+                            stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6" /></svg>
                     </div>
                 </div>
 
                 <div class="accordion-content" id="calendarButtonsContainer">
                     <!-- 1. Google Calendar -->
                     <a class="calendar-button" id="googleCalendar" target="_blank" rel="noopener"
-                        href="https://calendar.google.com/calendar/render?action=TEMPLATE&text=2027%20International%20Nursing%20Conference&dates=20271111/20271113&location=Chiang%20Mai%2C%20Thailand&details=Shared%20Vision%2C%20Shared%20Mission%3A%20Illuminating%20the%20Future%20of%20Nursing%20for%20a%20Sustainable%20World%0A%0ADates%3A%2011%E2%80%9312%20November%202027%0ALocation%3A%20Chiang%20Mai%2C%20Thailand%0A%0AOrganized%20by%20the%20Faculty%20of%20Nursing%2C%20Chiang%20Mai%20University%0A%0AFurther%20details%20will%20be%20announced%20soon.%0Ahttps%3A%2F%2Fwww.nurse.cmu.ac.th%2F">
+                        href="https://calendar.google.com/calendar/render?action=TEMPLATE&amp;text=2027+SVSM+Nursing+Conference%2C+Chiang+Mai%2C+Thailand%2C+Organized+by+Faculty+of+Nursing%2C+Chiang+Mai+University&amp;dates=20271111%2F20271113&amp;location=The+Empress+Hotel%2C+Chiang+Mai%2C+Thailand&amp;details=2027+SVSM+Nursing+Conference%0A%22Shared+Vision%2C+Shared+Mission%3A+Illuminating+the+Future+of+Nursing+for+a+Sustainable+World%22%0A%0ADates%3A+11%E2%80%9312+November+2027%0AVenue%3A+The+Empress+Hotel%2C+Chiang+Mai%2C+Thailand%0A%0AOrganized+by+the+Faculty+of+Nursing%2C+Chiang+Mai+University%0A%0AFurther+details+will+be+announced+soon.%0Ahttps%3A%2F%2Fwww.nurse.cmu.ac.th%2F%0A%0AWebsite%3A%0Ahttps%3A%2F%2Fwww.nurse.cmu.ac.th%2F">
                         <div class="btn-icon-wrapper">
-                            <svg width="24" height="24" viewBox="0 0 48 48" fill="none">
-                                <rect x="6" y="6" width="36" height="36" rx="8" fill="#FFFFFF" stroke="#E2E8F0" stroke-width="1.5" />
-                                <path d="M6 14C6 9.58172 9.58172 6 14 6H34C38.4183 6 42 9.58172 42 14V16H6V14Z" fill="#1A73E8" />
-                                <circle cx="16" cy="11" r="2" fill="#FFFFFF" />
-                                <circle cx="32" cy="11" r="2" fill="#FFFFFF" />
-                                <text x="24" y="34" font-family="'Plus Jakarta Sans', Arial, sans-serif" font-size="15" font-weight="800" fill="#1A73E8" text-anchor="middle">31</text>
-                                <path d="M34 6H36C39.3137 6 42 8.68629 42 12V16H34V6Z" fill="#EA4335" />
-                                <path d="M36 34H42V36C42 39.3137 39.3137 42 36 42H34V34H36Z" fill="#34A853" />
-                                <path d="M6 36V34H14V42H12C8.68629 42 6 39.3137 6 36Z" fill="#FBBC04" />
-                            </svg>
+                            <svg width="24" height="24" aria-hidden="true" viewBox="0 0 256 275"><defs><linearGradient id="SVGAUTqNcwQ" x1="83" x2="83" y1="76" gradientUnits="userSpaceOnUse"><stop stop-color="#4fa0ff"/><stop offset="1" stop-color="#3186ff"/></linearGradient><linearGradient id="SVGMJemac7b" x1="89.06" x2="89.06" y1="21.75" y2="96.39" gradientUnits="userSpaceOnUse"><stop stop-color="#a9a8ff"/><stop offset=".8" stop-color="#3c90ff"/></linearGradient><filter id="SVGGQyK4bRj" width="152" height="112" x="20" y="-4" color-interpolation-filters="sRGB" filterUnits="userSpaceOnUse"><feFlood flood-opacity="0" result="BackgroundImageFix"/><feBlend in="SourceGraphic" in2="BackgroundImageFix" result="shape"/><feGaussianBlur result="effect1_foregroundBlur_37330_7673" stdDeviation="6"/></filter></defs><mask id="SVGcTVVObIw" width="154" height="152" x="19" y="20" maskUnits="userSpaceOnUse" style="mask-type:alpha"><path fill="#3c90ff" d="M19.867 49.392C17.818 33.82 29.94 20 45.645 20h100.71c15.706 0 27.827 13.82 25.778 29.392L166 96l6.133 46.608C174.182 158.18 162.061 172 146.355 172H45.645c-15.706 0-27.827-13.82-25.778-29.392L26 96z"/></mask><mask id="SVGBwV4Xb4k" width="154" height="152" x="19" y="20" maskUnits="userSpaceOnUse" style="mask-type:alpha"><path fill="#3186ff" d="M19.867 49.392C17.818 33.82 29.94 20 45.645 20h100.71c15.706 0 27.827 13.82 25.778 29.392L166 96l6.133 46.608C174.182 158.18 162.061 172 146.355 172H45.645c-15.706 0-27.827-13.82-25.778-29.392L26 96z"/></mask><path fill="#bbe2ff" d="M20.824 48.078c0-26.641 21.596-48.239 48.238-48.239h117.917c26.641 0 48.238 21.598 48.238 48.239v50.918c0 26.641-21.597 48.239-48.238 48.239H69.062c-26.642 0-48.238-21.598-48.238-48.239z"/><path fill="#3c90ff" d="M.502 69.169c-3.432-26.082 16.871-49.23 43.177-49.23h168.683c26.306 0 46.609 23.148 43.178 49.23l-10.273 78.066l10.273 78.066c3.431 26.082-16.872 49.23-43.178 49.23H43.679c-26.307 0-46.609-23.148-43.177-49.23l10.272-78.066z"/><g mask="url(#SVGcTVVObIw)" transform="translate(-32.775 -13.56)scale(1.67495)"><path fill="url(#SVGAUTqNcwQ)" d="M0 0h166v76H0z" transform="matrix(1 0 0 -1 13 172)"/></g><g mask="url(#SVGBwV4Xb4k)" transform="translate(-32.775 -13.56)scale(1.67495)"><path fill="url(#SVGMJemac7b)" d="M32 27.2C32 16.596 40.596 8 51.2 8h89.6c10.604 0 19.2 8.596 19.2 19.2V96H32z" filter="url(#SVGGQyK4bRj)"/></g><path fill="#fff" d="M93.438 209.77q-10.521 0-18.051-3.421q-7.528-3.422-12.746-9.153q-5.133-5.82-7.273-11.379q-2.137-5.558-1.711-6.758a3.47 3.47 0 0 1 1.711-1.882l9.497-3.765q1.196-.598 2.395-.17q1.196.34 2.822 3.935q1.714 3.592 4.79 7.613a24 24 0 0 0 7.529 6.245q4.368 2.226 10.779 2.225q10.351 0 16.426-5.99q6.16-5.986 6.16-15.226q0-10.01-6.503-15.4q-6.5-5.476-17.195-5.476h-8.981a3.17 3.17 0 0 1-2.225-.853q-.853-.94-.855-2.139v-9.153q0-1.284.854-2.14a3.06 3.06 0 0 1 2.226-.94h7.783q9.583 0 15.4-5.22q5.817-5.218 5.816-13.517q.002-8.21-5.218-13.258t-14.371-5.049q-5.135.001-8.898 1.712a19.3 19.3 0 0 0-6.502 4.791a38.3 38.3 0 0 0-4.705 6.33q-1.964 3.252-3.165 3.593q-1.195.256-2.31-.426l-8.983-4.364q-1.11-.599-1.454-1.882q-.342-1.284 2.055-5.989q2.48-4.788 7.526-9.752a35.2 35.2 0 0 1 11.807-7.7q6.758-2.74 15.741-2.738q16.681.001 26.434 8.81q9.752 8.73 9.753 23.099q0 9.926-4.79 17.196q-4.706 7.27-13.347 10.268v.341q10.438 3.08 16.425 11.291c4.05 5.421 6.075 11.891 6.074 19.419q0 16.17-11.293 26.522q-11.29 10.35-29.429 10.35zm85.841-1.967q-1.452 0-2.567-1.112a3.78 3.78 0 0 1-1.026-2.652v-95.131l-19.249 13.859q-1.026.77-2.396.514a3.3 3.3 0 0 1-2.052-1.283l-5.561-7.871a3.32 3.32 0 0 1-.6-2.397q.258-1.365 1.369-2.136l34.133-24.382q.43-.343.942-.514q.515-.256 1.197-.256h7.188q1.455.001 2.31 1.027q.941.94.941 2.396v116.174q0 1.542-1.112 2.652a3.35 3.35 0 0 1-2.568 1.112z"/></svg>
                         </div>
                         <div class="btn-content">
                             <span class="btn-title">Google Calendar</span>
-                            <span class="btn-subtitle">Add directly to Google account</span>
+                            <span class="btn-subtitle">Add the conference key dates to your calendar:</span>
+                            <span class="calendar-dates-preview"></span>
+                            <span class="calendar-includes-badge" role="button" tabindex="0" aria-expanded="false">+ Add key dates · View dates</span>
                         </div>
                         <div class="arrow-box">
-                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-                                <polyline points="9 18 15 12 9 6"></polyline>
-                            </svg>
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6" /></svg>
                         </div>
                     </a>
 
                     <!-- 2. Microsoft Outlook -->
                     <a class="calendar-button" id="outlookCalendar" target="_blank" rel="noopener"
-                        href="https://outlook.office.com/calendar/0/deeplink/compose?subject=2027%20International%20Nursing%20Conference&startdt=2027-11-11&enddt=2027-11-12&allday=true&location=Chiang%20Mai%2C%20Thailand&body=Shared%20Vision%2C%20Shared%20Mission%3A%20Illuminating%20the%20Future%20of%20Nursing%20for%20a%20Sustainable%20World%0A%0ADates%3A%2011%E2%80%9312%20November%202027%0ALocation%3A%20Chiang%20Mai%2C%20Thailand%0A%0AOrganized%20by%20the%20Faculty%20of%20Nursing%2C%20Chiang%20Mai%20University%0A%0AFurther%20details%20will%20be%20announced%20soon.%0Ahttps%3A%2F%2Fwww.nurse.cmu.ac.th%2F">
+                        href="https://outlook.office.com/calendar/0/deeplink/compose?subject=2027+SVSM+Nursing+Conference%2C+Chiang+Mai%2C+Thailand%2C+Organized+by+Faculty+of+Nursing%2C+Chiang+Mai+University&amp;startdt=2027-11-11&amp;enddt=2027-11-13&amp;allday=true&amp;location=The+Empress+Hotel%2C+Chiang+Mai%2C+Thailand&amp;body=2027%20SVSM%20Nursing%20Conference%3Cbr%3E%26quot%3BShared%20Vision%2C%20Shared%20Mission%3A%20Illuminating%20the%20Future%20of%20Nursing%20for%20a%20Sustainable%20World%26quot%3B%3Cbr%3E%3Cbr%3EDates%3A%2011%E2%80%9312%20November%202027%3Cbr%3EVenue%3A%20The%20Empress%20Hotel%2C%20Chiang%20Mai%2C%20Thailand%3Cbr%3E%3Cbr%3EOrganized%20by%20the%20Faculty%20of%20Nursing%2C%20Chiang%20Mai%20University%3Cbr%3E%3Cbr%3EFurther%20details%20will%20be%20announced%20soon.%3Cbr%3E%3Ca%20href%3D%22https%3A%2F%2Fwww.nurse.cmu.ac.th%2F%22%3Ehttps%3A%2F%2Fwww.nurse.cmu.ac.th%2F%3C%2Fa%3E%3Cbr%3E%3Cbr%3EWebsite%3A%3Cbr%3E%3Ca%20href%3D%22https%3A%2F%2Fwww.nurse.cmu.ac.th%2F%22%3Ehttps%3A%2F%2Fwww.nurse.cmu.ac.th%2F%3C%2Fa%3E">
                         <div class="btn-icon-wrapper">
-                            <svg width="24" height="24" viewBox="0 0 48 48" fill="none">
-                                <path d="M28 8H12C9.79086 8 8 9.79086 8 12V36C8 38.2091 9.79086 40 12 40H28V8Z" fill="#0078D4" />
-                                <path d="M28 12L42 20V28L28 36V12Z" fill="#28A8EA" />
-                                <path d="M28 20L42 12V28L28 36V20Z" fill="#005A9E" opacity="0.6" />
-                                <path d="M28 28L42 36V28L28 20V28Z" fill="#004578" opacity="0.4" />
-                                <rect x="6" y="12" width="22" height="24" rx="4" fill="#0078D4" />
-                                <ellipse cx="17" cy="24" rx="5.5" ry="6.5" stroke="#FFFFFF" stroke-width="2.5" />
-                            </svg>
+                            <svg width="24" height="24" aria-hidden="true" viewBox="60 90.4 570.02 539.67"><defs><linearGradient id="SVGtM6GPe9H" x1="9.989" x2="30.932" y1="22.365" y2="9.375" gradientTransform="scale(15)" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#20a7fa"/><stop offset=".4" stop-color="#3bd5ff"/><stop offset="1" stop-color="#c4b0ff"/></linearGradient><linearGradient id="SVGzumyLb1h" x1="17.197" x2="28.856" y1="26.794" y2="8.126" gradientTransform="scale(15)" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#165ad9"/><stop offset=".501" stop-color="#1880e5"/><stop offset="1" stop-color="#8587ff"/></linearGradient><linearGradient id="SVGEDNiAe7B" x1="25.701" x2="12.756" y1="27.048" y2="16.501" gradientTransform="scale(15)" gradientUnits="userSpaceOnUse"><stop offset=".237" stop-color="#448aff" stop-opacity="0"/><stop offset=".792" stop-color="#0032b1" stop-opacity=".2"/></linearGradient><linearGradient id="SVGLVAa9cRZ" x1="24.053" x2="44.51" y1="31.11" y2="18.018" gradientTransform="scale(15)" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#1a43a6"/><stop offset=".492" stop-color="#2052cb"/><stop offset="1" stop-color="#5f20cb"/></linearGradient><linearGradient id="SVGPrLOHehy" x1="29.828" x2="17.397" y1="30.327" y2="19.571" gradientTransform="scale(15)" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#0045b9" stop-opacity="0"/><stop offset=".67" stop-color="#0d1f69" stop-opacity=".2"/></linearGradient><linearGradient id="SVGPfnCWb3Q" x1="41.998" x2="23.852" y1="29.943" y2="29.943" gradientTransform="scale(15)" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#4dc4ff"/><stop offset=".196" stop-color="#0fafff"/></linearGradient><linearGradient id="SVGsoPskbid" x1="3.458" x2="20.929" y1="37.872" y2="37.86" gradientTransform="scale(15)" gradientUnits="userSpaceOnUse"><stop offset=".206" stop-color="#6ce0ff"/><stop offset=".535" stop-color="#50d5ff" stop-opacity="0"/></linearGradient><radialGradient id="SVGWDe6xCII" cx="0" cy="0" r="1" fx="0" fy="0" gradientTransform="matrix(0 -405.04051 438.393 0 360.027 102.268)" gradientUnits="userSpaceOnUse"><stop offset=".568" stop-color="#275ff0" stop-opacity="0"/><stop offset=".992" stop-color="#002177"/></radialGradient><radialGradient id="SVGnxCXEcwX" cx="0" cy="0" r="1" fx="0" fy="0" gradientTransform="rotate(-45 897.061 -224.265)scale(173.58)" gradientUnits="userSpaceOnUse"><stop offset=".259" stop-color="#0060d1" stop-opacity=".4"/><stop offset=".908" stop-color="#0383f1" stop-opacity="0"/></radialGradient><radialGradient id="SVGTJGZtcBY" cx="0" cy="0" r="1" fx="0" fy="0" gradientTransform="rotate(-52.658 784.06 187.412)scale(589.22098 532.80602)" gradientUnits="userSpaceOnUse"><stop offset=".732" stop-color="#f4a7f7" stop-opacity="0"/><stop offset="1" stop-color="#f4a7f7" stop-opacity=".502"/></radialGradient><radialGradient id="SVGbswy2xan" cx="0" cy="0" r="1" fx="0" fy="0" gradientTransform="rotate(123.339 27.956 281.58)scale(310.88699 806.7885)" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#49deff"/><stop offset=".724" stop-color="#29c3ff"/></radialGradient><radialGradient id="SVGUlEh92cn" cx="0" cy="0" r="1" fx="0" fy="0" gradientTransform="rotate(46.924 -378.504 245.25)scale(315.927)" gradientUnits="userSpaceOnUse"><stop offset=".039" stop-color="#0091ff"/><stop offset=".919" stop-color="#183dad"/></radialGradient><radialGradient id="SVGjiSAMeNm" cx="0" cy="0" r="1" fx="0" fy="0" gradientTransform="matrix(0 168 -193.782 0 180 491.159)" gradientUnits="userSpaceOnUse"><stop offset=".558" stop-color="#0fa5f7" stop-opacity="0"/><stop offset="1" stop-color="#74c6ff" stop-opacity=".502"/></radialGradient></defs><path fill="url(#SVGtM6GPe9H)" d="m463.984 140.145l-344.347 218.27l-29.614-46.72v-40.257a43.26 43.26 0 0 1 19.72-36.293L309.91 105.258c30.496-19.79 69.777-19.793 100.277-.008Zm0 0"/><path fill="url(#SVGzumyLb1h)" d="M407.102 103.34a91 91 0 0 1 3.082 1.914l156.214 101.332l-387.336 245.52l-59.437-93.77L403.895 177.8c26.925-17.102 28.105-55.57 3.207-74.461Zm0 0"/><path fill="url(#SVGEDNiAe7B)" d="M407.102 103.34a91 91 0 0 1 3.082 1.914l156.214 101.332l-387.336 245.52l-59.437-93.77L403.895 177.8c26.925-17.102 28.105-55.57 3.207-74.461Zm0 0"/><path fill="url(#SVGLVAa9cRZ)" d="M333.602 498.988L179.066 452.11L507.63 243.836c27.672-17.54 27.601-57.938-.133-75.379l-1.48-.93l4.261 2.649l99.996 64.867a43.26 43.26 0 0 1 19.723 36.3v38.962Zm0 0"/><path fill="url(#SVGPrLOHehy)" d="M333.602 498.988L179.066 452.11L507.63 243.836c27.672-17.54 27.601-57.938-.133-75.379l-1.48-.93l4.261 2.649l99.996 64.867a43.26 43.26 0 0 1 19.723 36.3v38.962Zm0 0"/><path fill="url(#SVGWDe6xCII)" d="M410.188 105.25c-30.5-19.785-69.782-19.781-100.282.008L109.742 235.145a43.26 43.26 0 0 0-19.719 36.292v1.97a44.48 44.48 0 0 0 20.735 36.16l248.887 156.91L609.16 309.805a44.47 44.47 0 0 0 20.824-37.664v38.168l.008-38.965a43.28 43.28 0 0 0-19.722-36.301Zm0 0"/><path fill="url(#SVGPfnCWb3Q)" d="M315.77 630.05h220.449c51.777 0 93.75-41.972 93.75-93.75V272.14a44.48 44.48 0 0 1-20.82 37.665l-327.907 205.89a60.71 60.71 0 0 0-28.422 51.414c.004 34.762 28.184 62.942 62.95 62.942Zm0 0"/><path fill="url(#SVGnxCXEcwX)" d="M315.77 630.05h220.449c51.777 0 93.75-41.972 93.75-93.75V272.14a44.48 44.48 0 0 1-20.82 37.665l-327.907 205.89a60.71 60.71 0 0 0-28.422 51.414c.004 34.762 28.184 62.942 62.95 62.942Zm0 0"/><path fill="url(#SVGTJGZtcBY)" d="M315.77 630.05h220.449c51.777 0 93.75-41.972 93.75-93.75V272.14a44.48 44.48 0 0 1-20.82 37.665l-327.907 205.89a60.71 60.71 0 0 0-28.422 51.414c.004 34.762 28.184 62.942 62.95 62.942Zm0 0"/><path fill="url(#SVGbswy2xan)" d="M405.402 630.035H183.738c-51.777 0-93.75-41.972-93.75-93.75v-264.34a44.47 44.47 0 0 0 20.754 37.621l327.582 206.52a61.74 61.74 0 0 1 28.809 52.226c-.004 34.09-27.64 61.723-61.73 61.723Zm0 0"/><path fill="url(#SVGsoPskbid)" d="M405.402 630.035H183.738c-51.777 0-93.75-41.972-93.75-93.75v-264.34a44.47 44.47 0 0 0 20.754 37.621l327.582 206.52a61.74 61.74 0 0 1 28.809 52.226c-.004 34.09-27.64 61.723-61.73 61.723Zm0 0"/><path fill="url(#SVGUlEh92cn)" d="M108.75 345h142.5c26.926 0 48.75 21.824 48.75 48.75v142.5c0 26.926-21.824 48.75-48.75 48.75h-142.5C81.824 585 60 563.176 60 536.25v-142.5C60 366.824 81.824 345 108.75 345m0 0"/><path fill="url(#SVGjiSAMeNm)" d="M108.75 345h142.5c26.926 0 48.75 21.824 48.75 48.75v142.5c0 26.926-21.824 48.75-48.75 48.75h-142.5C81.824 585 60 563.176 60 536.25v-142.5C60 366.824 81.824 345 108.75 345m0 0"/><path fill="#fff" d="M179.387 534c-19.848 0-36.137-6.21-48.875-18.625q-19.11-18.622-19.11-48.605c0-21.11 6.465-38.18 19.395-51.22Q150.195 396 181.594 396q29.67 0 48.297 18.715c12.484 12.476 18.726 28.93 18.726 49.351c0 20.985-6.469 37.899-19.398 50.75Q209.919 534 179.387 534m.574-26.352q16.225 0 26.117-11.082c6.594-7.386 9.89-17.664 9.89-30.824q-.002-20.577-9.6-32.031q-9.605-11.454-25.638-11.453q-16.517 0-26.597 11.824q-10.083 11.736-10.082 31.102q0 19.652 10.082 31.101q10.078 11.362 25.828 11.363m0 0"/><path fill="#fff" d="M179.332 535.848q-29.655.001-48.691-19.13c-12.688-12.753-19.036-29.398-19.036-49.929q0-32.525 19.325-52.61q19.324-20.09 50.601-20.09q29.555.002 48.114 19.227q18.654 19.23 18.652 50.7c0 21.55-6.442 38.93-19.32 52.129q-19.23 19.703-49.645 19.703m.57-27.067c10.778 0 19.453-3.797 26.02-11.383q9.853-11.384 9.851-31.664q0-21.138-9.562-32.902q-9.567-11.766-25.54-11.766q-16.457-.002-26.5 12.149c-6.694 8.031-10.042 18.683-10.042 31.945q0 20.185 10.043 31.95q10.043 11.67 25.73 11.671m0 0"/></svg>
                         </div>
                         <div class="btn-content">
                             <span class="btn-title">Microsoft Outlook</span>
-                            <span class="btn-subtitle">Outlook & Microsoft 365 Web</span>
+                            <span class="btn-subtitle">Add the conference key dates to your calendar:</span>
+                            <span class="calendar-dates-preview"></span>
+                            <span class="calendar-includes-badge" role="button" tabindex="0" aria-expanded="false">+ Add key dates · View dates</span>
                         </div>
                         <div class="arrow-box">
-                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-                                <polyline points="9 18 15 12 9 6"></polyline>
-                            </svg>
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6" /></svg>
                         </div>
                     </a>
 
                     <!-- 3. Apple Calendar -->
                     <a class="calendar-button" href="#" id="appleCalendar">
                         <div class="btn-icon-wrapper">
-                            <svg width="24" height="24" viewBox="0 0 48 48" fill="none">
-                                <rect x="6" y="6" width="36" height="36" rx="8" fill="#FFFFFF" stroke="#E2E8F0" stroke-width="1.5" />
-                                <path d="M6 14C6 9.58172 9.58172 6 14 6H34C38.4183 6 42 9.58172 42 14V16H6V14Z" fill="#FF3B30" />
-                                <rect x="14" y="4" width="3" height="5" rx="1.5" fill="#FFFFFF" />
-                                <rect x="31" y="4" width="3" height="5" rx="1.5" fill="#FFFFFF" />
-                                <text x="24" y="27" font-family="-apple-system, 'Plus Jakarta Sans', sans-serif" font-size="9" font-weight="800" fill="#FF3B30" text-anchor="middle" letter-spacing="1">NOV</text>
-                                <text x="24" y="39" font-family="-apple-system, 'Plus Jakarta Sans', sans-serif" font-size="13" font-weight="800" fill="#1C1C1E" text-anchor="middle">11-12</text>
-                            </svg>
+                            <svg aria-hidden="true" width="24" height="24" viewBox="0 0 48 48" fill="none"><rect x="6" y="6" width="36" height="36" rx="8" fill="#FFFFFF" stroke="#E2E8F0" stroke-width="1.5" /><path d="M6 14C6 9.58172 9.58172 6 14 6H34C38.4183 6 42 9.58172 42 14V16H6V14Z" fill="#FF3B30" /><rect x="14" y="4" width="3" height="5" rx="1.5" fill="#FFFFFF" /><rect x="31" y="4" width="3" height="5" rx="1.5" fill="#FFFFFF" /><text x="24" y="27" font-family="-apple-system, 'Plus Jakarta Sans', sans-serif" font-size="9" font-weight="800" fill="#FF3B30" text-anchor="middle" letter-spacing="1">NOV</text><text x="24" y="39" font-family="-apple-system, 'Plus Jakarta Sans', sans-serif" font-size="13" font-weight="800" fill="#1C1C1E" text-anchor="middle">11-12</text></svg>
                         </div>
                         <div class="btn-content">
                             <span class="btn-title">Apple Calendar</span>
-                            <span class="btn-subtitle">Apple Calendar & iOS</span>
+                            <span class="btn-subtitle">Add the conference key dates to your calendar:</span>
+                            <span class="calendar-dates-preview"></span>
+                            <span class="calendar-includes-badge" role="button" tabindex="0" aria-expanded="false">+ Add key dates · View dates</span>
                         </div>
                         <div class="arrow-box">
-                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-                                <polyline points="9 18 15 12 9 6"></polyline>
-                            </svg>
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6" /></svg>
                         </div>
                     </a>
                 </div>
@@ -949,11 +1098,7 @@
                 rel="noopener">
                 <span>Further details will be announced soon</span>
                 <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
-                    stroke-linecap="round" stroke-linejoin="round">
-                    <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
-                    <polyline points="15 3 21 3 21 9"></polyline>
-                    <line x1="10" y1="14" x2="21" y2="3"></line>
-                </svg>
+                    stroke-linecap="round" stroke-linejoin="round"><path d="M15 3h6v6" /><path d="M10 14 21 3" /><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" /></svg>
             </a>
         </div>
 
@@ -963,219 +1108,492 @@
             <strong>Faculty of Nursing, Chiang Mai University</strong>
         </div>
 
-        <!-- Admin Management Modal (Accessible via /?admin=true or #admin) -->
-    <div class="admin-modal-overlay" id="adminModalOverlay">
-        <div class="admin-modal">
-            <div class="admin-modal-header">
-                <h3>
-                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                        <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
-                        <line x1="3" y1="9" x2="21" y2="9"></line>
-                        <line x1="9" y1="21" x2="9" y2="9"></line>
-                    </svg>
-                    <span>Content & Sections Manager</span>
-                </h3>
-                <button class="admin-modal-close" id="closeAdminBtn">&times;</button>
-            </div>
-            <div class="admin-modal-body">
-                <!-- Admin Authentication Box -->
-                <div id="adminAuthBox" class="admin-auth-overlay">
-                    <div style="font-size: 28px;">🔐</div>
-                    <h4 style="margin: 0; font-size: 16px; color: var(--text-main);">Admin Authentication</h4>
-                    <p style="margin: 0; font-size: 12px; color: var(--text-muted);">Please enter the administrative passcode to manage sections and buttons.</p>
-                    <input type="password" id="adminPasswordInput" class="admin-input" placeholder="Enter Admin Passcode" style="text-align:center; font-size:14px; letter-spacing:1px;">
-                    <div id="adminAuthError" style="color:#ef4444; font-size:11.5px; display:none;"></div>
-                    <button class="admin-btn admin-btn-primary" id="adminLoginBtn" style="width:100%; justify-content:center;">Unlock Admin Panel</button>
-                </div>
+    </main>
 
-                <!-- Admin Management Content (hidden until authenticated) -->
-                <div id="adminContentWrapper" style="display:none;">
-                <!-- 1. Edit Calendar Section Header -->
-                <div class="admin-section-card">
-                    <div class="admin-section-card-header">
-                        <strong>1. Calendar Section Header</strong>
-                    </div>
-                    <label class="admin-label">Section Title</label>
-                    <input type="text" class="admin-input" id="adminCalendarTitleInput" placeholder="Add to Calendar">
-                    
-                    <label class="admin-label">Subtitle / Description</label>
-                    <input type="text" class="admin-input" id="adminCalendarSubtitleInput" placeholder="Choose your preferred calendar service">
-                </div>
-
-                <!-- 2. Manage Custom Sections (e.g. POSTER, Downloads) -->
-                <div class="admin-section-card">
-                    <div class="admin-section-card-header">
-                        <strong>2. Add New Section (e.g. POSTER, Resources)</strong>
-                    </div>
-                    <label class="admin-label">New Section Title</label>
-                    <input type="text" class="admin-input" id="newSectionTitle" placeholder="e.g. POSTER & DOWNLOADS">
-                    
-                    <label class="admin-label">Section Subtitle</label>
-                    <input type="text" class="admin-input" id="newSectionSubtitle" placeholder="e.g. Official conference posters & guidelines">
-                    
-                    <button class="admin-btn admin-btn-primary" id="addNewSectionBtn" style="margin-top: 4px;">
-                        <span>+ Create New Section</span>
-                    </button>
-
-                    <div style="margin-top: 16px;">
-                        <span class="admin-label">Current Custom Sections:</span>
-                        <div class="admin-items-list" id="adminCustomSectionsList">
-                            <!-- Populated dynamically -->
-                        </div>
-                    </div>
-                </div>
-
-                <!-- 3. Add Button to Section Form -->
-                <div class="admin-section-card" id="adminAddButtonCard" style="display:none;">
-                    <div class="admin-section-card-header">
-                        <strong>3. Add Button to: <span id="targetSectionName" style="color:var(--primary);"></span></strong>
-                    </div>
-                    <input type="hidden" id="targetSectionId">
-                    
-                    <label class="admin-label">Button Title</label>
-                    <input type="text" class="admin-input" id="newBtnTitle" placeholder="e.g. Download Conference Poster (English)">
-                    
-                    <label class="admin-label">Button Subtitle</label>
-                    <input type="text" class="admin-input" id="newBtnSubtitle" placeholder="e.g. PDF file / High resolution">
-                    
-                    <label class="admin-label">Option A: Attach Local File (PDF, Image, etc.)</label>
-                    <input type="file" class="admin-input" id="newBtnFileInput" style="padding:6px; cursor:pointer;" accept=".pdf,.png,.jpg,.jpeg,.svg,.docx,.zip">
-                    <div id="fileInfoNotice" style="font-size:11.5px; color:#6366f1; margin-bottom:8px; display:none;"></div>
-
-                    <label class="admin-label">Option B: Destination URL (External Link)</label>
-                    <input type="text" class="admin-input" id="newBtnUrl" placeholder="https://www.nurse.cmu.ac.th/poster.pdf">
-                    
-                    <div class="admin-btn-row">
-                        <button class="admin-btn admin-btn-primary" id="saveNewButtonBtn">Save Button</button>
-                        <button class="admin-btn admin-btn-secondary" id="cancelNewButtonBtn">Cancel</button>
-                    </div>
-                </div>
-                </div> <!-- End adminContentWrapper -->
-            </div>
-            <div class="admin-modal-footer" id="adminModalFooter" style="display:none;">
-                <button class="admin-btn admin-btn-secondary" id="resetDefaultBtn">Reset to Default</button>
-                <button class="admin-btn admin-btn-primary" id="saveAllAdminBtn">Save All Changes</button>
-            </div>
+    <!-- Image lightbox -->
+    <div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-labelledby="lightboxTitle" hidden>
+        <div class="lightbox-bar">
+            <span class="lightbox-title" id="lightboxTitle"></span>
+            <button type="button" class="lightbox-close" id="lightboxClose" aria-label="Close image">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 6 6 18" /><path d="m6 6 12 12" /></svg>
+            </button>
+        </div>
+        <div class="lightbox-stage" id="lightboxStage">
+            <p class="lightbox-status" id="lightboxStatus">Loading image…</p>
+            <img class="lightbox-image" id="lightboxImage" alt="" hidden>
+        </div>
+        <div class="lightbox-actions">
+            <a class="lightbox-action primary" id="lightboxDownload" href="#" target="_blank" rel="noopener" download>
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 15V3" /><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" /><path d="m7 10 5 5 5-5" /></svg>
+                Download
+            </a>
+            <a class="lightbox-action" id="lightboxOpen" href="#" target="_blank" rel="noopener">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 3h6v6" /><path d="M10 14 21 3" /><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" /></svg>
+                Open original
+            </a>
         </div>
     </div>
-
-    </main>
 
     <!-- Toast notification for ICS download -->
     <div id="toast" class="toast">
         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#4ade80" stroke-width="2.5"
-            stroke-linecap="round" stroke-linejoin="round">
-            <polyline points="20 6 9 17 4 12"></polyline>
-        </svg>
+            stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5" /></svg>
         <span>Calendar event (.ics) downloaded!</span>
     </div>
 
     <!-- ==========================================================
-         SCRIPTS: APPLE CALENDAR / ICS & GOOGLE ANALYTICS 4 EVENTS
+         SCRIPTS: CALENDAR BUTTONS, GA4 INTEGRATION & DYNAMIC CONTENT
          ========================================================== -->
+    <script src="calendar-data.js"></script>
     <script>
-        // Apple Calendar .ics generation & download
+        // ==========================================================
+        // 1. GOOGLE ANALYTICS 4 TUNING & EVENT TRACKING
+        // ==========================================================
+        function trackGAEvent(eventName, params = {}) {
+            try {
+                if (typeof gtag === 'function') {
+                    gtag('event', eventName, params);
+                    console.log(`[GA4 Tracked] ${eventName}:`, params);
+                } else {
+                    console.warn(`[GA4 Notice] gtag not active. Event: ${eventName}`, params);
+                }
+            } catch (err) {
+                console.warn(`[GA4 Error] Failed tracking ${eventName}:`, err);
+            }
+        }
+
+        // Helper: Show animated toast notification
+        function showToast(message, duration) {
+            const toast = document.getElementById("toast");
+            if (!toast) return;
+            const span = toast.querySelector("span");
+            if (span) span.textContent = message;
+            toast.classList.add("show");
+            setTimeout(() => {
+                toast.classList.remove("show");
+            }, duration || 3000);
+        }
+
+        // Individual key-date calendar files (all-day events)
+        function compactCalendarDate(dateString) {
+            return dateString.replace(/-/g, '');
+        }
+
+        function nextCalendarDate(dateString) {
+            const parts = dateString.split('-').map(Number);
+            const date = new Date(Date.UTC(parts[0], parts[1] - 1, parts[2] + 1));
+            return date.toISOString().slice(0, 10);
+        }
+
+        function escapeCalendarText(value) {
+            return String(value)
+                .replace(/\\/g, '\\\\')
+                .replace(/\r?\n/g, '\\n')
+                .replace(/,/g, '\\,')
+                .replace(/;/g, '\\;');
+        }
+
+        // Dates come from calendar-data.js (shared with server.js).
+        const CONFERENCE = window.CALENDAR_DATA.conference;
+        const CONFERENCE_KEY_DATES = window.CALENDAR_DATA.keyDates;
+
+        function buildKeyDateEvent(title, dateString, timestamp) {
+            const endDate = nextCalendarDate(dateString);
+            const slug = title.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
+            const description = `${title} for the 2027 SVSM Nursing Conference. Visit https://www.nurse.cmu.ac.th/ for further details.`;
+
+            return [
+                'BEGIN:VEVENT',
+                `UID:${slug}-${compactCalendarDate(dateString)}@nurse.cmu.ac.th`,
+                `DTSTAMP:${timestamp}`,
+                `DTSTART;VALUE=DATE:${compactCalendarDate(dateString)}`,
+                `DTEND;VALUE=DATE:${compactCalendarDate(endDate)}`,
+                `SUMMARY:${escapeCalendarText(title)} — 2027 SVSM Nursing Conference`,
+                `DESCRIPTION:${escapeCalendarText(description)}`,
+                'URL:https://www.nurse.cmu.ac.th/',
+                'STATUS:CONFIRMED',
+                'END:VEVENT'
+            ];
+        }
+
+        function buildConferenceEvent(timestamp) {
+            const description = `${CONFERENCE.title} — ${CONFERENCE.theme}. Dates: ${CONFERENCE.displayDate}. Venue: ${CONFERENCE.location}.`;
+
+            return [
+                'BEGIN:VEVENT',
+                'UID:svsm-nursing-conference-2027@nurse.cmu.ac.th',
+                `DTSTAMP:${timestamp}`,
+                `DTSTART;VALUE=DATE:${compactCalendarDate(CONFERENCE.startDate)}`,
+                `DTEND;VALUE=DATE:${compactCalendarDate(CONFERENCE.endDateExclusive)}`,
+                `SUMMARY:${escapeCalendarText(CONFERENCE.fullTitle)}`,
+                `LOCATION:${escapeCalendarText(CONFERENCE.location)}`,
+                `DESCRIPTION:${escapeCalendarText(description)}`,
+                'URL:https://www.nurse.cmu.ac.th/',
+                'STATUS:CONFIRMED',
+                'END:VEVENT'
+            ];
+        }
+
+        function downloadCalendarFile(lines, filename) {
+            const icsContent = lines.join('\r\n');
+            const blob = new Blob([icsContent], { type: 'text/calendar;charset=utf-8' });
+            const url = URL.createObjectURL(blob);
+            const downloadLink = document.createElement('a');
+            downloadLink.href = url;
+            downloadLink.download = filename;
+            document.body.appendChild(downloadLink);
+            downloadLink.click();
+            document.body.removeChild(downloadLink);
+            URL.revokeObjectURL(url);
+        }
+
+        function calendarFileHeader(calendarName) {
+            return [
+                'BEGIN:VCALENDAR',
+                'VERSION:2.0',
+                'PRODID:-//Faculty of Nursing Chiang Mai University//SVSM Nursing Conference 2027//EN',
+                'CALSCALE:GREGORIAN',
+                'METHOD:PUBLISH',
+                `X-WR-CALNAME:${escapeCalendarText(calendarName)}`
+            ];
+        }
+
+        // Base URL of the server's .ics routes (/event.ics, /key-date.ics). Null when opened as a local file.
+        function getCalendarServerBase() {
+            if (window.location.protocol === 'file:') return null;
+            const basePath = window.location.pathname
+                .replace(/\/admin(\/.*)?$/i, '')
+                .replace(/\/index\.html$/i, '')
+                .replace(/\/+$/, '');
+            return `${window.location.origin}${basePath}`;
+        }
+
+        // After the conference is added, point visitors to the remaining key dates.
+        function revealKeyDates(cardId) {
+            const card = document.getElementById(cardId);
+            const preview = card ? card.querySelector('.calendar-dates-preview') : null;
+            const toggle = card ? card.querySelector('.calendar-includes-badge') : null;
+            if (preview && !preview.classList.contains('is-visible')) {
+                preview.classList.add('is-visible');
+                if (toggle) {
+                    toggle.setAttribute('aria-expanded', 'true');
+                    toggle.textContent = '− Hide dates';
+                }
+            }
+            showToast(`Conference added — ${CONFERENCE_KEY_DATES.length} more key dates below`, 4000);
+        }
+
+        // Each card adds the main conference; key dates are added individually from the list.
         document
             .getElementById("appleCalendar")
             .addEventListener("click", function (event) {
                 event.preventDefault();
-
-                // Track Apple Calendar click event in GA4
-                if (typeof gtag === 'function') {
-                    gtag('event', 'click_apple_calendar', {
-                        'calendar_type': 'Apple Calendar ICS',
-                        'event_category': 'Calendar',
-                        'event_label': 'Apple Calendar'
-                    });
+                // Open the server-hosted .ics so iOS shows "Add to Calendar" directly (no download).
+                const base = getCalendarServerBase();
+                if (base) {
+                    window.location.href = `${base}/event.ics`;
+                } else {
+                    const timestamp = new Date().toISOString().replace(/[-:]/g, '').replace(/\.\d{3}/, '');
+                    downloadCalendarFile(
+                        [...calendarFileHeader('2027 SVSM Nursing Conference'), ...buildConferenceEvent(timestamp), 'END:VCALENDAR'],
+                        '2027-svsm-nursing-conference.ics'
+                    );
+                    showToast('Open the downloaded file to save it to Apple Calendar');
                 }
-
-                const icsContent =
-                    `BEGIN:VCALENDAR
-VERSION:2.0
-PRODID:-//Faculty of Nursing Chiang Mai University//International Nursing Conference 2027//EN
-CALSCALE:GREGORIAN
-METHOD:PUBLISH
-BEGIN:VEVENT
-UID:international-nursing-conference-2027@nurse.cmu.ac.th
-DTSTAMP:20260904T000000Z
-DTSTART;VALUE=DATE:20271111
-DTEND;VALUE=DATE:20271113
-SUMMARY:2027 International Nursing Conference
-LOCATION:Chiang Mai\\, Thailand
-DESCRIPTION:Shared Vision\\, Shared Mission: Illuminating the Future of Nursing for a Sustainable World\\n\\nDates: 11–12 November 2027\\nLocation: Chiang Mai\\, Thailand\\n\\nOrganized by the Faculty of Nursing\\, Chiang Mai University\\n\\nFurther details will be announced soon.\\nhttps://www.nurse.cmu.ac.th/
-URL:https://www.nurse.cmu.ac.th/
-STATUS:CONFIRMED
-END:VEVENT
-END:VCALENDAR`;
-
-                const blob = new Blob(
-                    [icsContent],
-                    { type: "text/calendar;charset=utf-8" }
-                );
-
-                const url = URL.createObjectURL(blob);
-                const downloadLink = document.createElement("a");
-
-                downloadLink.href = url;
-                downloadLink.download = "2027-international-nursing-conference.ics";
-
-                document.body.appendChild(downloadLink);
-                downloadLink.click();
-                document.body.removeChild(downloadLink);
-
-                URL.revokeObjectURL(url);
-
-                // Show toast notification
-                const toast = document.getElementById("toast");
-                toast.classList.add("show");
-                setTimeout(() => {
-                    toast.classList.remove("show");
-                }, 3000);
+                revealKeyDates("appleCalendar");
+                trackGAEvent('click_apple_calendar', {
+                    calendar_type: 'Apple Calendar ICS',
+                    event_category: 'Calendar',
+                    event_label: 'Apple Calendar — Conference'
+                });
             });
 
-        // Track Google Calendar click
-        document
-            .getElementById("googleCalendar")
-            .addEventListener("click", function () {
-                if (typeof gtag === 'function') {
-                    gtag('event', 'click_google_calendar', {
-                        'calendar_type': 'Google Calendar',
-                        'event_category': 'Calendar',
-                        'event_label': 'Google Calendar'
-                    });
-                }
-            });
-
-        // Track Microsoft Outlook click
         document
             .getElementById("outlookCalendar")
-            .addEventListener("click", function () {
-                if (typeof gtag === 'function') {
-                    gtag('event', 'click_outlook_calendar', {
-                        'calendar_type': 'Microsoft Outlook',
-                        'event_category': 'Calendar',
-                        'event_label': 'Microsoft Outlook'
-                    });
+            .addEventListener("click", function (event) {
+                // The card href opens the conference event in Outlook directly.
+                revealKeyDates("outlookCalendar");
+                trackGAEvent('click_outlook_calendar', {
+                    calendar_type: 'Microsoft Outlook',
+                    event_category: 'Calendar',
+                    event_label: 'Microsoft Outlook — Conference'
+                });
+            });
+
+        document
+            .getElementById("googleCalendar")
+            .addEventListener("click", function (event) {
+                // The card href opens the conference event in Google Calendar directly.
+                revealKeyDates("googleCalendar");
+                trackGAEvent('click_google_calendar', {
+                    calendar_type: 'Google Calendar',
+                    event_category: 'Calendar',
+                    event_label: 'Google Calendar — Conference'
+                });
+            });
+
+        // Each key date in the preview adds that single event (Apple opens a server-hosted one-event .ics).
+        function buildSingleEventUrl(provider, title, startDate, endDateExclusive, details) {
+            if (provider === 'google') {
+                const params = new URLSearchParams({
+                    action: 'TEMPLATE',
+                    text: title,
+                    dates: `${compactCalendarDate(startDate)}/${compactCalendarDate(endDateExclusive)}`,
+                    details: details
+                });
+                return `https://calendar.google.com/calendar/render?${params.toString()}`;
+            }
+            // Outlook treats all-day enddt as exclusive, like Google.
+            const params = new URLSearchParams({
+                subject: title,
+                startdt: startDate,
+                enddt: endDateExclusive,
+                allday: 'true',
+                body: details
+            });
+            return `https://outlook.office.com/calendar/0/deeplink/compose?${params.toString()}`;
+        }
+
+        // Fill each card's date list from calendar-data.js: key dates first, conference last.
+        document.querySelectorAll('#calendarButtonsContainer .calendar-dates-preview').forEach(function (preview) {
+            CONFERENCE_KEY_DATES.concat([{ title: 'Conference Dates', displayDate: CONFERENCE.displayDate }]).forEach(function (item) {
+                const row = document.createElement('span');
+                row.textContent = `${item.title} — ${item.displayDate}`;
+                preview.appendChild(row);
+            });
+        });
+
+        [['googleCalendar', 'google'], ['outlookCalendar', 'outlook'], ['appleCalendar', 'apple']].forEach(function (pair) {
+            const card = document.getElementById(pair[0]);
+            const items = card ? card.querySelectorAll('.calendar-dates-preview > span') : [];
+            items.forEach(function (item, index) {
+                const keyDate = CONFERENCE_KEY_DATES[index];
+                if (!keyDate) { // last item is the conference itself → card link handles it
+                    item.classList.add('calendar-date-main');
+                    return;
                 }
+                item.classList.add('calendar-date-link');
+                item.setAttribute('role', 'link');
+                item.setAttribute('tabindex', '0');
+                item.title = 'Add this date to your calendar';
+                const open = function (event) {
+                    event.preventDefault();
+                    event.stopPropagation();
+                    const title = `${keyDate.title} — 2027 SVSM Nursing Conference`;
+                    const details = `${keyDate.title} for the 2027 SVSM Nursing Conference. Visit https://www.nurse.cmu.ac.th/ for further details.`;
+                    const base = pair[1] === 'apple' ? getCalendarServerBase() : null;
+                    if (base) {
+                        window.location.href = `${base}/key-date.ics?d=${compactCalendarDate(keyDate.date)}`;
+                    } else if (pair[1] === 'apple') {
+                        const timestamp = new Date().toISOString().replace(/[-:]/g, '').replace(/\.\d{3}/, '');
+                        downloadCalendarFile(
+                            [...calendarFileHeader('2027 SVSM Nursing Conference'), ...buildKeyDateEvent(keyDate.title, keyDate.date, timestamp), 'END:VCALENDAR'],
+                            `2027-svsm-${compactCalendarDate(keyDate.date)}.ics`
+                        );
+                        showToast(`Open the downloaded file to save "${keyDate.title}"`);
+                    } else {
+                        window.open(buildSingleEventUrl(pair[1], title, keyDate.date, nextCalendarDate(keyDate.date), details), '_blank', 'noopener,noreferrer');
+                    }
+                    item.classList.add('is-added');
+                    trackGAEvent('click_' + pair[1] + '_calendar_key_date', {
+                        event_category: 'Calendar',
+                        event_label: keyDate.title
+                    });
+                };
+                item.addEventListener('click', open);
+                item.addEventListener('keydown', function (event) {
+                    if (event.key === 'Enter' || event.key === ' ') open(event);
+                });
+            });
+        });
+
+        // Keep each provider card compact until the visitor asks to see the key dates.
+        document.querySelectorAll('.calendar-includes-badge').forEach(function (toggle) {
+            const card = toggle.closest('.calendar-button');
+            const preview = card ? card.querySelector('.calendar-dates-preview') : null;
+            if (!preview) return;
+
+            const togglePreview = function (event) {
+                event.preventDefault();
+                event.stopPropagation();
+                const isVisible = preview.classList.toggle('is-visible');
+                toggle.setAttribute('aria-expanded', isVisible.toString());
+                toggle.textContent = isVisible ? '− Hide dates' : '+ Add key dates · View dates';
+            };
+
+            toggle.addEventListener('click', togglePreview);
+            toggle.addEventListener('keydown', function (event) {
+                if (event.key === 'Enter' || event.key === ' ') togglePreview(event);
+            });
+        });
+
+        // ==========================================================
+        // IMAGE LIGHTBOX
+        // ==========================================================
+        const lightbox = document.getElementById('lightbox');
+        const lightboxStage = document.getElementById('lightboxStage');
+        const lightboxImage = document.getElementById('lightboxImage');
+        const lightboxStatus = document.getElementById('lightboxStatus');
+        let lightboxTrigger = null;
+
+        function setLightboxZoom(zoomed) {
+            lightboxStage.classList.toggle('is-zoomed', zoomed);
+            if (zoomed) {
+                // Enlarge up to the image's real size, at least 2.5x the screen width when available
+                const target = Math.min(lightboxImage.naturalWidth, Math.max(lightboxStage.clientWidth * 2.5, 1200));
+                lightboxImage.style.width = target + 'px';
+            } else {
+                lightboxImage.style.width = '';
+                lightboxStage.scrollTo(0, 0);
+            }
+        }
+
+        function openLightbox(url, title, ext, trigger) {
+            lightboxTrigger = trigger || null;
+            document.getElementById('lightboxTitle').textContent = title || 'Image';
+            const fileName = (String(title || 'image').trim().replace(/[^\w\u0E00-\u0E7F.-]+/g, '-').replace(/^-+|-+$/g, '') || 'image') + '.' + (ext || 'jpg');
+            const download = document.getElementById('lightboxDownload');
+            download.href = url;
+            download.setAttribute('download', fileName);
+            document.getElementById('lightboxOpen').href = url;
+
+            setLightboxZoom(false);
+            lightboxStage.classList.remove('can-zoom');
+            lightboxImage.hidden = true;
+            lightboxStatus.hidden = false;
+            lightboxStatus.textContent = 'Loading image…';
+            lightboxImage.alt = title || '';
+            lightboxImage.src = url;
+
+            lightbox.hidden = false;
+            document.body.style.overflow = 'hidden';
+            document.getElementById('lightboxClose').focus();
+
+            // The phone's back button closes the lightbox instead of leaving the page
+            history.pushState({ lightbox: true }, '');
+        }
+
+        function hideLightbox() {
+            if (lightbox.hidden) return;
+            lightbox.hidden = true;
+            document.body.style.overflow = '';
+            lightboxImage.removeAttribute('src');
+            if (lightboxTrigger) lightboxTrigger.focus();
+            lightboxTrigger = null;
+        }
+
+        function closeLightbox() {
+            if (history.state && history.state.lightbox) history.back(); // popstate does the hiding
+            else hideLightbox();
+        }
+
+        window.addEventListener('popstate', hideLightbox);
+
+        lightboxImage.addEventListener('load', function () {
+            lightboxStatus.hidden = true;
+            lightboxImage.hidden = false;
+            lightboxStage.classList.toggle('can-zoom', lightboxImage.naturalWidth > lightboxImage.clientWidth * 1.2);
+        });
+
+        lightboxImage.addEventListener('error', function () {
+            if (lightbox.hidden) return;
+            lightboxImage.hidden = true;
+            lightboxStatus.hidden = false;
+            lightboxStatus.textContent = 'This image could not be loaded. Try "Open original".';
+        });
+
+        lightboxImage.addEventListener('click', function (event) {
+            event.stopPropagation();
+            if (lightboxStage.classList.contains('can-zoom')) {
+                setLightboxZoom(!lightboxStage.classList.contains('is-zoomed'));
+            }
+        });
+
+        // Tapping the dark area around the image closes it
+        lightboxStage.addEventListener('click', closeLightbox);
+        document.getElementById('lightboxClose').addEventListener('click', closeLightbox);
+
+        document.addEventListener('keydown', function (event) {
+            if (lightbox.hidden) return;
+            if (event.key === 'Escape') {
+                closeLightbox();
+            } else if (event.key === 'Tab') {
+                // Keep keyboard focus inside the lightbox
+                const items = lightbox.querySelectorAll('button, a[href]');
+                const first = items[0], last = items[items.length - 1];
+                if (event.shiftKey && document.activeElement === first) { event.preventDefault(); last.focus(); }
+                else if (!event.shiftKey && document.activeElement === last) { event.preventDefault(); first.focus(); }
+            }
+        });
+
+        // Let keyboard users open/close sections with Enter or Space
+        document.addEventListener('keydown', function (event) {
+            if (event.key !== 'Enter' && event.key !== ' ') return;
+            if (!event.target.classList || !event.target.classList.contains('accordion-header')) return;
+            event.preventDefault();
+            event.target.click();
+        });
+
+        // Scale the live website preview to the card width
+        (function () {
+            const preview = document.getElementById("websitePreview");
+            if (!preview) return;
+            const fit = function () {
+                const base = parseFloat(getComputedStyle(preview).getPropertyValue('--preview-base')) || 1280;
+                preview.style.setProperty('--preview-scale', preview.clientWidth / base);
+            };
+            fit();
+            if (typeof ResizeObserver === 'function') new ResizeObserver(fit).observe(preview);
+            else window.addEventListener('resize', fit);
+        })();
+
+        // Track Official Conference Website click
+        document
+            .getElementById("conferenceWebsite")
+            .addEventListener("click", function () {
+                trackGAEvent('click_conference_website', {
+                    'event_category': 'Outbound Link',
+                    'event_label': 'Official Conference Website',
+                    'destination_url': 'https://www.svsmnursing2027.com/'
+                });
             });
 
         // Track Further Details click
         document
             .getElementById("detailsButton")
             .addEventListener("click", function () {
-                if (typeof gtag === 'function') {
-                    gtag('event', 'click_further_details', {
-                        'event_category': 'Outbound Link',
-                        'event_label': 'CMU Nurse Website',
-                        'destination_url': 'https://www.nurse.cmu.ac.th/'
-                    });
-                }
+                trackGAEvent('click_further_details', {
+                    'event_category': 'Outbound Link',
+                    'event_label': 'CMU Nurse Website',
+                    'destination_url': 'https://www.nurse.cmu.ac.th/'
+                });
             });
+
+        // Smart Map Linking for The Empress Hotel (Apple Maps on iOS/macOS, Google Maps elsewhere)
+        const venueMapLink = document.getElementById("venueMapLink");
+        if (venueMapLink) {
+            const isAppleDevice = /Mac|iPhone|iPad|iPod/i.test(navigator.userAgent || navigator.platform);
+            const googleMapUrl = "https://maps.app.goo.gl/SWSRhmTHv3nZSdKa9";
+            const appleMapUrl = "https://maps.apple/p/03K1~Awj0qCSsi";
+
+            if (isAppleDevice) {
+                venueMapLink.href = appleMapUrl;
+            } else {
+                venueMapLink.href = googleMapUrl;
+            }
+
+            venueMapLink.addEventListener("click", function () {
+                trackGAEvent('click_venue_map', {
+                    'map_service': isAppleDevice ? 'Apple Maps' : 'Google Maps',
+                    'venue_name': 'The Empress Hotel, Chiang Mai, Thailand',
+                    'destination_url': venueMapLink.href
+                });
+            });
+        }
 
         // Collapsible Accordion Toggle for Calendar Section
         const calendarAccordionToggle = document.getElementById("calendarAccordionToggle");
         const calendarSectionGroup = document.getElementById("calendarSectionGroup");
-
         if (calendarAccordionToggle && calendarSectionGroup) {
             calendarAccordionToggle.addEventListener("click", function () {
                 const isCollapsed = calendarSectionGroup.classList.toggle("collapsed");
@@ -1184,21 +1602,52 @@ END:VCALENDAR`;
         }
 
         // ==========================================================
-        // DYNAMIC SECTIONS & ADMIN MANAGER (SERVER BACKEND & PERSISTENCE)
+        // 2. DYNAMIC CONTENT & PERSISTENCE
         // ==========================================================
-        let adminAuthToken = localStorage.getItem("cmu_conf_admin_token") || "";
+        // Base path detection for reverse proxies / subpaths (e.g. /inter2027)
+        const BASE_PATH = (() => {
+            let p = window.location.pathname;
+            return p.replace(/\/admin(\/.*)?$/i, '').replace(/\/index\.html$/i, '').replace(/\/+$/, '');
+        })();
+
+        function api(path) {
+            if (!path.startsWith('/')) path = '/' + path;
+            return `${BASE_PATH}${path}`;
+        }
+
+        function resolveAssetUrl(url) {
+            if (!url) return '';
+            if (url.startsWith('http://') || url.startsWith('https://') || url.startsWith('mailto:') || url.startsWith('tel:') || url.startsWith('data:') || url.startsWith('blob:')) {
+                return url;
+            }
+            if (url.startsWith('/')) {
+                return `${BASE_PATH}${url}`;
+            }
+            return `${BASE_PATH}/${url}`;
+        }
 
         let calendarHeaderData = {
             title: "Add to Calendar",
-            subtitle: "Choose your preferred calendar service"
+            subtitle: "Choose your preferred calendar service."
         };
 
         let customSections = [];
 
+        // Helper to determine button badge type
+        function getButtonBadge(url) {
+            const clean = (url || '').split('?')[0].toLowerCase();
+            if (clean.endsWith('.pdf')) return { badgeClass: 'badge-pdf', label: 'PDF', isFile: true, ext: 'pdf' };
+            if (clean.endsWith('.docx')) return { badgeClass: 'badge-docx', label: 'DOCX', isFile: true, ext: 'docx' };
+            if (clean.endsWith('.png')) return { badgeClass: 'badge-img', label: 'PNG', isFile: true, ext: 'png' };
+            if (clean.endsWith('.jpg') || clean.endsWith('.jpeg')) return { badgeClass: 'badge-img', label: 'JPG', isFile: true, ext: 'jpg' };
+            if (url && url.startsWith('/uploads/')) return { badgeClass: 'badge-pdf', label: 'FILE', isFile: true, ext: 'file' };
+            return { badgeClass: 'badge-link', label: 'LINK', isFile: false, ext: '' };
+        }
+
         // Load settings from Server Backend
         async function loadSettings() {
             try {
-                const res = await fetch("/api/content");
+                const res = await fetch(api("/api/content"));
                 if (res.ok) {
                     const data = await res.json();
                     if (data.calendarHeaderData) calendarHeaderData = data.calendarHeaderData;
@@ -1212,44 +1661,68 @@ END:VCALENDAR`;
             renderPageSections();
         }
 
-        // Save settings to Server Backend
-        async function saveSettings(callback) {
-            try {
-                const res = await fetch("/api/content", {
-                    method: "POST",
-                    headers: {
-                        "Content-Type": "application/json",
-                        "x-admin-password": adminAuthToken
-                    },
-                    body: JSON.stringify({
-                        calendarHeaderData,
-                        customSections
-                    })
-                });
+        // Smart Icon Auto-Detection based on URL, file extension, and title
+        function detectButtonIcon(url, title = '') {
+            const rawUrl = String(url || '').toLowerCase();
+            const rawTitle = String(title || '').toLowerCase();
+            const ext = rawUrl.split('?')[0].split('.').pop() || '';
 
-                if (res.status === 401) {
-                    alert("Admin session expired or password incorrect. Please log in again.");
-                    adminAuthToken = "";
-                    localStorage.removeItem("cmu_conf_admin_token");
-                    showAdminLogin();
-                    return false;
-                }
-
-                if (!res.ok) {
-                    const err = await res.json().catch(() => ({}));
-                    alert("Failed to save changes: " + (err.message || res.statusText));
-                    return false;
-                }
-
-                if (typeof callback === "function") callback();
-                return true;
-            } catch (e) {
-                alert("Network error while saving settings: " + e.message);
-                return false;
+            // 1. PDF Document
+            if (ext === 'pdf' || rawUrl.includes('.pdf') || rawTitle.includes('pdf')) {
+                return {
+                    type: 'PDF Document',
+                    svg: `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#E11D48" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 22a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h8a2.4 2.4 0 0 1 1.704.706l3.588 3.588A2.4 2.4 0 0 1 20 8v12a2 2 0 0 1-2 2z" /><path d="M14 2v5a1 1 0 0 0 1 1h5" /><path d="M10 9H8" /><path d="M16 13H8" /><path d="M16 17H8" /></svg>`
+                };
             }
+
+            // 2. Word Document (DOCX / DOC)
+            if (['doc', 'docx'].includes(ext) || rawUrl.includes('.doc') || rawTitle.includes('word') || rawTitle.includes('doc')) {
+                return {
+                    type: 'Word Document',
+                    svg: `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#2563EB" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 22a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h8a2.4 2.4 0 0 1 1.704.706l3.588 3.588A2.4 2.4 0 0 1 20 8v12a2 2 0 0 1-2 2z" /><path d="M14 2v5a1 1 0 0 0 1 1h5" /><path d="M11 18h2" /><path d="M12 12v6" /><path d="M9 13v-.5a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 .5.5v.5" /></svg>`
+                };
+            }
+
+            // 3. Image / Poster
+            if (['png', 'jpg', 'jpeg', 'webp', 'svg', 'gif'].includes(ext) || rawTitle.includes('poster') || rawTitle.includes('image') || rawTitle.includes('photo') || rawTitle.includes('รูป')) {
+                return {
+                    type: 'Image / Poster',
+                    svg: `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#7C3AED" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="18" height="18" x="3" y="3" rx="2" ry="2" /><circle cx="9" cy="9" r="2" /><path d="m21 15-3.086-3.086a2 2 0 0 0-2.828 0L6 21" /></svg>`
+                };
+            }
+
+            // 4. Location / Map / Venue
+            if (rawUrl.includes('maps.google') || rawUrl.includes('goo.gl/maps') || rawUrl.includes('openstreetmap') || rawTitle.includes('map') || rawTitle.includes('venue') || rawTitle.includes('location') || rawTitle.includes('สถานที่')) {
+                return {
+                    type: 'Venue / Map',
+                    svg: `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#EA4335" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 4.993-5.539 10.193-7.399 11.799a1 1 0 0 1-1.202 0C9.539 20.193 4 14.993 4 10a8 8 0 0 1 16 0" /><circle cx="12" cy="10" r="3" /></svg>`
+                };
+            }
+
+            // 5. Schedule / Agenda / Program
+            if (rawTitle.includes('schedule') || rawTitle.includes('agenda') || rawTitle.includes('program') || rawTitle.includes('timetable') || rawTitle.includes('calendar') || rawTitle.includes('กำหนดการ')) {
+                return {
+                    type: 'Schedule / Agenda',
+                    svg: `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#0D9488" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 14v2.2l1.6 1" /><path d="M16 2v3" /><path d="M21 7.338V5a2 2 0 00-2-2H5a2 2 0 00-2 2v14a2 2 0 002 2h2.338" /><path d="M3 9h5.859" /><path d="M8 2v3" /><circle cx="16" cy="16" r="6" /></svg>`
+                };
+            }
+
+            // 6. Registration / Form / Ticket
+            if (rawUrl.includes('forms.gle') || rawUrl.includes('docs.google.com/forms') || rawTitle.includes('register') || rawTitle.includes('registration') || rawTitle.includes('ticket') || rawTitle.includes('ลงทะเบียน')) {
+                return {
+                    type: 'Registration / Form',
+                    svg: `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#059669" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 9a3 3 0 0 1 0 6v2a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-2a3 3 0 0 1 0-6V7a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2Z" /><path d="m9 12 2 2 4-4" /></svg>`
+                };
+            }
+
+            // 7. General Web Link (Default)
+            return {
+                type: 'Website Link',
+                svg: `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#4F46E5" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10" /><path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20" /><path d="M2 12h20" /></svg>`
+            };
         }
 
-        // Render UI on page
+        // Render UI on page with GA4 event hooks
         function renderPageSections() {
             // Update Calendar Header
             const titleEl = document.getElementById("calendarSectionTitle");
@@ -1268,45 +1741,36 @@ END:VCALENDAR`;
                 group.className = "accordion-group" + (sec.collapsed ? " collapsed" : "");
                 group.id = "group_" + sec.id;
 
-                const buttonsHtml = (sec.buttons || []).map(b => `
-                    <a class="calendar-button" href="${escapeHtml(b.url)}" target="_blank" rel="noopener">
+                const buttonsHtml = (sec.buttons || []).map((b, bIdx) => {
+                    const iconData = detectButtonIcon(b.url, b.title);
+                    return `
+                    <a class="calendar-button custom-dynamic-btn" href="${escapeHtml(resolveAssetUrl(b.url))}" target="_blank" rel="noopener" data-sec-idx="${sIdx}" data-btn-idx="${bIdx}">
                         <div class="btn-icon-wrapper">
-                            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#6366f1" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
-                                <polyline points="14 2 14 8 20 8"></polyline>
-                                <line x1="16" y1="13" x2="8" y2="13"></line>
-                                <line x1="16" y1="17" x2="8" y2="17"></line>
-                                <polyline points="10 9 9 9 8 9"></polyline>
-                            </svg>
+                            ${iconData.svg}
                         </div>
                         <div class="btn-content">
                             <span class="btn-title">${escapeHtml(b.title)}</span>
-                            <span class="btn-subtitle">${escapeHtml(b.subtitle)}</span>
+                            ${b.subtitle ? `<span class="btn-subtitle">${escapeHtml(b.subtitle)}</span>` : ''}
                         </div>
                         <div class="arrow-box">
-                            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-                                <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
-                                <polyline points="15 3 21 3 21 9"></polyline>
-                                <line x1="10" y1="14" x2="21" y2="3"></line>
-                            </svg>
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6" /></svg>
                         </div>
                     </a>
-                `).join("");
+                `;
+                }).join("");
 
                 group.innerHTML = `
-                    <div class="accordion-header" role="button" data-sec-idx="${sIdx}">
+                    <div class="accordion-header" role="button" tabindex="0" data-sec-idx="${sIdx}">
                         <div class="accordion-titles">
                             <h2>${escapeHtml(sec.title)}</h2>
                             <p class="description">${escapeHtml(sec.subtitle)}</p>
                         </div>
                         <div class="accordion-chevron">
-                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-                                <polyline points="6 9 12 15 18 9"></polyline>
-                            </svg>
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6" /></svg>
                         </div>
                     </div>
                     <div class="accordion-content">
-                        ${buttonsHtml.length > 0 ? buttonsHtml : '<p style="font-size:12.5px; color:#94a3b8; text-align:center; padding:10px;">ยังไม่มีปุ่มในหัวข้อนี้</p>'}
+                        ${buttonsHtml.length > 0 ? buttonsHtml : '<p style="font-size:12.5px; color:#94a3b8; text-align:center; padding:10px;">No buttons available in this section yet.</p>'}
                     </div>
                 `;
 
@@ -1314,6 +1778,42 @@ END:VCALENDAR`;
                 group.querySelector(".accordion-header").addEventListener("click", function() {
                     const isCol = group.classList.toggle("collapsed");
                     sec.collapsed = isCol;
+                });
+
+                // Attach GA4 tracking to dynamic custom buttons
+                group.querySelectorAll(".custom-dynamic-btn").forEach(btnEl => {
+                    btnEl.addEventListener("click", function(event) {
+                        const bIdx = parseInt(this.getAttribute("data-btn-idx"), 10);
+                        const btnData = sec.buttons && sec.buttons[bIdx];
+                        if (!btnData) return;
+
+                        const badgeInfo = getButtonBadge(btnData.url);
+
+                        // Images open in the lightbox; modifier-clicks still open a new tab as usual
+                        if (badgeInfo.badgeClass === 'badge-img' && !event.metaKey && !event.ctrlKey && !event.shiftKey) {
+                            event.preventDefault();
+                            openLightbox(resolveAssetUrl(btnData.url), btnData.title, badgeInfo.ext, this);
+                        }
+
+                        if (badgeInfo.isFile) {
+                            // Track GA4 Standard file_download
+                            const fileName = (btnData.url || '').split('/').pop() || btnData.title;
+                            trackGAEvent('file_download', {
+                                file_name: fileName,
+                                file_extension: badgeInfo.ext,
+                                link_url: btnData.url,
+                                link_text: btnData.title,
+                                section_name: sec.title
+                            });
+                        } else {
+                            // Track Custom Button Click
+                            trackGAEvent('custom_button_click', {
+                                link_url: btnData.url,
+                                link_text: btnData.title,
+                                section_name: sec.title
+                            });
+                        }
+                    });
                 });
 
                 hook.appendChild(group);
@@ -1333,365 +1833,7 @@ END:VCALENDAR`;
         }
 
         // ==========================================================
-        // ADMIN MODAL & AUTH LOGIC
-        // ==========================================================
-        const adminModalOverlay = document.getElementById("adminModalOverlay");
-        const closeAdminBtn = document.getElementById("closeAdminBtn");
-        const saveAllAdminBtn = document.getElementById("saveAllAdminBtn");
-        const resetDefaultBtn = document.getElementById("resetDefaultBtn");
-
-        const adminAuthBox = document.getElementById("adminAuthBox");
-        const adminPasswordInput = document.getElementById("adminPasswordInput");
-        const adminAuthError = document.getElementById("adminAuthError");
-        const adminLoginBtn = document.getElementById("adminLoginBtn");
-        const adminContentWrapper = document.getElementById("adminContentWrapper");
-        const adminModalFooter = document.getElementById("adminModalFooter");
-
-        // Inputs
-        const adminCalendarTitleInput = document.getElementById("adminCalendarTitleInput");
-        const adminCalendarSubtitleInput = document.getElementById("adminCalendarSubtitleInput");
-        const newSectionTitle = document.getElementById("newSectionTitle");
-        const newSectionSubtitle = document.getElementById("newSectionSubtitle");
-        const addNewSectionBtn = document.getElementById("addNewSectionBtn");
-        const adminCustomSectionsList = document.getElementById("adminCustomSectionsList");
-
-        // Add Button sub-form
-        const adminAddButtonCard = document.getElementById("adminAddButtonCard");
-        const targetSectionName = document.getElementById("targetSectionName");
-        const targetSectionId = document.getElementById("targetSectionId");
-        const newBtnTitle = document.getElementById("newBtnTitle");
-        const newBtnSubtitle = document.getElementById("newBtnSubtitle");
-        const newBtnUrl = document.getElementById("newBtnUrl");
-        const newBtnFileInput = document.getElementById("newBtnFileInput");
-        const fileInfoNotice = document.getElementById("fileInfoNotice");
-        const saveNewButtonBtn = document.getElementById("saveNewButtonBtn");
-        const cancelNewButtonBtn = document.getElementById("cancelNewButtonBtn");
-
-        let selectedUploadedFile = null;
-
-        // Admin Auth handling
-        function showAdminLogin() {
-            adminAuthBox.style.display = "block";
-            adminContentWrapper.style.display = "none";
-            adminModalFooter.style.display = "none";
-            adminPasswordInput.value = "";
-            adminAuthError.style.display = "none";
-        }
-
-        function showAdminPanel() {
-            adminAuthBox.style.display = "none";
-            adminContentWrapper.style.display = "block";
-            adminModalFooter.style.display = "flex";
-            adminCalendarTitleInput.value = calendarHeaderData.title;
-            adminCalendarSubtitleInput.value = calendarHeaderData.subtitle;
-            renderAdminSectionsList();
-        }
-
-        async function verifyAndLoginAdmin(pass) {
-            try {
-                const res = await fetch("/api/auth", {
-                    method: "POST",
-                    headers: { "Content-Type": "application/json" },
-                    body: JSON.stringify({ password: pass })
-                });
-                const data = await res.json();
-                if (res.ok && data.success) {
-                    adminAuthToken = pass;
-                    localStorage.setItem("cmu_conf_admin_token", pass);
-                    showAdminPanel();
-                } else {
-                    adminAuthError.textContent = data.message || "Incorrect passcode";
-                    adminAuthError.style.display = "block";
-                }
-            } catch (e) {
-                adminAuthError.textContent = "Server connection error: " + e.message;
-                adminAuthError.style.display = "block";
-            }
-        }
-
-        adminLoginBtn.addEventListener("click", () => {
-            const pass = adminPasswordInput.value.trim();
-            if (!pass) return;
-            verifyAndLoginAdmin(pass);
-        });
-
-        adminPasswordInput.addEventListener("keydown", (e) => {
-            if (e.key === "Enter") {
-                const pass = adminPasswordInput.value.trim();
-                if (pass) verifyAndLoginAdmin(pass);
-            }
-        });
-
-        // File attachment handling
-        if (newBtnFileInput) {
-            newBtnFileInput.addEventListener("change", function(e) {
-                const file = e.target.files && e.target.files[0];
-                if (file) {
-                    if (file.size > 50 * 1024 * 1024) {
-                        alert("File size exceeds 50MB limit.");
-                        newBtnFileInput.value = "";
-                        return;
-                    }
-                    selectedUploadedFile = file;
-                    fileInfoNotice.style.display = "block";
-                    fileInfoNotice.textContent = `Attached: ${file.name} (${(file.size / 1024).toFixed(1)} KB) - Will upload to server upon saving`;
-                    if (!newBtnTitle.value) {
-                        newBtnTitle.value = file.name.replace(/\.[^/.]+$/, "");
-                    }
-                    if (!newBtnSubtitle.value) {
-                        newBtnSubtitle.value = `${file.name.split('.').pop().toUpperCase()} file / Download`;
-                    }
-                } else {
-                    selectedUploadedFile = null;
-                    fileInfoNotice.style.display = "none";
-                }
-            });
-        }
-
-        function openAdminModal() {
-            adminModalOverlay.classList.add("open");
-            if (adminAuthToken) {
-                verifyAndLoginAdmin(adminAuthToken);
-            } else {
-                showAdminLogin();
-            }
-        }
-
-        function closeAdminModal() {
-            adminModalOverlay.classList.remove("open");
-            adminAddButtonCard.style.display = "none";
-            if (window.location.hash === "#admin") {
-                history.replaceState(null, null, window.location.pathname + window.location.search);
-            }
-        }
-
-        // Render admin list with Section and individual Button delete buttons
-        function renderAdminSectionsList() {
-            adminCustomSectionsList.innerHTML = "";
-            if (customSections.length === 0) {
-                adminCustomSectionsList.innerHTML = '<p style="font-size:12px; color:#94a3b8;">No custom sections yet.</p>';
-                return;
-            }
-
-            customSections.forEach((sec, sIdx) => {
-                const item = document.createElement("div");
-                item.className = "admin-item-pill";
-
-                const buttonsHtml = (sec.buttons || []).map((b, bIdx) => `
-                    <div class="admin-btn-pill">
-                        <div class="admin-btn-pill-info">
-                            <span class="admin-btn-pill-title">${escapeHtml(b.title)}</span>
-                            <span class="admin-btn-pill-url">${escapeHtml(b.subtitle || '')} &bull; ${escapeHtml(b.url)}</span>
-                        </div>
-                        <button class="admin-btn admin-btn-danger" style="padding:2px 8px; font-size:11px;" onclick="window.removeButtonFromSec(${sIdx}, ${bIdx})">Delete Button</button>
-                    </div>
-                `).join("");
-
-                item.innerHTML = `
-                    <div class="admin-item-pill-header">
-                        <div class="admin-item-pill-info">
-                            <span class="admin-item-pill-title">${escapeHtml(sec.title)}</span>
-                            <span class="admin-item-pill-sub">${escapeHtml(sec.subtitle)} (${(sec.buttons || []).length} button${(sec.buttons || []).length === 1 ? '' : 's'})</span>
-                        </div>
-                        <div style="display:flex; gap:6px;">
-                            <button class="admin-btn admin-btn-secondary" style="padding:4px 8px; font-size:11px;" onclick="window.prepareAddButtonToSec(${sIdx})">+ Add Button</button>
-                            <button class="admin-btn admin-btn-danger" style="padding:4px 8px; font-size:11px;" onclick="window.removeSection(${sIdx})">Delete Section</button>
-                        </div>
-                    </div>
-                    ${buttonsHtml ? `<div class="admin-btn-sublist">${buttonsHtml}</div>` : ''}
-                `;
-                adminCustomSectionsList.appendChild(item);
-            });
-        }
-
-        window.prepareAddButtonToSec = function(idx) {
-            const sec = customSections[idx];
-            targetSectionId.value = idx;
-            targetSectionName.textContent = sec.title;
-            newBtnTitle.value = "";
-            newBtnSubtitle.value = "";
-            newBtnUrl.value = "";
-            if (newBtnFileInput) newBtnFileInput.value = "";
-            selectedUploadedFile = null;
-            if (fileInfoNotice) fileInfoNotice.style.display = "none";
-            adminAddButtonCard.style.display = "block";
-            adminAddButtonCard.scrollIntoView({ behavior: "smooth" });
-        };
-
-        // Remove Section
-        window.removeSection = async function(idx) {
-            if (confirm(`Are you sure you want to delete section "${customSections[idx].title}" and all its buttons?`)) {
-                customSections.splice(idx, 1);
-                renderAdminSectionsList();
-                renderPageSections();
-                await saveSettings();
-            }
-        };
-
-        // Remove Individual Button (Permanent)
-        window.removeButtonFromSec = async function(sIdx, bIdx) {
-            const btn = customSections[sIdx].buttons[bIdx];
-            if (confirm(`Are you sure you want to delete button "${btn.title}"?`)) {
-                customSections[sIdx].buttons.splice(bIdx, 1);
-                renderAdminSectionsList();
-                renderPageSections();
-                await saveSettings();
-            }
-        };
-
-        // Add section handler
-        addNewSectionBtn.addEventListener("click", async function() {
-            const t = (newSectionTitle.value || "").trim();
-            const s = (newSectionSubtitle.value || "").trim();
-            if (!t) {
-                alert("Please enter a section title.");
-                return;
-            }
-            customSections.push({
-                id: "section_" + Date.now(),
-                title: t,
-                subtitle: s,
-                collapsed: false,
-                buttons: []
-            });
-            newSectionTitle.value = "";
-            newSectionSubtitle.value = "";
-            renderAdminSectionsList();
-            renderPageSections();
-            await saveSettings();
-        });
-
-        // Save button to section handler (handles file upload via API)
-        saveNewButtonBtn.addEventListener("click", async function() {
-            const secIdx = parseInt(targetSectionId.value, 10);
-            const bTitle = (newBtnTitle.value || "").trim();
-            const bSub = (newBtnSubtitle.value || "").trim();
-            let bUrl = (newBtnUrl.value || "").trim();
-
-            if (!bTitle) {
-                alert("Please provide a button title.");
-                return;
-            }
-
-            if (!selectedUploadedFile && !bUrl) {
-                alert("Please provide either an attached file or destination URL.");
-                return;
-            }
-
-            // Upload file to server if provided
-            if (selectedUploadedFile) {
-                const formData = new FormData();
-                formData.append("file", selectedUploadedFile);
-
-                saveNewButtonBtn.disabled = true;
-                saveNewButtonBtn.textContent = "Uploading...";
-
-                try {
-                    const uploadRes = await fetch("/api/upload", {
-                        method: "POST",
-                        headers: {
-                            "x-admin-password": adminAuthToken
-                        },
-                        body: formData
-                    });
-                    const uploadData = await uploadRes.json();
-                    if (!uploadRes.ok || !uploadData.success) {
-                        alert("File upload failed: " + (uploadData.message || "Unknown error"));
-                        saveNewButtonBtn.disabled = false;
-                        saveNewButtonBtn.textContent = "Save Button";
-                        return;
-                    }
-                    bUrl = uploadData.url;
-                } catch (err) {
-                    alert("Error uploading file to server: " + err.message);
-                    saveNewButtonBtn.disabled = false;
-                    saveNewButtonBtn.textContent = "Save Button";
-                    return;
-                } finally {
-                    saveNewButtonBtn.disabled = false;
-                    saveNewButtonBtn.textContent = "Save Button";
-                }
-            }
-
-            if (customSections[secIdx]) {
-                if (!Array.isArray(customSections[secIdx].buttons)) {
-                    customSections[secIdx].buttons = [];
-                }
-                customSections[secIdx].buttons.push({
-                    id: "btn_" + Date.now(),
-                    title: bTitle,
-                    subtitle: bSub,
-                    url: bUrl
-                });
-                renderAdminSectionsList();
-                renderPageSections();
-                adminAddButtonCard.style.display = "none";
-                await saveSettings();
-            }
-        });
-
-        cancelNewButtonBtn.addEventListener("click", function() {
-            adminAddButtonCard.style.display = "none";
-        });
-
-        // Save all Header and Section changes
-        saveAllAdminBtn.addEventListener("click", async function() {
-            calendarHeaderData.title = (adminCalendarTitleInput.value || "").trim() || "Add to Calendar";
-            calendarHeaderData.subtitle = (adminCalendarSubtitleInput.value || "").trim() || "Choose your preferred calendar service";
-            saveAllAdminBtn.disabled = true;
-            saveAllAdminBtn.textContent = "Saving...";
-            const ok = await saveSettings();
-            saveAllAdminBtn.disabled = false;
-            saveAllAdminBtn.textContent = "Save All Changes";
-            if (ok) {
-                renderPageSections();
-                closeAdminModal();
-            }
-        });
-
-        // Reset to default on server
-        resetDefaultBtn.addEventListener("click", async function() {
-            if (confirm("Are you sure you want to reset all content and buttons back to default?")) {
-                try {
-                    const res = await fetch("/api/reset", {
-                        method: "POST",
-                        headers: {
-                            "x-admin-password": adminAuthToken
-                        }
-                    });
-                    if (res.ok) {
-                        const data = await res.json();
-                        calendarHeaderData = data.data.calendarHeaderData;
-                        customSections = data.data.customSections;
-                        renderPageSections();
-                        renderAdminSectionsList();
-                        adminCalendarTitleInput.value = calendarHeaderData.title;
-                        adminCalendarSubtitleInput.value = calendarHeaderData.subtitle;
-                        alert("Reset successfully!");
-                    } else {
-                        alert("Failed to reset content.");
-                    }
-                } catch (e) {
-                    alert("Error resetting content: " + e.message);
-                }
-            }
-        });
-
-        // Close button & overlay
-        closeAdminBtn.addEventListener("click", closeAdminModal);
-        adminModalOverlay.addEventListener("click", function(e) {
-            if (e.target === adminModalOverlay) closeAdminModal();
-        });
-
-        // Keyboard ESC to close modal
-        document.addEventListener("keydown", function(e) {
-            if (e.key === "Escape" && adminModalOverlay.classList.contains("open")) {
-                closeAdminModal();
-            }
-        });
-
-        // ==========================================================
-        // ROUTE / URL TRIGGER TO ACCESS ADMIN MODAL
+        // 3. ROUTE / URL TRIGGER TO ACCESS ADMIN (redirects to /admin)
         // ==========================================================
         function checkAdminRoute() {
             const urlParams = new URLSearchParams(window.location.search);
@@ -1699,7 +1841,7 @@ END:VCALENDAR`;
             const isAdminHash = window.location.hash === "#admin";
 
             if (isAdminQuery || isAdminHash) {
-                openAdminModal();
+                window.location.href = api("/admin");
             }
         }
 

@@ -4,9 +4,10 @@ services:
     container_name: cmu_conference_landing
     restart: always
     ports:
-      - "4300:80"
+      - "4401:4401"
+    env_file:
+      - .env
     environment:
-      - PORT=80
-      - ADMIN_PASSWORD=admin1234
+      - PORT=4401
     volumes:
       - ./data:/app/data

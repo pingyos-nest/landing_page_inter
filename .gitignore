@@ -22,3 +22,9 @@ coverage/
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+
+# Admin users list (managed from the admin panel)
+data/users.json
+
+# Files uploaded from the admin panel
+data/uploads/

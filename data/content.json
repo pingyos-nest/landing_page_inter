@@ -1,20 +1,26 @@
 {
   "calendarHeaderData": {
     "title": "Add to Calendar",
-    "subtitle": "Choose your preferred calendar service"
+    "subtitle": "Choose your preferred calendar service."
   },
   "customSections": [
     {
-      "id": "section_poster",
-      "title": "POSTER & DOWNLOADS",
-      "subtitle": "Official conference posters & documents",
+      "id": "section_1794364695779",
+      "title": "Conference Promotional Materials",
+      "subtitle": "Explore and download official conference announcements and materials.",
       "collapsed": false,
       "buttons": [
         {
-          "id": "btn_poster_en",
-          "title": "Download Conference Poster (English)",
-          "subtitle": "PDF file / High resolution",
-          "url": "https://www.nurse.cmu.ac.th/"
+          "id": "btn_1794364726303",
+          "title": "Save the Date Poster",
+          "subtitle": "Download Poster",
+          "url": "/uploads/1a2bc9eb-9e38-47dc-91a6-01925a99da00.png"
+        },
+        {
+          "id": "btn_1794364746563",
+          "title": "Save the Date Video",
+          "subtitle": "Watch Video",
+          "url": "https://youtu.be/C-K-VfMRl5g"
         }
       ]
     }
